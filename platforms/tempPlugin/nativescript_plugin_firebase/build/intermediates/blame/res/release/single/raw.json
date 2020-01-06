@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\platforms\\tempPlugin\\nativescript_plugin_firebase\\build\\intermediates\\res\\merged\\release\\raw\\beep.ogg",
+        "source": "C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\platforms\\tempPlugin\\nativescript_plugin_firebase\\src\\main\\res\\raw\\beep.ogg"
+    },
+    {
+        "merged": "C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\platforms\\tempPlugin\\nativescript_plugin_firebase\\build\\intermediates\\res\\merged\\release\\raw\\translate_models_metadata.json",
+        "source": "C:\\Users\\Karim Mohamed\\.gradle\\caches\\transforms-2\\files-2.1\\31d0d611828ae65568ad0d68a9b52565\\firebase-ml-natural-language-translate-22.0.0\\res\\raw\\translate_models_metadata.json"
+    }
+]

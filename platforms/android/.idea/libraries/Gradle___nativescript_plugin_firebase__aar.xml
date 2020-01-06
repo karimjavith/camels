@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: :nativescript_plugin_firebase:@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/987235532ac22be8d921329ff9193e80/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/987235532ac22be8d921329ff9193e80/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

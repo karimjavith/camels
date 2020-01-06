@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: :TNSSideDrawer-release:@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/49495e78f5546c0704fa89fe65e0f1dd/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/49495e78f5546c0704fa89fe65e0f1dd/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

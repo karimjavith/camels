@@ -1,0 +1,53 @@
+{
+  "name": "camels",
+  "version": "1.0.0",
+  "description": "An app to manage camels cricket activities",
+  "author": "karimjavith@gmail.com",
+  "scripts": {
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@nativescript/theme": "^2.2.1",
+    "nativescript-plugin-firebase": "^10.3.3",
+    "nativescript-ui-sidedrawer": "^7.0.0",
+    "nativescript-vue": "^2.4.0",
+    "tns-core-modules": "^6.0.0",
+    "vuex": "^3.1.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@types/node": "^12.12.16",
+    "@typescript-eslint/parser": "^2.14.0",
+    "@vue/cli-plugin-eslint": "^4.1.2",
+    "@vue/devtools": "^5.3.3",
+    "@vue/eslint-config-prettier": "^5.0.0",
+    "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.0.2",
+    "eslint": "^6.8.0",
+    "eslint-plugin-nativescript": "0.0.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-vue": "^5.2.3",
+    "nativescript-dev-webpack": "^1.0.0",
+    "nativescript-vue-template-compiler": "^2.0.0",
+    "nativescript-worker-loader": "~0.9.0",
+    "node-sass": "^4.9.2",
+    "prettier": "^1.19.1",
+    "tns-platform-declarations": "^6.0.0",
+    "typescript": "^3.2.4",
+    "vue": "^2.5.22",
+    "vue-devtools": "^5.1.3",
+    "vue-loader": "^15.4.0"
+  },
+  "license": "MIT",
+  "nativescript": {
+    "id": "com.cricket.camels",
+    "templateVersion": "v2",
+    "tns-android": {
+      "version": "6.0.0"
+    },
+    "tns-ios": {
+      "version": "6.0.1"
+    }
+  }
+}

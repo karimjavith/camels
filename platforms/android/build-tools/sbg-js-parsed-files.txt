@@ -1,0 +1,4 @@
+C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\src\main\assets\app\bundle.js
+C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\src\main\assets\app\runtime.js
+C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\src\main\assets\app\tns-java-classes.js
+C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\src\main\assets\app\vendor.js
