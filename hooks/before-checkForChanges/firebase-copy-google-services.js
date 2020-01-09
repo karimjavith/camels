@@ -78,7 +78,8 @@ var copyPlist = function(copyPlistOpts) {
                 return true;
             }
         } else if (!fs.existsSync(destinationGooglePlist)) { // single GoogleService-Info.plist modus but missing
-            return true; // this may be a push-only project, so this is allowed
+            copyPlistOpts.$logger.warn("nativescript-plugin-firebase: " + destinationGooglePlist + " does not exist. Please follow the installation instructions from the documentation");
+            return false;
         } else {
             return true; // single GoogleService-Info.plist modus
         }

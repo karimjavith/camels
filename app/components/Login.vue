@@ -1,14 +1,125 @@
+<script>
+const firebaseWebApi = require("nativescript-plugin-firebase/app");
+import { mapState, mapActions } from "vuex";
+import { login, getRoles } from "../_shared/firbase.ts";
+import Home from "./Home.vue";
+import CreatePassword from "./CreatePassword.vue";
+
+export default {
+  name: "Login",
+  components: { Home, CreatePassword },
+  mounted: function() {
+    this.$nextTick(function() {
+      console.log("mounted");
+      this.checkAuthentication();
+    });
+  },
+  watch: {
+    token(newValue, oldValue) {
+      if (newValue || oldValue) {
+        this.navigateToHomePage();
+      }
+    },
+    invited(newValue, oldValue) {
+      if (newValue && !this.token) {
+        this.navigateToPasswordCreationPage();
+      }
+    }
+  },
+  data() {
+    return {
+      user: {
+        email: "",
+        password: ""
+      }
+    };
+  },
+  computed: mapState({
+    token: state => state.authenticationModule.userContext.token,
+    invited: state => state.authenticationModule.userContext.invited
+  }),
+  methods: {
+    ...mapActions("authenticationModule", {
+      setGlobalLoginState: "signedIn"
+    }),
+    checkAuthentication() {
+      console.log(this.token);
+      if (this.token) {
+        this.navigateToHomePage();
+      }
+    },
+    submit() {
+      if (!this.user.email || !this.user.password) {
+        this.alert("Please provide both an email address and password.");
+        return;
+      }
+      this.login();
+    },
+
+    async login() {
+      const { uid, token } = await login(this.user.email, this.user.password);
+      this.setGlobalLoginState({ token });
+      const roles = await getRoles();
+      const docs = await roles.get();
+      if (docs.exists) {
+        const data = docs.data();
+        if (data[uid].role === 1) {
+          this.navigateToHomePage();
+        }
+      }
+    },
+
+    navigateToHomePage() {
+      this.$navigateTo(Home, { clearHistory: true });
+    },
+    navigateToPasswordCreationPage() {
+      this.$navigateTo(CreatePassword, { clearHistory: true });
+    },
+
+    forgotPassword() {
+      prompt({
+        title: "Forgot Password",
+        message:
+          "Enter the email address you used to register for Camels to reset your password.",
+        inputType: "email",
+        defaultText: "",
+        okButtonText: "Ok",
+        cancelButtonText: "Cancel"
+      }).then(data => {
+        if (data.result) {
+        }
+      });
+    },
+
+    focusPassword() {
+      this.$refs.password.nativeView.focus();
+    },
+    focusLoginButton() {
+      this.$refs.loginButton.nativeView.focus();
+    },
+
+    alert(message) {
+      return alert({
+        title: "Camels",
+        okButtonText: "OK",
+        message: message
+      });
+    }
+  }
+};
+</script>
+
 <template>
-  <Page>
+  <Page actionBarHidden="true">
     <FlexboxLayout class="page">
       <StackLayout class="form">
-        <Image class="logo" src="~/assets/images/NativeScript-Vue.png" />
-        <Label class="header" text="Camels" />
+        <!-- <Image class="logo" src="~/assets/images/NativeScript-Vue.png" />
+        <Label class="header" text="Camels" /> -->
 
         <StackLayout class="input-field" marginBottom="25">
           <TextField
             class="input"
-            hint="Email"
+            hint="youname@gmail.com"
             keyboardType="email"
             autocorrect="false"
             autocapitalizationType="none"
@@ -24,181 +135,33 @@
           <TextField
             ref="password"
             class="input"
-            hint="Password"
+            hint="*********"
             secure="true"
             v-model="user.password"
-            :returnKeyType="isLoggingIn ? 'done' : 'next'"
-            @returnPress="focusConfirmPassword"
-            fontSize="18"
-          />
-          <StackLayout class="hr-light" />
-        </StackLayout>
-
-        <StackLayout v-show="!isLoggingIn" class="input-field">
-          <TextField
-            ref="confirmPassword"
-            class="input"
-            hint="Confirm password"
-            secure="true"
-            v-model="user.confirmPassword"
-            returnKeyType="done"
+            :returnKeyType="token ? 'done' : 'next'"
+            @returnPress="focusLoginButton"
             fontSize="18"
           />
           <StackLayout class="hr-light" />
         </StackLayout>
 
         <Button
-          :text="isLoggingIn ? 'Log In' : 'Sign Up'"
+          ref="loginButton"
+          text="Log In"
           @tap="submit"
           class="btn btn-primary m-t-20"
         />
         <Label
-          v-show="isLoggingIn"
           text="Forgot your password?"
           class="login-label"
           @tap="forgotPassword"
         />
       </StackLayout>
-
-      <Label class="login-label sign-up-label" @tap="toggleForm">
-        <FormattedString>
-          <Span
-            :text="isLoggingIn ? 'Don’t have an account? ' : 'Back to Login'"
-          />
-          <Span :text="isLoggingIn ? 'Sign up' : ''" class="bold" />
-        </FormattedString>
-      </Label>
     </FlexboxLayout>
   </Page>
 </template>
 
-<script>
-// A stub for a service that authenticates users.
-const userService = {
-  register(user) {
-    return Promise.resolve(user);
-  },
-  login(user) {
-    return Promise.resolve(user);
-  },
-  resetPassword(email) {
-    return Promise.resolve(email);
-  }
-};
-
-// A stub for the main page of your app. In a real app you’d put this page in its own .vue file.
-const HomePage = {
-  template: `
-<Page>
-	<Label class="m-20" textWrap="true" text="You have successfully authenticated. This is where you build your core application functionality."></Label>
-</Page>
-`
-};
-
-export default {
-  data() {
-    return {
-      isLoggingIn: true,
-      user: {
-        email: "foo@foo.com",
-        password: "foo",
-        confirmPassword: "foo"
-      }
-    };
-  },
-  methods: {
-    toggleForm() {
-      this.isLoggingIn = !this.isLoggingIn;
-    },
-
-    submit() {
-      if (!this.user.email || !this.user.password) {
-        this.alert("Please provide both an email address and password.");
-        return;
-      }
-      if (this.isLoggingIn) {
-        this.login();
-      } else {
-        this.register();
-      }
-    },
-
-    login() {
-      userService
-        .login(this.user)
-        .then(() => {
-          this.$navigateTo(HomePage);
-        })
-        .catch(() => {
-          this.alert("Unfortunately we could not find your account.");
-        });
-    },
-
-    register() {
-      if (this.user.password != this.user.confirmPassword) {
-        this.alert("Your passwords do not match.");
-        return;
-      }
-
-      userService
-        .register(this.user)
-        .then(() => {
-          this.alert("Your account was successfully created.");
-          this.isLoggingIn = true;
-        })
-        .catch(() => {
-          this.alert("Unfortunately we were unable to create your account.");
-        });
-    },
-
-    forgotPassword() {
-      prompt({
-        title: "Forgot Password",
-        message:
-          "Enter the email address you used to register for APP NAME to reset your password.",
-        inputType: "email",
-        defaultText: "",
-        okButtonText: "Ok",
-        cancelButtonText: "Cancel"
-      }).then(data => {
-        if (data.result) {
-          userService
-            .resetPassword(data.text.trim())
-            .then(() => {
-              this.alert(
-                "Your password was successfully reset. Please check your email for instructions on choosing a new password."
-              );
-            })
-            .catch(() => {
-              this.alert(
-                "Unfortunately, an error occurred resetting your password."
-              );
-            });
-        }
-      });
-    },
-
-    focusPassword() {
-      this.$refs.password.nativeView.focus();
-    },
-    focusConfirmPassword() {
-      if (!this.isLoggingIn) {
-        this.$refs.confirmPassword.nativeView.focus();
-      }
-    },
-
-    alert(message) {
-      return alert({
-        title: "APP NAME",
-        okButtonText: "OK",
-        message: message
-      });
-    }
-  }
-};
-</script>
-
-<style scoped>
+<style scoped lang="scss">
 .page {
   align-items: center;
   flex-direction: column;
@@ -223,7 +186,7 @@ export default {
   font-weight: 600;
   margin-bottom: 70;
   text-align: center;
-  color: #f4af03;
+  color: #c19a6b;
 }
 
 .input-field {
@@ -242,15 +205,13 @@ export default {
 .btn-primary {
   height: 50;
   margin: 30 5 15 5;
-  background-color: #f4af03;
   border-radius: 5;
-  font-size: 20;
-  font-weight: 600;
+  font-size: 16;
+  font-weight: 500;
 }
 
 .login-label {
   horizontal-align: center;
-  color: #a8a8a8;
   font-size: 16;
 }
 

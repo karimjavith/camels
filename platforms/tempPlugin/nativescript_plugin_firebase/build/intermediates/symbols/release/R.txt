@@ -1247,7 +1247,6 @@ int layout select_dialog_multichoice_material 0x7f0e0036
 int layout select_dialog_singlechoice_material 0x7f0e0037
 int layout support_simple_spinner_dropdown_item 0x7f0e0038
 int raw beep 0x7f130001
-int raw translate_models_metadata 0x7f130002
 int string abc_action_bar_home_description 0x7f140001
 int string abc_action_bar_up_description 0x7f140002
 int string abc_action_menu_overflow_description 0x7f140003
@@ -2587,4 +2586,3 @@ int[] styleable ViewStubCompat { 0x10100d0, 0x10100f3, 0x10100f2 }
 int styleable ViewStubCompat_android_id 0
 int styleable ViewStubCompat_android_inflatedId 1
 int styleable ViewStubCompat_android_layout 2
-int xml rapid_response_client_defaults 0x7f180001
