@@ -32,7 +32,7 @@ public final class R {
         private string() {}
 
         public static final int app_name = 0x7f0d0027;
-        public static final int common_google_play_services_unknown_issue = 0x7f0d0034;
+        public static final int common_google_play_services_unknown_issue = 0x7f0d0035;
     }
     public static final class styleable {
         private styleable() {}

@@ -30,3 +30,8 @@ $series-f: #a00201;
 
 // Global SCSS styling
 // @see https://docs.nativescript.org/ui/styling
+/* eslint-disable */
+button {
+  @include colorize($bg-color: primary);
+  //   @include colorize($contrasted-border-color: accent background 20%);
+}

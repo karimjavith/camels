@@ -4,8 +4,20 @@
         "directory": "..\\..\\node_modules\\@nativescript\\theme"
     },
     {
+        "name": "@nstudio/nativescript-loading-indicator",
+        "directory": "..\\..\\node_modules\\@nstudio\\nativescript-loading-indicator"
+    },
+    {
         "name": "nativescript-plugin-firebase",
         "directory": "..\\..\\node_modules\\nativescript-plugin-firebase"
+    },
+    {
+        "name": "nativescript-socketio",
+        "directory": "..\\..\\node_modules\\nativescript-socketio"
+    },
+    {
+        "name": "nativescript-toasty",
+        "directory": "..\\..\\node_modules\\nativescript-toasty"
     },
     {
         "name": "nativescript-ui-sidedrawer",

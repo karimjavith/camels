@@ -229,7 +229,7 @@
     },
     {
         "merged": "C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\raw_beep.ogg.flat",
-        "source": "C:\\Users\\Karim Mohamed\\.gradle\\caches\\transforms-2\\files-2.1\\987235532ac22be8d921329ff9193e80\\res\\raw\\beep.ogg"
+        "source": "C:\\Users\\Karim Mohamed\\.gradle\\caches\\transforms-2\\files-2.1\\1f0cd2ff941ca5c84ba5cc9efd94086a\\res\\raw\\beep.ogg"
     },
     {
         "merged": "C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_abc_text_select_handle_left_mtrl_light.png.flat",
@@ -340,10 +340,6 @@
         "source": "C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\platforms\\android\\app\\src\\main\\res\\drawable-ldpi\\background.png"
     },
     {
-        "merged": "C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\raw_translate_models_metadata.json.flat",
-        "source": "C:\\Users\\Karim Mohamed\\.gradle\\caches\\transforms-2\\files-2.1\\ae9ef7237ec2e959fa01cb99948b3d3f\\res\\raw\\translate_models_metadata.json"
-    },
-    {
         "merged": "C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\color-v23_abc_tint_switch_track.xml.flat",
         "source": "C:\\Users\\Karim Mohamed\\.gradle\\caches\\transforms-2\\files-2.1\\42fb31e42a45df4fcb5b983cde1b3a2f\\res\\color-v23\\abc_tint_switch_track.xml"
     },
@@ -420,10 +416,6 @@
         "source": "C:\\Users\\Karim Mohamed\\.gradle\\caches\\transforms-2\\files-2.1\\42fb31e42a45df4fcb5b983cde1b3a2f\\res\\drawable-xhdpi-v4\\abc_btn_switch_to_on_mtrl_00012.9.png"
     },
     {
-        "merged": "C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-watch-v20_common_google_signin_btn_text_light_normal.xml.flat",
-        "source": "C:\\Users\\Karim Mohamed\\.gradle\\caches\\transforms-2\\files-2.1\\23036c28f35c092e3d20225980cebff5\\res\\drawable-watch-v20\\common_google_signin_btn_text_light_normal.xml"
-    },
-    {
         "merged": "C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout_notification_template_big_media_narrow.xml.flat",
         "source": "C:\\Users\\Karim Mohamed\\.gradle\\caches\\transforms-2\\files-2.1\\6142a4caf0eca5639cdb580eb19949b7\\res\\layout\\notification_template_big_media_narrow.xml"
     },
@@ -458,10 +450,6 @@
     {
         "merged": "C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_scrubber_control_off_mtrl_alpha.png.flat",
         "source": "C:\\Users\\Karim Mohamed\\.gradle\\caches\\transforms-2\\files-2.1\\42fb31e42a45df4fcb5b983cde1b3a2f\\res\\drawable-xhdpi-v4\\abc_scrubber_control_off_mtrl_alpha.png"
-    },
-    {
-        "merged": "C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-watch-v20_common_google_signin_btn_text_dark_normal.xml.flat",
-        "source": "C:\\Users\\Karim Mohamed\\.gradle\\caches\\transforms-2\\files-2.1\\23036c28f35c092e3d20225980cebff5\\res\\drawable-watch-v20\\common_google_signin_btn_text_dark_normal.xml"
     },
     {
         "merged": "C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_abc_cab_background_internal_bg.xml.flat",
@@ -844,6 +832,10 @@
         "source": "C:\\Users\\Karim Mohamed\\.gradle\\caches\\transforms-2\\files-2.1\\c3afbdd036e8ea8515857cfaccd0ac3f\\res\\layout-v16\\notification_template_custom_big.xml"
     },
     {
+        "merged": "C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_circle_shape.xml.flat",
+        "source": "C:\\Users\\Karim Mohamed\\.gradle\\caches\\transforms-2\\files-2.1\\134064048e730e7754d54598a241d90c\\res\\drawable\\circle_shape.xml"
+    },
+    {
         "merged": "C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_cab_background_top_mtrl_alpha.9.png.flat",
         "source": "C:\\Users\\Karim Mohamed\\.gradle\\caches\\transforms-2\\files-2.1\\42fb31e42a45df4fcb5b983cde1b3a2f\\res\\drawable-xhdpi-v4\\abc_cab_background_top_mtrl_alpha.9.png"
     },
@@ -1220,6 +1212,10 @@
         "source": "C:\\Users\\Karim Mohamed\\.gradle\\caches\\transforms-2\\files-2.1\\cde06747153de483665b2588aef9c355\\res\\color\\design_tint_password_toggle.xml"
     },
     {
+        "merged": "C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_circular_progress_bar.xml.flat",
+        "source": "C:\\Users\\Karim Mohamed\\.gradle\\caches\\transforms-2\\files-2.1\\134064048e730e7754d54598a241d90c\\res\\drawable\\circular_progress_bar.xml"
+    },
+    {
         "merged": "C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_common_google_signin_btn_text_dark_normal_background.9.png.flat",
         "source": "C:\\Users\\Karim Mohamed\\.gradle\\caches\\transforms-2\\files-2.1\\f24ae284684b5b723881887ad5d207d6\\res\\drawable-xhdpi-v4\\common_google_signin_btn_text_dark_normal_background.9.png"
     },
@@ -1394,10 +1390,6 @@
     {
         "merged": "C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_btn_radio_to_on_mtrl_000.png.flat",
         "source": "C:\\Users\\Karim Mohamed\\.gradle\\caches\\transforms-2\\files-2.1\\42fb31e42a45df4fcb5b983cde1b3a2f\\res\\drawable-mdpi-v4\\abc_btn_radio_to_on_mtrl_000.png"
-    },
-    {
-        "merged": "C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\xml_rapid_response_client_defaults.xml.flat",
-        "source": "C:\\Users\\Karim Mohamed\\.gradle\\caches\\transforms-2\\files-2.1\\ae9ef7237ec2e959fa01cb99948b3d3f\\res\\xml\\rapid_response_client_defaults.xml"
     },
     {
         "merged": "C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldrtl-xxhdpi-v17_abc_spinner_mtrl_am_alpha.9.png.flat",
@@ -1640,6 +1632,10 @@
         "source": "C:\\Users\\Karim Mohamed\\.gradle\\caches\\transforms-2\\files-2.1\\42fb31e42a45df4fcb5b983cde1b3a2f\\res\\drawable-hdpi-v4\\abc_btn_switch_to_on_mtrl_00001.9.png"
     },
     {
+        "merged": "C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_circular_progress_bar_thick.xml.flat",
+        "source": "C:\\Users\\Karim Mohamed\\.gradle\\caches\\transforms-2\\files-2.1\\134064048e730e7754d54598a241d90c\\res\\drawable\\circular_progress_bar_thick.xml"
+    },
+    {
         "merged": "C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_ab_share_pack_mtrl_alpha.9.png.flat",
         "source": "C:\\Users\\Karim Mohamed\\.gradle\\caches\\transforms-2\\files-2.1\\42fb31e42a45df4fcb5b983cde1b3a2f\\res\\drawable-xhdpi-v4\\abc_ab_share_pack_mtrl_alpha.9.png"
     },
@@ -1830,10 +1826,6 @@
     {
         "merged": "C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout_select_dialog_item_material.xml.flat",
         "source": "C:\\Users\\Karim Mohamed\\.gradle\\caches\\transforms-2\\files-2.1\\42fb31e42a45df4fcb5b983cde1b3a2f\\res\\layout\\select_dialog_item_material.xml"
-    },
-    {
-        "merged": "C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-watch-v20_common_google_signin_btn_text_disabled.xml.flat",
-        "source": "C:\\Users\\Karim Mohamed\\.gradle\\caches\\transforms-2\\files-2.1\\23036c28f35c092e3d20225980cebff5\\res\\drawable-watch-v20\\common_google_signin_btn_text_disabled.xml"
     },
     {
         "merged": "C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_btn_radio_to_on_mtrl_015.png.flat",

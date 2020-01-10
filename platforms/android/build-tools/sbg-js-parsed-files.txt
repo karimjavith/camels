@@ -1,3 +1,4 @@
+C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\src\main\assets\app\bundle.8d74430691f7123c679a.hot-update.js
 C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\src\main\assets\app\bundle.js
 C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\src\main\assets\app\runtime.js
 C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\src\main\assets\app\tns-java-classes.js

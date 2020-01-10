@@ -132,19 +132,19 @@ dependencies {
      implementation "com.google.firebase:firebase-auth:19.1.0"
 
     // Realtime DB
-     implementation "com.google.firebase:firebase-database:19.2.0"
+    // implementation "com.google.firebase:firebase-database:19.2.0"
 
     // Cloud Firestore
      implementation "com.google.firebase:firebase-firestore:21.3.0"
 
     // Remote Config
-     implementation "com.google.firebase:firebase-config:19.0.3"
+    // implementation "com.google.firebase:firebase-config:19.0.3"
 
     // Performance Monitoring
      implementation "com.google.firebase:firebase-perf:19.0.2"
 
     // Crashlytics
-    // implementation "com.crashlytics.sdk.android:crashlytics:2.10.1"
+     implementation "com.crashlytics.sdk.android:crashlytics:2.10.1"
 
     // Cloud Messaging (FCM)
      implementation "com.google.firebase:firebase-messaging:20.0.1"
@@ -156,31 +156,31 @@ dependencies {
     // implementation "com.google.firebase:firebase-analytics:17.2.1"
 
     // Cloud Storage
-     implementation "com.google.firebase:firebase-storage:19.1.0"
+    // implementation "com.google.firebase:firebase-storage:19.1.0"
 
     // Cloud Functions
-    // implementation "com.google.firebase:firebase-functions:19.0.1"
+     implementation "com.google.firebase:firebase-functions:19.0.1"
 
     // AdMob / Ads
      implementation "com.google.firebase:firebase-ads:18.3.0"
 
     // ML Kit
-     implementation "com.google.firebase:firebase-ml-vision:24.0.1"
-     implementation "com.google.firebase:firebase-ml-vision-image-label-model:19.0.0"
+    // implementation "com.google.firebase:firebase-ml-vision:24.0.1"
+    // implementation "com.google.firebase:firebase-ml-vision-image-label-model:19.0.0"
     // implementation "com.google.firebase:firebase-ml-vision-object-detection-model:19.0.3"
     // implementation "com.google.firebase:firebase-ml-model-interpreter:22.0.1"
     // implementation "com.google.firebase:firebase-ml-vision-automl:18.0.3"
-     implementation "com.google.firebase:firebase-ml-natural-language:22.0.0"
+    // implementation "com.google.firebase:firebase-ml-natural-language:22.0.0"
     // implementation "com.google.firebase:firebase-ml-natural-language-language-id-model:20.0.7"
-     implementation "com.google.firebase:firebase-ml-natural-language-translate-model:20.0.7"
-     implementation "com.google.firebase:firebase-ml-natural-language-smart-reply-model:20.0.7"
+    // implementation "com.google.firebase:firebase-ml-natural-language-translate-model:20.0.7"
+    // implementation "com.google.firebase:firebase-ml-natural-language-smart-reply-model:20.0.7"
 
     // Facebook Authentication
     // implementation "com.facebook.android:facebook-core:5.4.0"
     // implementation "com.facebook.android:facebook-login:5.4.0"
 
     // Google Sign-In Authentication
-     implementation "com.google.android.gms:play-services-auth:$googlePlayServicesVersion"
+    // implementation "com.google.android.gms:play-services-auth:$googlePlayServicesVersion"
 
     // Dynamic Links
      implementation "com.google.firebase:firebase-dynamic-links:19.0.0"
