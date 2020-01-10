@@ -1,5 +1,9 @@
 <script>
-import { sendSignInLink } from "../_shared/firbase.ts";
+import {
+  sendSignInLink,
+  addInvitesToCollection,
+  createUser
+} from "../_shared/firbase.ts";
 export default {
   data() {
     return {
@@ -7,12 +11,27 @@ export default {
     };
   },
   methods: {
+    createguid() {
+      return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(
+        c
+      ) {
+        var r = (Math.random() * 16) | 0,
+          v = c == "x" ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+      });
+    },
     focusSubmitButton() {
       this.$refs.submitButton.nativeView.focus();
     },
     async sendInvite() {
       const result = await sendSignInLink(this.email);
-      console.log(result);
+      if (!result.isError) {
+        const createUserResult = await addInvitesToCollection(this.email);
+        console.log(result);
+        if (result && !result.isError) {
+          this.email = "";
+        }
+      }
     }
   }
 };

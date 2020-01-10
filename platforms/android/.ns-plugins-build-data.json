@@ -1,10 +1,13 @@
 {
+	"@nstudio/nativescript-loading-indicator": {
+		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\@nstudio\\nativescript-loading-indicator\\platforms\\android\\nativescript_loading_indicator.aar": "104ec7cd62b58d16975773b221a75398e9be6615"
+	},
 	"nativescript-plugin-firebase": {
-		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-plugin-firebase\\platforms\\android\\include.gradle": "b9af1b2134f54a54e116fed6594978f87d29ad85",
-		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-plugin-firebase\\platforms\\android\\firebase-release.aar": "e1a0244835b078d3faab4fcd4e1cc50828d2a161",
 		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-plugin-firebase\\platforms\\android\\nativescript-firebase-mlkit-helper.jar-disabled": "d4ae4e5e19f9a7e46fc693eeb778883246c49d00",
-		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-plugin-firebase\\platforms\\android\\res\\raw\\beep.ogg": "1a522c83c9af8babf4b1aa83755ed93742a815c6",
-		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-plugin-firebase\\platforms\\android\\nativescript_plugin_firebase.aar": "69fcaa3d18050bc6e7faf17fb92b6ab5b58e23ca"
+		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-plugin-firebase\\platforms\\android\\include.gradle": "87ea516614937013fecddbef383b4bf7d572f849",
+		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-plugin-firebase\\platforms\\android\\firebase-release.aar": "e1a0244835b078d3faab4fcd4e1cc50828d2a161",
+		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-plugin-firebase\\platforms\\android\\nativescript_plugin_firebase.aar": "69fcaa3d18050bc6e7faf17fb92b6ab5b58e23ca",
+		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-plugin-firebase\\platforms\\android\\res\\raw\\beep.ogg": "1a522c83c9af8babf4b1aa83755ed93742a815c6"
 	},
 	"nativescript-socketio": {
 		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-socketio\\platforms\\android\\include.gradle": "c541a1b67002137b77d5038c1424589f066408d9",
@@ -20,8 +23,5 @@
 	},
 	"tns-core-modules-widgets": {
 		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\tns-core-modules-widgets\\platforms\\android\\widgets-release.aar": "0746721bed98e833a85c066a1994200dd8dd111b"
-	},
-	"@nstudio/nativescript-loading-indicator": {
-		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\@nstudio\\nativescript-loading-indicator\\platforms\\android\\nativescript_loading_indicator.aar": "104ec7cd62b58d16975773b221a75398e9be6615"
 	}
 }

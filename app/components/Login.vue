@@ -40,7 +40,8 @@ export default {
   }),
   methods: {
     ...mapActions("authenticationModule", {
-      setGlobalLoginState: "signedIn"
+      setGlobalLoginState: "signedIn",
+      setUserRole: "setUserRole"
     }),
     checkAuthentication() {
       console.log(this.token);
@@ -63,9 +64,7 @@ export default {
       const docs = await roles.get();
       if (docs.exists) {
         const data = docs.data();
-        if (data[uid].role === 1) {
-          this.navigateToHomePage();
-        }
+        this.setUserRole({ role: data[uid].role });
       }
     },
 

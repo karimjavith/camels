@@ -1,7 +1,9 @@
 const firebaseApi = require("nativescript-plugin-firebase/app");
 const ApplicationSettings = require("tns-core-modules/application-settings");
+import { User } from "nativescript-plugin-firebase/firebase";
 
 const handleException = (error: any, type: string) => {
+  console.log(error);
   alert(type + ": " + error.message);
   return { message: error.message, type, isError: true };
 };
@@ -44,18 +46,62 @@ const getRoles = async () => {
 };
 const sendSignInLink = async (email: string) => {
   try {
-    return await firebaseApi.auth().sendSignInLinkToEmail(email, {
-      url: "https://camels.page.link/zXbp"
-      // the stuff below is optional, if not set the plugin will infer this for you (bundle/package is taken from currently used platform)
-      //   iOS: {
-      //     bundleId: "my.bundle.id"
-      //   },
-      //   android: {
-      //     packageName: "my.package.name"
-      //   }
-    });
+    const fn = firebaseApi
+      .functions()
+      .httpsCallable("sendMailForFunctions", "us-central1");
+    const result = await fn({ email, link: "https://camels.page.link/zXbp" });
+    console.log(result);
+    return result;
   } catch (e) {
     return handleException(e, "Sending link failed");
   }
 };
-export { login, logout, getRoles, sendSignInLink };
+const createUser = async (email: string, password: string) => {
+  try {
+    return await firebaseApi
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then((user: User) => {
+        console.log("Firebase create user success");
+        alert("Firebase create user success");
+        return user;
+      });
+  } catch (e) {
+    return handleException(e, "Creating user failed");
+  }
+};
+const addInvitesToCollection = async (email: string) => {
+  try {
+    const inviteCollection = await firebaseApi
+      .firestore()
+      .collection("invites");
+    inviteCollection.doc(email).set({
+      status: true
+    });
+    alert("Yayyy!! Invite sent to the camel");
+    return inviteCollection;
+  } catch (e) {
+    return handleException(e, "Add invitiee failed");
+  }
+};
+
+const getInvitationStatusFor = async (email: string) => {
+  try {
+    const invites = await firebaseApi
+      .firestore()
+      .collection("invites")
+      .doc(email);
+    return invites;
+  } catch (e) {
+    return handleException(e, "Fetch invitied users failed");
+  }
+};
+export {
+  login,
+  logout,
+  getRoles,
+  sendSignInLink,
+  createUser,
+  addInvitesToCollection,
+  getInvitationStatusFor
+};

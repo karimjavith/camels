@@ -1,10 +1,13 @@
-#Thu Jan 09 13:02:41 GMT 2020
+#Fri Jan 10 16:10:39 GMT 2020
+path.3=classes4.dex
 path.2=classes3.dex
 path.1=classes2.dex
 path.0=classes.dex
+renamed.3=classes4.dex
 renamed.2=classes3.dex
 renamed.1=classes2.dex
 renamed.0=classes.dex
+base.3=C\:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\platforms\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
 base.2=C\:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\platforms\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
 base.1=C\:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\platforms\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
 base.0=C\:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\platforms\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0

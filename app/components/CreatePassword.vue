@@ -1,19 +1,47 @@
 <script>
+import Login from "./Login.vue";
+import { createUser, getInvitationStatusFor } from "../_shared/firbase.ts";
 export default {
+  name: "Create Password",
   data() {
     return {
       user: {
+        email: "",
         password: "",
         confirmPassword: ""
       }
     };
   },
   methods: {
+    focusPassword() {
+      this.$refs.password.nativeView.focus();
+    },
     focusConfirmPassword() {
       this.$refs.confirmPassword.nativeView.focus();
     },
     focusSubmitButton() {
       this.$refs.submitButton.nativeView.focus();
+    },
+    async checkIfTheUserIsInvited() {
+      const documents = await getInvitationStatusFor(this.user.email);
+      const result = await documents.get();
+      console.log(result.exists);
+      if (result.exists) {
+        return true;
+      }
+      return false;
+    },
+    async submit() {
+      const isUserInvited = await this.checkIfTheUserIsInvited();
+      if (!isUserInvited) {
+        alert("Error! Your email address is not invited.");
+        return;
+      }
+      const result = await createUser(this.user.email, this.user.password);
+      console.log(result);
+      if (result && !result.isError) {
+        this.$navigateTo(Login, { clearHistory: true });
+      }
     }
   }
 };
@@ -25,7 +53,19 @@ export default {
       <StackLayout class="form">
         <Image class="logo" src="~/assets/images/NativeScript-Vue.png" />
         <Label class="header" text="Camels" />
-
+        <StackLayout class="input-field" marginBottom="25">
+          <TextField
+            ref="email"
+            class="input"
+            hint="camel@gmail.com"
+            type="email"
+            v-model="user.email"
+            :returnKeyType="'next'"
+            @returnPress="focusPassword"
+            fontSize="18"
+          />
+          <StackLayout class="hr-light" />
+        </StackLayout>
         <StackLayout class="input-field" marginBottom="25">
           <TextField
             ref="password"
@@ -33,7 +73,7 @@ export default {
             hint="*********"
             secure="true"
             v-model="user.password"
-            :returnKeyType="token ? 'done' : 'next'"
+            :returnKeyType="'next'"
             @returnPress="focusConfirmPassword"
             fontSize="18"
           />
@@ -46,7 +86,7 @@ export default {
             hint="confirm Password"
             secure="true"
             v-model="user.confirmPassword"
-            :returnKeyType="token ? 'done' : 'next'"
+            :returnKeyType="'next'"
             @returnPress="focusSubmitButton"
             fontSize="18"
           />
@@ -55,7 +95,7 @@ export default {
 
         <Button
           ref="submitButton"
-          text="Complete"
+          text="Sign up"
           @tap="submit"
           class="btn btn-primary m-t-20"
         />

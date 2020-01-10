@@ -23,6 +23,7 @@ firebase
     // see their respective docs.
     // crashlyticsCollectionEnabled: true,
     onDynamicLinkCallback: function(result: any) {
+      alert(result.url);
       store.dispatch("authenticationModule/setCreatePasswordPage");
     }
   })
@@ -34,7 +35,10 @@ firebase
       console.log(`firebase.init error: ${error}`);
     }
   );
-
+firebase.addOnDynamicLinkReceivedCallback(function({ url }: any) {
+  alert(url);
+  // ..
+});
 // Prints Vue logs when --env.production is *NOT* set while building
 Vue.config.silent = TNS_ENV === "production";
 

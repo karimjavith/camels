@@ -141,10 +141,10 @@ dependencies {
     // implementation "com.google.firebase:firebase-config:19.0.3"
 
     // Performance Monitoring
-    // implementation "com.google.firebase:firebase-perf:19.0.2"
+     implementation "com.google.firebase:firebase-perf:19.0.2"
 
     // Crashlytics
-    // implementation "com.crashlytics.sdk.android:crashlytics:2.10.1"
+     implementation "com.crashlytics.sdk.android:crashlytics:2.10.1"
 
     // Cloud Messaging (FCM)
      implementation "com.google.firebase:firebase-messaging:20.0.1"
@@ -159,7 +159,7 @@ dependencies {
     // implementation "com.google.firebase:firebase-storage:19.1.0"
 
     // Cloud Functions
-    // implementation "com.google.firebase:firebase-functions:19.0.1"
+     implementation "com.google.firebase:firebase-functions:19.0.1"
 
     // AdMob / Ads
      implementation "com.google.firebase:firebase-ads:18.3.0"

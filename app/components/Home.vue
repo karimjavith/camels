@@ -22,7 +22,8 @@ export default {
   },
 
   computed: mapState({
-    token: state => state.authenticationModule.userContext.token
+    token: state => state.authenticationModule.userContext.token,
+    role: state => state.authenticationModule.userContext.role
   }),
   methods: {
     ...mapActions("authenticationModule", {
@@ -77,7 +78,12 @@ export default {
     <RadSideDrawer ref="drawer" class="sideStackLayout">
       <StackLayout ~drawerContent>
         <Button class="drawer-item" text="Home" @tap="onHomeTap" />
-        <Button class="drawer-item" text="Invite" @tap="onInviteTap" />
+        <Button
+          class="drawer-item"
+          v-if="role === 1"
+          text="Invite"
+          @tap="onInviteTap"
+        />
         <Button class="drawer-item" text="Sign out" @tap="onSignOutTap" />
       </StackLayout>
 
