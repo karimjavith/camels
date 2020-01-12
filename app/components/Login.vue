@@ -112,8 +112,8 @@ export default {
   <Page actionBarHidden="true">
     <FlexboxLayout class="page">
       <StackLayout class="form">
-        <!-- <Image class="logo" src="~/assets/images/NativeScript-Vue.png" />
-        <Label class="header" text="Camels" /> -->
+        <Image class="logo" src="~/assets/images/NativeScript-Vue.png" />
+        <Label class="header" text="Camels" />
 
         <StackLayout class="input-field" marginBottom="25">
           <TextField

@@ -32,13 +32,21 @@ export default {
           this.email = "";
         }
       }
+    },
+
+    onNavigationButtonTap() {
+      this.$navigateBack();
     }
   }
 };
 </script>
 
 <template>
-  <FlexboxLayout class="page">
+  <Page>
+    <!-- <FlexboxLayout class="page"> -->
+    <ActionBar>
+      <Button text="Back" @tap="onNavigationButtonTap" />
+    </ActionBar>
     <StackLayout class="form">
       <Label class="header" text="Invite the camel" />
       <StackLayout class="input-field" marginBottom="25">
@@ -63,13 +71,16 @@ export default {
         class="btn btn-primary m-t-20"
       />
     </StackLayout>
-  </FlexboxLayout>
+    <!-- </FlexboxLayout> -->
+  </Page>
 </template>
 
 <style scoped lang="scss">
+ActionBar {
+  background-color: #ffffff;
+}
 .form {
-  margin-left: 100;
-  margin-right: 100;
+  padding: 10;
   flex-grow: 2;
   vertical-align: middle;
 

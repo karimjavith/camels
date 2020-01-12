@@ -3,12 +3,11 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import Login from "./Login.vue";
-import InviteComponent from "./Invite.vue";
+import Account from "./Account.vue";
 import { TAuthState } from "../types/TState";
-import { logout } from "../_shared/firbase.ts";
 export default {
   name: "Home",
-  components: { InviteComponent },
+  components: { Account },
   mounted: function() {
     this.$nextTick(function() {
       this.checkAuthentication();
@@ -26,36 +25,19 @@ export default {
     role: state => state.authenticationModule.userContext.role
   }),
   methods: {
-    ...mapActions("authenticationModule", {
-      clearGlobalLoginState: "signedOut"
-    }),
     redirectToLogin() {
-      this.$navigateTo("Login");
+      this.$navigateTo(Login);
     },
     checkAuthentication() {
       if (!this.token) {
-        this.$navigateTo("Login");
+        this.$navigateTo(Login);
       }
     },
     onNavigationButtonTap() {
       Frame.topmost().goBack();
     },
-    async onSignOutTap() {
-      const result = await logout();
-      this.clearGlobalLoginState();
-      this.$navigateTo(Login);
-    },
-    onInviteTap() {
-      this.$refs.drawer.nativeView.toggleDrawerState();
-      this.currentView = "Invite";
-    },
     onHomeTap() {
       this.msg = "Hello world!!";
-      this.$refs.drawer.nativeView.toggleDrawerState();
-      this.currentView = "";
-    },
-    onMenuTap() {
-      this.$refs.drawer.nativeView.toggleDrawerState();
     }
   }
 };
@@ -70,30 +52,44 @@ export default {
           android.systemIcon="ic_menu_back"
           @tap="onNavigationButtonTap"
         ></NavigationButton>
-        <Button text="menu" @tap="onMenuTap" />
         <Label text="Camels" fontSize="18" verticalAlignment="center" />
       </StackLayout>
     </ActionBar>
+    <BottomNavigation selectedIndex="0">
+      <!-- The bottom tab UI is created via TabStrip (the containier) and TabStripItem (for each tab)-->
+      <TabStrip>
+        <TabStripItem>
+          <Label text="Home"></Label>
+          <Image src="font://&#xf015;" class="fas t-36"></Image>
+        </TabStripItem>
+        <TabStripItem class="special">
+          <Label text="Matches"></Label>
+          <Image src="font://&#xf007;" class="fas t-36"></Image>
+        </TabStripItem>
+        <TabStripItem class="special">
+          <Label text="Me"></Label>
+          <Image src="font://&#xf00e;" class="fas t-36"></Image>
+        </TabStripItem>
+      </TabStrip>
 
-    <RadSideDrawer ref="drawer" class="sideStackLayout">
-      <StackLayout ~drawerContent>
-        <Button class="drawer-item" text="Home" @tap="onHomeTap" />
-        <Button
-          class="drawer-item"
-          v-if="role === 1"
-          text="Invite"
-          @tap="onInviteTap"
-        />
-        <Button class="drawer-item" text="Sign out" @tap="onSignOutTap" />
-      </StackLayout>
-
-      <StackLayout ~mainContent>
-        <Label :text="msg" v-if="!currentView" class="drawerContentText" />
-        <StackLayout orientation="Horizontal" v-if="currentView === 'Invite'">
-          <invite-component />
+      <!-- The number of TabContentItem components should corespond to the number of TabStripItem components -->
+      <TabContentItem>
+        <StackLayout orientation="Horizontal">
+          <Label text="Home" class="h2"></Label>
         </StackLayout>
-      </StackLayout>
-    </RadSideDrawer>
+      </TabContentItem>
+      <TabContentItem>
+        <StackLayout orientation="Horizontal">
+          <Label text="Matches" class="h2"></Label>
+        </StackLayout>
+      </TabContentItem>
+      <TabContentItem>
+        <StackLayout>
+          <Label text="Account" class="h2"></Label>
+          <account />
+        </StackLayout>
+      </TabContentItem>
+    </BottomNavigation>
   </Page>
 </template>
 
@@ -114,17 +110,34 @@ ActionBar {
   color: #333333;
 }
 
-.drawer-header {
-  padding: 50 16 16 16;
-  margin-bottom: 16;
-  /* background-color: #c19a6b; */
-  /* color: #ffffff; */
-  font-size: 24;
+/* bottom-navigation */
+TabStripItem.tabstripitem {
+  background-color: teal;
 }
 
-.drawer-item {
-  padding: 8 16;
-  color: #333333;
-  font-size: 16;
+TabStripItem.tabstripitem:active {
+  background-color: yellowgreen;
+}
+
+TabContentItem.first-tabcontent {
+  background-color: seashell;
+  color: olive;
+}
+TabContentItem.second-tabcontent {
+  background-color: slategray;
+  color: aquamarine;
+}
+TabContentItem.third-tabcontent {
+  background-color: blueviolet;
+  color: antiquewhite;
+}
+
+.fas {
+  font-family: "Font Awesome 5 Free", "fa-solid-900";
+  font-weight: 900;
+}
+
+.t-36 {
+  font-size: 36;
 }
 </style>
