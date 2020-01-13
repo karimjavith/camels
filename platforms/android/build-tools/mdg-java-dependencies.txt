@@ -54,6 +54,7 @@ C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\build\exploded-
 C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\build\exploded-dependencies\7dc30053e91a36d8b31257c0ac4e8577\classes.jar
 C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\build\exploded-dependencies\7f4a6db4f2ce57b7cbfdf061896633f1\classes.jar
 C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\build\exploded-dependencies\816eca8c4a1a6e76fb7042a50245bc3c\classes.jar
+C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\build\exploded-dependencies\82455b49df986421fa31c69d7b279a9e\classes.jar
 C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\build\exploded-dependencies\82cdeac267caed6172a6bf5b9651c7b5\classes.jar
 C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\build\exploded-dependencies\85b5d932cf3b17b4b45f0f04bece0227\classes.jar
 C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\build\exploded-dependencies\87cab2f4da2f66c80a112d2a98b201a7\lifecycle-common-2.0.0.jar

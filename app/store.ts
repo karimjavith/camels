@@ -1,68 +1,68 @@
-import Vue from "vue";
-import Vuex, { StoreOptions, Module, ActionTree, MutationTree } from "vuex";
-import { TAppState, TAuthState } from "./types/TState";
+import Vue from 'vue'
+import Vuex, { StoreOptions, Module, ActionTree, MutationTree } from 'vuex'
+import { TAppState, TAuthState } from './types/TState'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 const state: TAuthState = {
   userContext: {
     userId: null,
-    token: "",
+    token: '',
     invited: false,
-    role: 0
-  }
-};
-const namespaced: boolean = true;
+    role: 0,
+  },
+}
+const namespaced: boolean = true
 const actions: ActionTree<TAuthState, TAppState> = {
   signedIn({ commit }, payload) {
-    commit("setUserLoggedIn", payload);
+    commit('setUserLoggedIn', payload)
   },
   signedOut({ commit }) {
-    commit("setUserLoggedOut");
+    commit('setUserLoggedOut')
   },
   setAuthToken({ commit }, payload) {
-    commit("setUserAuthToken", payload); // TODO: checken token expiry
+    commit('setUserAuthToken', payload) // TODO: checken token expiry
   },
   setCreatePasswordPage({ commit }) {
-    commit("setCreatePasswordPage");
+    commit('setCreatePasswordPage')
   },
   setUserRole({ commit }, payload) {
-    commit("setUserRole", payload);
-  }
-};
+    commit('setUserRole', payload)
+  },
+}
 const mutations: MutationTree<TAuthState> = {
   setUserLoggedIn(state, payload) {
-    state.userContext.token = payload.token;
+    state.userContext.token = payload.token
   },
   setUserLoggedOut(state) {
     state.userContext = {
       userId: null,
-      token: "",
+      token: '',
       invited: false,
-      role: 0
-    };
+      role: 0,
+    }
   },
   setUserAuthToken(state, payload) {
-    state.userContext.token = payload.token;
+    state.userContext.token = payload.token
   },
   setCreatePasswordPage(state) {
-    state.userContext.invited = true;
+    state.userContext.invited = true
   },
   setUserRole(state, payload) {
-    state.userContext.role = payload.role;
-  }
-};
+    state.userContext.role = payload.role
+  },
+}
 const authenticationModule: Module<TAuthState, TAppState> = {
   namespaced,
   state,
   actions,
-  mutations
-};
+  mutations,
+}
 const store: StoreOptions<TAppState> = {
   state: {
-    version: "1"
+    version: '1',
   },
   modules: {
-    authenticationModule
-  }
-};
-export default new Vuex.Store<TAppState>(store);
+    authenticationModule,
+  },
+}
+export default new Vuex.Store<TAppState>(store)
