@@ -3,15 +3,20 @@
 		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\@nstudio\\nativescript-loading-indicator\\platforms\\android\\nativescript_loading_indicator.aar": "104ec7cd62b58d16975773b221a75398e9be6615"
 	},
 	"nativescript-plugin-firebase": {
-		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-plugin-firebase\\platforms\\android\\nativescript-firebase-mlkit-helper.jar-disabled": "d4ae4e5e19f9a7e46fc693eeb778883246c49d00",
-		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-plugin-firebase\\platforms\\android\\include.gradle": "87ea516614937013fecddbef383b4bf7d572f849",
 		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-plugin-firebase\\platforms\\android\\firebase-release.aar": "e1a0244835b078d3faab4fcd4e1cc50828d2a161",
-		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-plugin-firebase\\platforms\\android\\nativescript_plugin_firebase.aar": "69fcaa3d18050bc6e7faf17fb92b6ab5b58e23ca",
-		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-plugin-firebase\\platforms\\android\\res\\raw\\beep.ogg": "1a522c83c9af8babf4b1aa83755ed93742a815c6"
+		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-plugin-firebase\\platforms\\android\\include.gradle": "87ea516614937013fecddbef383b4bf7d572f849",
+		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-plugin-firebase\\platforms\\android\\nativescript-firebase-mlkit-helper.jar-disabled": "d4ae4e5e19f9a7e46fc693eeb778883246c49d00",
+		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-plugin-firebase\\platforms\\android\\res\\raw\\beep.ogg": "1a522c83c9af8babf4b1aa83755ed93742a815c6",
+		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-plugin-firebase\\platforms\\android\\nativescript_plugin_firebase.aar": "69fcaa3d18050bc6e7faf17fb92b6ab5b58e23ca"
 	},
 	"nativescript-socketio": {
 		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-socketio\\platforms\\android\\include.gradle": "c541a1b67002137b77d5038c1424589f066408d9",
 		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-socketio\\platforms\\android\\fancylogger-release.aar": "3d953e0e92d87fa89414276ac07edc7347a92b5d"
+	},
+	"nativescript-ui-listview": {
+		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-ui-listview\\platforms\\android\\include.gradle": "47ffe675113a982585b2386750b2d4305b66b6ca",
+		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-ui-listview\\platforms\\android\\typings\\listview.d.ts": "d3b76f21820076bdd93468055d6da69e9b41d98e",
+		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-ui-listview\\platforms\\android\\TNSListView-release.aar": "7d6beb6a454d6e59b38f1df1f2d33e86fb9d447f"
 	},
 	"nativescript-ui-sidedrawer": {
 		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-ui-sidedrawer\\platforms\\android\\TNSSideDrawer-release.aar": "e6e4d527ff85743c270768018b9ea720ec5b9dda",

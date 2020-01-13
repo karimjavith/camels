@@ -1,7 +1,7 @@
 // NativeScript core theme
 // @see https://docs.nativescript.org/ui/theme
-@import "~@nativescript/theme/core";
-@import "~@nativescript/theme/orange";
+@import '~@nativescript/theme/core';
+@import '~@nativescript/theme/orange';
 
 // Override variables here
 $base-theme: Default;
@@ -34,4 +34,61 @@ $series-f: #a00201;
 button {
   @include colorize($bg-color: primary);
   //   @include colorize($contrasted-border-color: accent background 20%);
+}
+.fa {
+  font-family: FontAwesome, fa-solid-900;
+}
+.page {
+  align-items: center;
+  flex-direction: column;
+}
+
+.action-bar {
+  height: 50;
+}
+
+.item {
+  padding: 10;
+  background-color: white;
+  border-color: $grey;
+  border-bottom-width: 1;
+  border-bottom-style: solid;
+}
+
+.big {
+  font-size: 20;
+}
+
+.thumbnail {
+  margin-right: 10;
+}
+
+.swipe-item {
+  color: white;
+  padding: 16;
+}
+
+.swipe-item.left {
+  background-color: #240774;
+}
+
+.swipe-item.right {
+  background-color: #79000a;
+}
+
+.drawer {
+  padding: 10;
+  background-color: #333366;
+}
+
+.sideLogo {
+  margin-bottom: 10;
+}
+
+.sideLabel {
+  padding: 10;
+}
+
+.sideLightGrayLabel {
+  background-color: $grey;
 }

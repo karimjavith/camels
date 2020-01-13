@@ -8,6 +8,10 @@
         "directory": "..\\..\\node_modules\\@nstudio\\nativescript-loading-indicator"
     },
     {
+        "name": "nativescript-fonticon",
+        "directory": "..\\..\\node_modules\\nativescript-fonticon"
+    },
+    {
         "name": "nativescript-plugin-firebase",
         "directory": "..\\..\\node_modules\\nativescript-plugin-firebase"
     },
@@ -18,6 +22,10 @@
     {
         "name": "nativescript-toasty",
         "directory": "..\\..\\node_modules\\nativescript-toasty"
+    },
+    {
+        "name": "nativescript-ui-listview",
+        "directory": "..\\..\\node_modules\\nativescript-ui-listview"
     },
     {
         "name": "nativescript-ui-sidedrawer",
