@@ -1,6 +1,6 @@
 <script>
 import { mapState, mapActions } from 'vuex'
-import { login, getRoles } from '../_shared/firbase.ts'
+import { login, getUser } from '../_shared/firbase.ts'
 import Home from './Home.vue'
 import CreatePassword from './CreatePassword.vue'
 
@@ -56,13 +56,15 @@ export default {
     },
 
     async login() {
-      const { uid, token } = await login(this.user.email, this.user.password)
+      const { uid, token, role } = await login(this.user.email, this.user.password)
       this.setGlobalLoginState({ token })
-      const roles = await getRoles()
-      const docs = await roles.get()
-      if (docs.exists) {
-        const data = docs.data()
-        this.setUserRole({ role: data[uid].role })
+      if (role) {
+        this.setUserRole({ role })
+      } else {
+        const result = await getUser(uid)
+        const { user } = result.json
+        console.log(user)
+        this.setUserRole({ role: user.customClaims['role'] })
       }
     },
 
@@ -111,7 +113,7 @@ export default {
     <FlexboxLayout class="page">
       <StackLayout class="form">
         <!-- <Image class="logo" src="~/assets/images/NativeScript-Vue.png" />
-        <Label class="header" text="Camels" /> -->
+        <Label class="header" text="Camels" />-->
 
         <StackLayout class="input-field">
           <TextField

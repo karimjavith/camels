@@ -5,6 +5,7 @@ import Account from './Account.vue'
 export default {
   name: 'Home',
   components: { Account },
+  props: {},
   data() {
     return {
       msg: 'Hello world!!',
@@ -13,7 +14,6 @@ export default {
   },
   computed: mapState({
     token: state => state.authenticationModule.userContext.token,
-    role: state => state.authenticationModule.userContext.role,
   }),
   mounted: function() {
     this.$nextTick(function() {
@@ -31,7 +31,7 @@ export default {
       }
     },
     onNavigationButtonTap() {
-      Frame.topmost().goBack()
+      // Frame.topmost().goBack()
     },
     onHomeTap() {
       this.msg = 'Hello world!!'

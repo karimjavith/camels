@@ -1,6 +1,6 @@
 <script>
 import Login from './Login.vue'
-import { createUser, getInvitationStatusFor } from '../_shared/firbase.ts'
+import { signup } from '../_shared/firbase.ts'
 export default {
   name: 'CreatePassword',
   data() {
@@ -22,25 +22,14 @@ export default {
     focusSubmitButton() {
       this.$refs.submitButton.nativeView.focus()
     },
-    async checkIfTheUserIsInvited() {
-      const documents = await getInvitationStatusFor(this.user.email)
-      const result = await documents.get()
-      console.log(result.exists)
-      if (result.exists) {
-        return true
-      }
-      return false
-    },
     async submit() {
-      const isUserInvited = await this.checkIfTheUserIsInvited()
-      if (!isUserInvited) {
-        alert('Error! Your email address is not invited.')
-        return
-      }
-      const result = await createUser(this.user.email, this.user.password)
+      console.log('Sign up fired')
+      const result = await signup(this.user.email, this.user.password)
       console.log(result)
       if (result && !result.isError) {
         this.$navigateTo(Login, { clearHistory: true })
+      } else {
+        alert(result.message)
       }
     },
   },
