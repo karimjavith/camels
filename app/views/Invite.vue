@@ -1,5 +1,5 @@
 <script>
-import { sendSignInLink, addInvitesToCollection } from '../_shared/firbase.ts'
+import { sendSignInLink, addInvitesToCollection } from '../_shared/firebase/users.ts'
 export default {
   data() {
     return {
@@ -22,9 +22,12 @@ export default {
       if (!result.isError) {
         const createUserResult = await addInvitesToCollection(this.email)
         console.log(createUserResult)
-        if (result && !result.isError) {
+        if (createUserResult && !createUserResult.isError) {
           this.email = ''
         }
+      } else {
+        const { message } = result
+        alert(message)
       }
     },
 

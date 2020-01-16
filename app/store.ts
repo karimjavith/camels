@@ -5,10 +5,11 @@ import { TAppState, TAuthState } from './types/TState'
 Vue.use(Vuex)
 const state: TAuthState = {
   userContext: {
-    userId: null,
+    uid: null,
     token: '',
     invited: false,
     role: 0,
+    loggedIn: false,
   },
 }
 const namespaced: boolean = true
@@ -25,30 +26,30 @@ const actions: ActionTree<TAuthState, TAppState> = {
   setCreatePasswordPage({ commit }) {
     commit('setCreatePasswordPage')
   },
-  setUserRole({ commit }, payload) {
-    commit('setUserRole', payload)
-  },
 }
 const mutations: MutationTree<TAuthState> = {
-  setUserLoggedIn(state, payload) {
-    state.userContext.token = payload.token
+  setUserLoggedIn(state, { token, uid, role, loggedIn }) {
+    state.userContext = {
+      token,
+      uid,
+      role,
+      loggedIn,
+    }
   },
   setUserLoggedOut(state) {
     state.userContext = {
-      userId: null,
+      uid: null,
       token: '',
       invited: false,
       role: 0,
+      loggedIn: false,
     }
   },
   setUserAuthToken(state, payload) {
-    state.userContext.token = payload.token
+    state.userContext = { ...state.userContext, token: payload.token }
   },
   setCreatePasswordPage(state) {
-    state.userContext.invited = true
-  },
-  setUserRole(state, payload) {
-    state.userContext.role = payload.role
+    state.userContext = { ...state.userContext, invited: true }
   },
 }
 const authenticationModule: Module<TAuthState, TAppState> = {

@@ -3,9 +3,10 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import Invite from './Invite.vue'
+import UserList from './UserList.vue'
 import Login from './Login.vue'
 import ListScrollView from '../components/ListScrollView.vue'
-import { logout } from '../_shared/firbase.ts'
+import { logout } from '../_shared/firebase/users.ts'
 import { AppRoles } from '../_shared/enum'
 
 export default {
@@ -13,25 +14,33 @@ export default {
   components: { ListScrollView },
   data() {
     return {
-      items: [
-        {
-          role: AppRoles.Admin,
-          name: 'Invite',
-          component: Invite,
-          image: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
-        },
-        {
-          role: AppRoles.User,
-          name: 'Sign out',
-          image: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
-        },
-      ],
+      state: {
+        items: [
+          {
+            role: AppRoles.Admin,
+            name: 'Invite',
+            component: Invite,
+            icon: 'fa-user-plus',
+          },
+          {
+            role: AppRoles.Admin,
+            name: 'Users',
+            component: UserList,
+            icon: 'fa-user',
+          },
+          {
+            role: AppRoles.User,
+            name: 'Sign out',
+            icon: 'fa-power-off',
+          },
+        ],
+      },
     }
   },
   computed: mapState({
     role: state => state.authenticationModule.userContext.role,
-    entitledItems(state) {
-      return this.items.filter(x => {
+    items() {
+      return this.state.items.filter(x => {
         if (x.role === AppRoles.User) return true
         return x.role === this.role
       })
@@ -42,30 +51,22 @@ export default {
       clearGlobalLoginState: 'signedOut',
     }),
     async onSignOutTap() {
-      const result = await logout()
+      await logout()
       this.clearGlobalLoginState()
-      this.$navigateTo(Login)
+      this.$navigateTo(Login, { clearHistory: true })
     },
     async onItemTap(event) {
       if (event.item.name === 'Sign out') {
         return await this.onSignOutTap()
       }
-      this.$navigateTo(event.item.component)
+      await this.$navigateTo(event.item.component)
     },
   },
 }
 </script>
 <template>
   <StackLayout orientation="horizontal">
-    <ListScrollView
-      ref="list"
-      :items="entitledItems"
-      :pullToRefresh="false"
-      :itemReorder="false"
-      :swipeActions="false"
-      @itemTap="onItemTap"
-    >
-    </ListScrollView>
+    <ListScrollView ref="list" @itemTap="onItemTap" :items="state.items"> </ListScrollView>
   </StackLayout>
 </template>
 

@@ -23,10 +23,13 @@
 		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-ui-sidedrawer\\platforms\\android\\typings\\sidedrawer.d.ts": "8256a2295125597755fe6a6faee866b0750e65f2"
 	},
 	"nativescript-ui-core": {
-		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-ui-core\\platforms\\android\\typings\\core.d.ts": "5c032652edfa1719ef8c8190fc0f66d3b1c313c2",
-		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-ui-core\\platforms\\android\\TNSCore-release.aar": "0e2fe0b867821ad56b8f0b9c8ac4c90f4c399e3c"
+		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-ui-core\\platforms\\android\\TNSCore-release.aar": "0e2fe0b867821ad56b8f0b9c8ac4c90f4c399e3c",
+		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-ui-core\\platforms\\android\\typings\\core.d.ts": "5c032652edfa1719ef8c8190fc0f66d3b1c313c2"
 	},
 	"tns-core-modules-widgets": {
 		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\tns-core-modules-widgets\\platforms\\android\\widgets-release.aar": "0746721bed98e833a85c066a1994200dd8dd111b"
+	},
+	"nativescript-loading-indicator": {
+		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-loading-indicator\\platforms\\android\\nativescript_loading_indicator.aar": "4e2a39f50d19fb7ef98ee50c586b6a2d68adbd4f"
 	}
 }

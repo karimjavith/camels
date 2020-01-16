@@ -4,9 +4,10 @@ export type TAppState = {
 
 export type TAuthState = {
   userContext: {
-    userId?: number | null
+    uid?: string | null
     token?: string
     invited?: boolean
     role?: number
+    loggedIn?: boolean
   }
 }

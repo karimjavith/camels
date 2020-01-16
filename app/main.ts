@@ -1,6 +1,7 @@
 import VueDevtools from 'nativescript-vue-devtools'
 import Vue from 'nativescript-vue'
 import RadListView from 'nativescript-ui-listview/vue'
+import firebase from 'nativescript-plugin-firebase'
 // @ts-ignore
 import { TNSFontIcon, fonticon } from 'nativescript-fonticon'
 // TNSFontIcon.debug = true
@@ -15,13 +16,13 @@ Vue.use(RadListView)
 
 import { crashlytics } from 'nativescript-plugin-firebase'
 import { isAndroid, isIOS } from 'tns-core-modules/platform'
+import { getString } from 'tns-core-modules/application-settings'
 import Theme from '@nativescript/theme'
 import Login from './views/Login.vue'
-const ApplicationSettings = require('tns-core-modules/application-settings')
+import Home from './views/Home.vue'
 
 import store from './store'
 Theme.setMode(Theme.Light) // Or Theme.Light
-const firebase = require('nativescript-plugin-firebase')
 
 if (isAndroid) {
   // eslint-disable-next-line no-undef
@@ -43,16 +44,24 @@ firebase
     // see their respective docs.
     crashlyticsCollectionEnabled: true,
     onDynamicLinkCallback: function(result: any) {
-      alert(result.url)
+      console.log('Dynamic link :: ' + result.url)
       store.dispatch('authenticationModule/setCreatePasswordPage')
+    },
+    showNotificationsWhenInForeground: true,
+    onMessageReceivedCallback: (message: firebase.Message) => {
+      console.log(`Title :: ${message.title}`)
+      console.log(`Body :: ${message.body}`)
+    },
+    onPushTokenReceivedCallback: function(token: string) {
+      console.log('Firebase push token :: ' + token)
     },
   })
   .then(
     () => {
-      console.log('firebase.init done')
+      console.log('firebase.init :: done')
     },
     (error: any) => {
-      console.log(`firebase.init error: ${error}`)
+      console.log(`firebase.init error :: ${error}`)
     }
   )
 setTimeout(() => {
@@ -79,24 +88,29 @@ setTimeout(() => {
     })
     .then(
       function() {
-        console.log('AdMob banner showing')
+        console.log('AdMob banner status :: Showing')
       },
       function(errorMessage: any) {
         console.log(errorMessage)
       }
     )
 }, 5000)
+
 // Prints Vue logs when --env.production is *NOT* set while building
 Vue.config.silent = TNS_ENV === 'production'
-
 Vue.registerElement('RadSideDrawer', () => require('nativescript-ui-sidedrawer').RadSideDrawer)
-if (ApplicationSettings.getString('camels-token')) {
+
+let app = Login
+
+if (getString('camels-token')) {
+  console.log(`token exists :: `)
   store.dispatch('authenticationModule/setAuthToken', {
-    token: JSON.parse(ApplicationSettings.getString('camels-token')),
+    token: getString('camels-token'),
   })
+  app = Home
 }
 
 new Vue({
   store,
-  render: h => h('Frame', [h(Login)]),
+  render: h => h('Frame', [h(app)]),
 }).$start()
