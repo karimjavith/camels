@@ -1,6 +1,6 @@
 <script>
 import Login from './Login.vue'
-import { signup } from '../_shared/firbase.ts'
+import { signup } from '../_shared/firebase/users.ts'
 export default {
   name: 'CreatePassword',
   data() {
@@ -37,44 +37,44 @@ export default {
 </script>
 
 <template>
-  <Page action-bar-hidden="true">
+  <Page actionBarHidden="true">
     <FlexboxLayout class="page">
-      <StackLayout class="form">
+      <StackLayout class="nt-form form">
         <Image class="logo" src="~/assets/images/NativeScript-Vue.png" />
         <Label class="header" text="Camels" />
-        <StackLayout class="input-field" margin-bottom="25">
+        <StackLayout class="nt-input input-field" margin-bottom="25">
           <TextField
             ref="email"
             v-model="user.email"
-            :returnKeyType="'next'"
             @returnPress="focusPassword"
-            class="input"
+            returnKeyType="next"
+            class="nt-input input"
             hint="camel@gmail.com"
             type="email"
             font-size="18"
           />
           <StackLayout class="hr-light" />
         </StackLayout>
-        <StackLayout class="input-field" margin-bottom="25">
+        <StackLayout class="nt-input input-field" margin-bottom="25">
           <TextField
             ref="password"
             v-model="user.password"
-            :returnKeyType="'next'"
             @returnPress="focusConfirmPassword"
-            class="input"
+            returnKeyType="next"
+            class="nt-input input"
             hint="*********"
             secure="true"
             font-size="18"
           />
           <StackLayout class="hr-light" />
         </StackLayout>
-        <StackLayout class="input-field" margin-bottom="25">
+        <StackLayout class="nt-input input-field" margin-bottom="25">
           <TextField
             ref="confirmPassword"
             v-model="user.confirmPassword"
-            :returnKeyType="'next'"
             @returnPress="focusSubmitButton"
-            class="input"
+            returnKeyType="next"
+            class="nt-input input"
             hint="confirm Password"
             secure="true"
             font-size="18"
@@ -82,14 +82,19 @@ export default {
           <StackLayout class="hr-light" />
         </StackLayout>
 
-        <Button ref="submitButton" @tap="submit" text="Sign up" class="btn btn-primary m-t-20" />
+        <Button
+          ref="submitButton"
+          @tap="submit"
+          text="Sign up"
+          class="btn btn-primary m-t-20 -rounded-sm -primary"
+        />
       </StackLayout>
     </FlexboxLayout>
   </Page>
 </template>
 
 <style scoped lang="scss">
-.page {
+Page {
   align-items: center;
   flex-direction: column;
 }

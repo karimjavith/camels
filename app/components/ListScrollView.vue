@@ -5,12 +5,29 @@ export default {
   props: {
     items: {
       type: Array,
-      // eslint-disable-next-line vue/require-valid-default-prop
-      default: [],
+      default: function() {
+        return []
+      },
     },
-    pullToRefresh: Boolean,
-    itemReorder: Boolean,
-    swipeActions: Boolean,
+    pullToRefresh: {
+      type: Boolean,
+      default: false,
+    },
+    itemReorder: {
+      type: Boolean,
+      default: false,
+    },
+    swipeActions: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  data() {
+    return {
+      state: {
+        markText: 'Mark',
+      },
+    }
   },
   methods: {
     onItemTap(event) {
@@ -53,21 +70,26 @@ export default {
 <template>
   <RadListView
     ref="listView"
+    :pullToRefresh="pullToRefresh"
+    :itemReorder="itemReorder"
+    :swipeActions="swipeActions"
     @itemTap="onItemTap"
     @pullToRefreshInitiated="onPullToRefreshInitiated"
     @itemReordered="onItemReordered"
     @itemSwipeProgressStarted="onSwipeStarted"
     for="item in items"
-    pullToRefresh="pullToRefresh"
-    itemReorder="itemReorder"
-    swipeActions="swipeActions"
   >
     <v-template>
       <GridLayout columns="50, *" rows="*" class="item">
-        <Image :src="item.image" col="0" class="thumbnail" />
+        <Label :text="item.icon | fonticon" col="0" class="thumbnail fa t-16" />
         <StackLayout col="1">
           <label :text="item.name" class="h2" col="1" />
           <label :text="item.description" class="p" col="1" />
+          <Label
+            :text="item.secondaryIcon | fonticon"
+            v-if="Boolean(item.secondaryIcon)"
+            class="fa t-16"
+          />
         </StackLayout>
       </GridLayout>
     </v-template>
@@ -81,7 +103,7 @@ export default {
           class="swipe-item left"
           orientation="horizontal"
         >
-          <Label text="mark" verticalAlignment="center" horizontalAlignment="center" />
+          <Label :text="state.markText" verticalAlignment="center" horizontalAlignment="center" />
         </StackLayout>
         <StackLayout
           id="delete-view"
@@ -97,4 +119,8 @@ export default {
   </RadListView>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+.t-16 {
+  font-size: 16;
+}
+</style>

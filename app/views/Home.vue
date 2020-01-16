@@ -2,21 +2,29 @@
 import { mapState } from 'vuex'
 import Login from './Login.vue'
 import Account from './Account.vue'
+import { checkIfTokenIsValid } from '../_shared/firebase/users.ts'
+import CreatePassword from './CreatePassword.vue'
+
 export default {
   name: 'Home',
   components: { Account },
   props: {},
   data() {
     return {
-      msg: 'Hello world!!',
-      currentView: null,
+      state: {
+        loading: true,
+      },
     }
   },
   computed: mapState({
-    token: state => state.authenticationModule.userContext.token,
+    userContext: state => state.authenticationModule.userContext,
+    loading() {
+      return this.state.loading
+    },
   }),
   mounted: function() {
     this.$nextTick(function() {
+      console.log(`Home :: mounted`)
       this.checkAuthentication()
     })
   },
@@ -25,17 +33,21 @@ export default {
     redirectToLogin() {
       this.$navigateTo(Login)
     },
-    checkAuthentication() {
-      if (!this.token) {
+    async checkAuthentication() {
+      const result = await checkIfTokenIsValid()
+      if (!result.verified) {
         this.$navigateTo(Login)
       }
+      this.state.loading = false
+    },
+
+    navigateToPasswordCreationPage() {
+      this.$navigateTo(CreatePassword, { clearHistory: true })
     },
     onNavigationButtonTap() {
       // Frame.topmost().goBack()
     },
-    onHomeTap() {
-      this.msg = 'Hello world!!'
-    },
+    onHomeTap() {},
   },
 }
 </script>
@@ -55,13 +67,13 @@ export default {
     <BottomNavigation selected-index="0">
       <!-- The bottom tab UI is created via TabStrip (the containier) and TabStripItem (for each tab)-->
       <TabStrip>
-        <TabStripItem>
+        <TabStripItem class="tabstripitem">
           <Label :text="'fa-home' | fonticon" class="fa t-16" />
         </TabStripItem>
-        <TabStripItem>
+        <TabStripItem class="tabstripitem">
           <Label :text="'fa-running' | fonticon" class="fa t-16" />
         </TabStripItem>
-        <TabStripItem>
+        <TabStripItem class="tabstripitem">
           <Label :text="'fa-user-circle' | fonticon" class="fa t-16" />
         </TabStripItem>
       </TabStrip>
@@ -69,7 +81,7 @@ export default {
       <!-- The number of TabContentItem components should corespond to the number of TabStripItem components -->
       <TabContentItem>
         <StackLayout orientation="Horizontal">
-          <Label text="Home" class="h2" />
+          <Label v-if="!state.loading" text="Home" class="h2" />
         </StackLayout>
       </TabContentItem>
       <TabContentItem>

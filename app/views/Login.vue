@@ -1,11 +1,13 @@
 <script>
-import { mapState, mapActions } from 'vuex'
-import { login, getUser } from '../_shared/firbase.ts'
+import { mapActions, mapState } from 'vuex'
+import { login } from '../_shared/firebase/users.ts'
 import Home from './Home.vue'
 import CreatePassword from './CreatePassword.vue'
+import InputText from '../components/InputText.vue'
 
 export default {
   name: 'Login',
+  components: { InputText },
   data() {
     return {
       user: {
@@ -15,37 +17,33 @@ export default {
     }
   },
   computed: mapState({
-    token: state => state.authenticationModule.userContext.token,
-    invited: state => state.authenticationModule.userContext.invited,
+    userContext: state => state.authenticationModule.userContext,
   }),
   watch: {
-    token(newValue, oldValue) {
-      if (newValue || oldValue) {
-        this.navigateToHomePage()
-      }
-    },
-    invited(newValue, oldValue) {
-      if (newValue && !this.token) {
-        this.navigateToPasswordCreationPage()
+    userContext(newValue) {
+      if (newValue && newValue.invited && !newValue.loggedIn) {
+        console.log(`invited - watched :: ${newValue.invited}`)
+        if (newValue.invited) {
+          this.navigateToPasswordCreationPage()
+        }
       }
     },
   },
   mounted: function() {
     this.$nextTick(function() {
-      console.log('mounted')
-      this.checkAuthentication()
+      console.log('login :: mounted')
     })
+  },
+  updated: function() {
+    console.log('login :: updated')
   },
   methods: {
     ...mapActions('authenticationModule', {
       setGlobalLoginState: 'signedIn',
-      setUserRole: 'setUserRole',
     }),
-    checkAuthentication() {
-      console.log(this.token)
-      if (this.token) {
-        this.navigateToHomePage()
-      }
+
+    navigateToPasswordCreationPage() {
+      this.$navigateTo(CreatePassword, { clearHistory: true })
     },
     submit() {
       if (!this.user.email || !this.user.password) {
@@ -56,23 +54,11 @@ export default {
     },
 
     async login() {
-      const { uid, token, role } = await login(this.user.email, this.user.password)
-      this.setGlobalLoginState({ token })
-      if (role) {
-        this.setUserRole({ role })
-      } else {
-        const result = await getUser(uid)
-        const { user } = result.json
-        console.log(user)
-        this.setUserRole({ role: user.customClaims['role'] })
+      const { uid, token, role, isError } = await login(this.user.email, this.user.password)
+      if (!isError) {
+        this.setGlobalLoginState({ token, uid, role, loggedIn: true })
+        this.$navigateTo(Home, { clearHistory: true })
       }
-    },
-
-    navigateToHomePage() {
-      this.$navigateTo(Home, { clearHistory: true })
-    },
-    navigateToPasswordCreationPage() {
-      this.$navigateTo(CreatePassword, { clearHistory: true })
     },
 
     forgotPassword() {
@@ -85,7 +71,7 @@ export default {
         cancelButtonText: 'Cancel',
       }).then(data => {
         if (data.result) {
-          console.log(data.result)
+          console.log(`Email for password reset :: ${data.result}`)
         }
       })
     },
@@ -96,7 +82,9 @@ export default {
     focusLoginButton() {
       this.$refs.loginButton.nativeView.focus()
     },
-
+    handleOnChange(data) {
+      this.user[data['modelkey']] = data['value']
+    },
     alert(message) {
       return alert({
         title: 'Camels',
@@ -111,46 +99,44 @@ export default {
 <template>
   <Page actionBarHidden="true">
     <FlexboxLayout class="page">
-      <StackLayout class="form">
-        <!-- <Image class="logo" src="~/assets/images/NativeScript-Vue.png" />
-        <Label class="header" text="Camels" />-->
+      <StackLayout class="nt-form form">
+        <Image class="logo nt-image" src="~/assets/images/NativeScript-Vue.png" />
+        <Label class="header" text="Camels" />
+        <input-text
+          v-model="user.email"
+          @handleOnChange="handleOnChange"
+          @returnPress="focusPassword"
+          modelkey="email"
+          returnKeyType="next"
+          keyboardType="email"
+          placeHolderText="name@camels.com"
+        ></input-text>
+        <input-text
+          ref="password"
+          v-model="user.password"
+          :secure="true"
+          @handleOnChange="handleOnChange"
+          @returnPress="focusLoginButton"
+          modelkey="password"
+          returnKeyType="next"
+          keyboardType="password"
+          placeHolderText="***********"
+        ></input-text>
 
-        <StackLayout class="input-field">
-          <TextField
-            v-model="user.email"
-            @returnPress="focusPassword"
-            class="input"
-            hint="youname@gmail.com"
-            keyboard-type="email"
-            autocorrect="false"
-            autocapitalization-type="none"
-            return-key-type="next"
-          />
-          <StackLayout class="hr-light" />
-        </StackLayout>
-
-        <StackLayout class="input-field">
-          <TextField
-            ref="password"
-            v-model="user.password"
-            :returnKeyType="token ? 'done' : 'next'"
-            @returnPress="focusLoginButton"
-            class="input"
-            hint="*********"
-            secure="true"
-          />
-          <StackLayout class="hr-light" />
-        </StackLayout>
-
-        <Button ref="loginButton" @tap="submit" text="Log In" class="btn btn-primary m-t-20" />
-        <Label @tap="forgotPassword" text="Forgot your password?" class="login-label" />
+        <Button
+          ref="loginButton"
+          @tap="submit"
+          text="Log In"
+          class="btn btn-primary m-t-20 -primary -rounded-sm"
+        />
+        <Label @tap="forgotPassword" text="Forgot your password?" class="nt-label login-label" />
       </StackLayout>
     </FlexboxLayout>
   </Page>
 </template>
 
 <style scoped lang="scss">
-page {
+Page {
   align-items: center;
   flex-direction: column;
 }
@@ -177,18 +163,9 @@ page {
   color: #c19a6b;
 }
 
-.input-field {
-  margin-bottom: 25;
-
-  .input {
-    font-size: 18;
-    placeholder-color: #a8a8a8;
-  }
-}
 .btn-primary {
   height: 50;
   margin: 30 5 15 5;
-  border-radius: 5;
   font-size: 16;
   font-weight: 500;
 }

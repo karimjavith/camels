@@ -1,5 +1,5 @@
 <script>
-import { sendSignInLink, addInvitesToCollection } from '../_shared/firbase.ts'
+import { sendSignInLink, addInvitesToCollection } from '../_shared/firebase/users.ts'
 export default {
   data() {
     return {
