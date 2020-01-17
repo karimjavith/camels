@@ -1,158 +1,93 @@
-import firebase from 'nativescript-plugin-firebase'
-import * as firebaseApi from 'nativescript-plugin-firebase/app'
-import { setString, remove, getString } from 'tns-core-modules/application-settings'
-import { httpGet, httpPost, HttpStatusCode, IHttpBasicResponse, IHttpResponse } from '../http/http'
-import { IdTokenResult } from 'nativescript-plugin-firebase'
+import { httpGet, httpPost, httpPatch, httpDelete } from '../http/http'
+import { handleResponse, handleException } from '../http/httpHelper'
+import { TMatchDetails } from '../../types/TMatchDetails'
+import { MatchAvailabilityStatus } from '../../types/EMatchAvailabilityStatus'
 
 const baseUrl = 'https://us-central1-camels-dev.cloudfunctions.net/api/matches'
 
-async function getJson(response: IHttpBasicResponse): Promise<any> {
+const getAllMatches = async (uid: string) => {
   try {
-    return await response.json()
-  } catch (e) {
-    return null
-  }
-}
-
-const handleException = (error: any, type: string) => {
-  console.log(error)
-  alert(type + ': ' + error.message)
-  return { message: error.message, type, isError: true, status: error.status, json: '' }
-}
-
-async function handleResponse(response: IHttpBasicResponse): Promise<IHttpResponse> {
-  if (response.status === HttpStatusCode.Unauthorized) {
-    return await handleException({ status: response.status }, 'Unauthorised')
-  }
-  const ok = response.status === HttpStatusCode.OK || response.status === HttpStatusCode.Created
-  const json = await getJson(response)
-
-  if (json == null) {
-    return {
-      fieldErrors: {},
-      json: null,
-      status: response.status,
-      message: '',
-    }
-  } else {
-    const message = json.message
-
-    return {
-      fieldErrors: ok ? {} : json.errors,
-      json: ok ? json : null,
-      status: response.status,
-      message,
-      isError: !ok ? true : false,
-    }
-  }
-}
-const login = async (email: string, password: string) => {
-  try {
-    const { user } = await firebaseApi.auth().signInWithEmailAndPassword(email, password)
-    console.log('Firebase login success')
-    return user.getIdTokenResult().then((result: IdTokenResult) => {
-      const userData = { uid: user.uid, token: result.token, role: result.claims['role'] }
-      console.log(userData)
-      setString('camels-token', userData.token)
-      return userData
-    })
-  } catch (e) {
-    return handleException(e, 'Login failed')
-  }
-}
-const logout = async () => {
-  try {
-    const data = await firebaseApi.auth().signOut()
-    remove('camels-token')
-    console.log('Firebase logout success')
-    return data
-  } catch (e) {
-    return handleException(e, 'Logout failed')
-  }
-}
-
-async function checkIfTokenIsValid() {
-  try {
-    const result = await httpGet(baseUrl + '/verifyIdToken')
-    if (result.status !== HttpStatusCode.OK) {
-      throw new Error()
-    }
-    return { verified: true }
-  } catch (e) {
-    return { verified: false }
-  }
-}
-const getUser = async (id: string) => {
-  try {
-    const response = await httpGet(baseUrl + `/users/${id}`)
+    const response = await httpGet(baseUrl + `/all/${uid}`)
     return await handleResponse(response)
   } catch (e) {
     return handleException(e, 'fetch failed')
   }
 }
-const sendSignInLink = async (email: string) => {
+
+const getMatchDetailsForAdmin = async (matchId: string) => {
   try {
-    const fn = firebaseApi.functions().httpsCallable('sendMailForFunctions', 'us-central1')
-    const result = await fn({
-      email,
-      link: 'https://camels.page.link/zXbp',
-      token: getString('camels-token'),
-    })
-    console.log(result)
-    return result
+    const response = await httpGet(baseUrl + `/${matchId}`)
+    return await handleResponse(response)
   } catch (e) {
-    return handleException(e, 'Sending link failed')
+    return handleException(e, 'fetch failed')
   }
 }
-const createUser = async (email: string, password: string) => {
+const getMatchDetailsForUser = async (matchId: string, uid: string) => {
+  try {
+    const response = await httpGet(baseUrl + `/details/user/${matchId}/${uid}`)
+    return await handleResponse(response)
+  } catch (e) {
+    return handleException(e, 'fetch failed')
+  }
+}
+const getUnreadMatchCount = async (uid: string) => {
+  try {
+    const response = await httpGet(baseUrl + `/unreadCount/${uid}`)
+    return await handleResponse(response)
+  } catch (e) {
+    return handleException(e, 'fetch failed')
+  }
+}
+const createMatch = async (matchDetails: TMatchDetails) => {
   try {
     const response = await httpPost(baseUrl + '/createUser', {
-      email,
-      password,
-      displayName: email,
-      role: 'user',
+      ...matchDetails,
     })
     return await handleResponse(response)
   } catch (e) {
     return handleException(e, 'Creating user failed')
   }
 }
-const signup = async (email: string, password: string) => {
-  console.log('signup for ' + email)
+const updateMatch = async (matchId: string, matchDetails: TMatchDetails) => {
   try {
-    const pushToken = await firebase.getCurrentPushToken()
-    const response = await httpPost(baseUrl + '/signup', {
-      email,
-      password,
-      displayName: email,
-      role: 'user',
-      pushToken,
+    const response = await httpPatch(baseUrl + `/${matchId}`, {
+      ...matchDetails,
     })
-    console.log(response)
     return await handleResponse(response)
   } catch (e) {
-    return handleException(e, 'Sign up failed')
+    return handleException(e, 'Update failed')
   }
 }
-const addInvitesToCollection = async (email: string) => {
+const updateMatchStatusForUser = async (
+  matchId: string,
+  uid: string,
+  status: MatchAvailabilityStatus
+) => {
   try {
-    const inviteCollection = await firebaseApi.firestore().collection('invites')
-    inviteCollection.doc(email).set({
-      status: true,
+    const response = await httpPatch(baseUrl + `/details/update/${matchId}`, {
+      uid,
+      status,
     })
-    alert('Yayyy!! Invite sent to the camel')
-    return inviteCollection
+    return await handleResponse(response)
   } catch (e) {
-    return handleException(e, 'Add invitiee failed')
+    return handleException(e, 'Update failed')
+  }
+}
+const removeMatch = async (matchId: string) => {
+  try {
+    const response = await httpDelete(baseUrl + `/${matchId}`)
+    return await handleResponse(response)
+  } catch (e) {
+    return handleException(e, 'Delete failed')
   }
 }
 export {
-  login,
-  logout,
-  getUser,
-  sendSignInLink,
-  createUser,
-  addInvitesToCollection,
-  signup,
-  checkIfTokenIsValid,
+  getAllMatches,
+  getMatchDetailsForAdmin,
+  getUnreadMatchCount,
+  getMatchDetailsForUser,
+  createMatch,
+  updateMatch,
+  updateMatchStatusForUser,
+  removeMatch,
 }

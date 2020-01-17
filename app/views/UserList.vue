@@ -2,13 +2,13 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import ListScrollView from '../components/ListScrollView.vue'
+import BaseListScrollView from '../components/BaseListScrollView.vue'
 import { getAllUsers, updateUser, removeUser } from '../_shared/firebase/users.ts'
 import { AppRoles } from '../_shared/enum'
 
 export default {
   name: 'UserList',
-  components: { ListScrollView },
+  components: { BaseListScrollView },
   data() {
     return {
       state: {
@@ -26,8 +26,11 @@ export default {
       return this.state.items
     },
   }),
-  mounted: function() {
+  created: function() {
     this.state.loading = true
+    console.log(`UserList :: created`)
+  },
+  mounted: function() {
     console.log(`UserList :: mounted`)
     this.$nextTick(function() {
       this.getUserList()
@@ -58,6 +61,7 @@ export default {
         }
       }
       this.state = { ...this.state, loading: false }
+      return
     },
     async onItemTap(event) {},
     async onItemDeleted(item) {
@@ -133,12 +137,12 @@ export default {
       <ActivityIndicator
         :visibility="state.loading ? 'visible' : 'collapse'"
         :busy="state.loading"
-        width="50"
-        height="50"
+        width="20"
+        height="20"
         class="loader"
       ></ActivityIndicator>
       <StackLayout v-show="!state.loading" orientation="horizontal">
-        <ListScrollView
+        <BaseListScrollView
           ref="userlist"
           :items="state.items"
           @itemTap="onItemTap"
@@ -146,7 +150,7 @@ export default {
           @itemMarked="onItemMarked"
           :swipeActions="true"
         >
-        </ListScrollView>
+        </BaseListScrollView>
       </StackLayout>
     </StackLayout>
   </Page>

@@ -111,3 +111,4 @@ C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\build\exploded-
 C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\build\exploded-dependencies\fc6ce90b88305f5ebff8eaf7edf1044a\classes.jar
 C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\build\exploded-dependencies\feb9462c463aae69500afd4750adf5fc\classes.jar
 C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\build\exploded-dependencies\ffd57a764a6452b1e1785ab59d137e82\grpc-api-1.21.0.jar
+C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\build\intermediates\javac\debug

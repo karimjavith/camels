@@ -1,6 +1,7 @@
 import VueDevtools from 'nativescript-vue-devtools'
 import Vue from 'nativescript-vue'
 import RadListView from 'nativescript-ui-listview/vue'
+import { ModalStack, overrideModalViewMethod, VueWindowedModal } from 'nativescript-windowed-modal'
 import firebase from 'nativescript-plugin-firebase'
 // @ts-ignore
 import { TNSFontIcon, fonticon } from 'nativescript-fonticon'
@@ -98,7 +99,12 @@ setTimeout(() => {
 
 // Prints Vue logs when --env.production is *NOT* set while building
 Vue.config.silent = TNS_ENV === 'production'
+
+overrideModalViewMethod()
 Vue.registerElement('RadSideDrawer', () => require('nativescript-ui-sidedrawer').RadSideDrawer)
+Vue.registerElement('CardView', () => require('@nstudio/nativescript-cardview').CardView)
+Vue.registerElement('ModalStack', () => ModalStack)
+Vue.use(VueWindowedModal)
 
 let app = Login
 

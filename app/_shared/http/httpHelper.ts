@@ -20,6 +20,12 @@ async function handleResponse(response: IHttpBasicResponse): Promise<IHttpRespon
       'Unauthorised'
     )
   }
+  if (response.status === HttpStatusCode.Forbidden) {
+    return await handleException(
+      { status: response.status, message: response.statusText },
+      'Forbidden'
+    )
+  }
   if (response.status === HttpStatusCode.NotFound) {
     return await handleException(
       { status: response.status, message: response.statusText },
@@ -30,6 +36,12 @@ async function handleResponse(response: IHttpBasicResponse): Promise<IHttpRespon
     return await handleException(
       { status: response.status, message: response.statusText },
       'Not enough data'
+    )
+  }
+  if (response.status === HttpStatusCode.InternalServerError) {
+    return await handleException(
+      { status: response.status, message: response.statusText },
+      'Server error'
     )
   }
   const ok = response.status === HttpStatusCode.OK || response.status === HttpStatusCode.Created

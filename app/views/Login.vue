@@ -3,11 +3,12 @@ import { mapActions, mapState } from 'vuex'
 import { login } from '../_shared/firebase/users.ts'
 import Home from './Home.vue'
 import CreatePassword from './CreatePassword.vue'
-import InputText from '../components/InputText.vue'
+import BaseTextField from '../components/BaseTextField.vue'
+import BaseButton from '../components/BaseButton.vue'
 
 export default {
   name: 'Login',
-  components: { InputText },
+  components: { BaseTextField, BaseButton },
   data() {
     return {
       user: {
@@ -45,7 +46,7 @@ export default {
     navigateToPasswordCreationPage() {
       this.$navigateTo(CreatePassword, { clearHistory: true })
     },
-    submit() {
+    handleOnSubmit() {
       if (!this.user.email || !this.user.password) {
         this.alert('Please provide both an email address and password.')
         return
@@ -102,7 +103,7 @@ export default {
       <StackLayout class="nt-form form">
         <Image class="logo nt-image" src="~/assets/images/NativeScript-Vue.png" />
         <Label class="header" text="Camels" />
-        <input-text
+        <BaseTextField
           v-model="user.email"
           @handleOnChange="handleOnChange"
           @returnPress="focusPassword"
@@ -110,8 +111,8 @@ export default {
           returnKeyType="next"
           keyboardType="email"
           placeHolderText="name@camels.com"
-        ></input-text>
-        <input-text
+        ></BaseTextField>
+        <BaseTextField
           ref="password"
           v-model="user.password"
           :secure="true"
@@ -121,14 +122,13 @@ export default {
           returnKeyType="next"
           keyboardType="password"
           placeHolderText="***********"
-        ></input-text>
-
-        <Button
+        ></BaseTextField>
+        <BaseButton
           ref="loginButton"
-          @tap="submit"
+          @handleOnClick="handleOnSubmit"
+          :class="{ 'm-t-20': true, '-primary': true }"
           text="Log In"
-          class="btn btn-primary m-t-20 -primary -rounded-sm"
-        />
+        ></BaseButton>
         <Label @tap="forgotPassword" text="Forgot your password?" class="nt-label login-label" />
       </StackLayout>
     </FlexboxLayout>
@@ -161,13 +161,6 @@ Page {
   margin-bottom: 70;
   text-align: center;
   color: #c19a6b;
-}
-
-.btn-primary {
-  height: 50;
-  margin: 30 5 15 5;
-  font-size: 16;
-  font-weight: 500;
 }
 
 .login-label {
