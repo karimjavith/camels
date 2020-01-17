@@ -1,18 +1,22 @@
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import Login from './Login.vue'
 import Account from './Account.vue'
+import Matches from './Matches.vue'
 import { checkIfTokenIsValid } from '../_shared/firebase/users.ts'
 import CreatePassword from './CreatePassword.vue'
 
 export default {
   name: 'Home',
-  components: { Account },
+  components: { Account, Matches },
   props: {},
   data() {
     return {
       state: {
         loading: true,
+        item: {
+          index: 0,
+        },
       },
     }
   },
@@ -30,14 +34,19 @@ export default {
   },
 
   methods: {
+    ...mapActions('authenticationModule', {
+      setGlobalLoginState: 'signedIn',
+    }),
     redirectToLogin() {
       this.$navigateTo(Login)
     },
     async checkAuthentication() {
       const result = await checkIfTokenIsValid()
-      if (!result.verified) {
+      if (result.json && !result.json.verified) {
         this.$navigateTo(Login)
       }
+      const { uid, role } = result.json.user
+      this.setGlobalLoginState({ uid, role, loggedIn: true, token: this.userContext.token })
       this.state.loading = false
     },
 
@@ -47,7 +56,10 @@ export default {
     onNavigationButtonTap() {
       // Frame.topmost().goBack()
     },
-    onHomeTap() {},
+    onTabItemTap(event) {
+      this.state = { ...this.state, item: { index: event.index } }
+      console.log(this.state.item.index)
+    },
   },
 }
 </script>
@@ -66,15 +78,18 @@ export default {
     </ActionBar>
     <BottomNavigation selected-index="0">
       <!-- The bottom tab UI is created via TabStrip (the containier) and TabStripItem (for each tab)-->
-      <TabStrip>
+      <TabStrip @itemTap="onTabItemTap">
         <TabStripItem class="tabstripitem">
           <Label :text="'fa-home' | fonticon" class="fa t-16" />
+          <Image src="font://&#xf00e;" class="fa hide"></Image>
         </TabStripItem>
-        <TabStripItem class="tabstripitem">
+        <TabStripItem name="matches" class="tabstripitem">
           <Label :text="'fa-running' | fonticon" class="fa t-16" />
+          <Image src="font://&#xf00e;" class="fa hide"></Image>
         </TabStripItem>
         <TabStripItem class="tabstripitem">
           <Label :text="'fa-user-circle' | fonticon" class="fa t-16" />
+          <Image src="font://&#xf00e;" class="fa hide"></Image>
         </TabStripItem>
       </TabStrip>
 
@@ -85,14 +100,15 @@ export default {
         </StackLayout>
       </TabContentItem>
       <TabContentItem>
-        <StackLayout orientation="Horizontal">
-          <Label text="Matches" class="h2" />
-        </StackLayout>
+        <FlexBoxLayout flexDirection="column" flexGrow="1">
+          <Label text="Matches" class="h2" height="70" />
+          <Matches v-if="state.item.index === 1" />
+        </FlexBoxLayout>
       </TabContentItem>
       <TabContentItem>
         <StackLayout>
           <Label text="Account" class="h2" />
-          <account />
+          <Account />
         </StackLayout>
       </TabContentItem>
     </BottomNavigation>
@@ -102,6 +118,10 @@ export default {
 <style scoped>
 ActionBar {
   color: #ffffff;
+}
+.hide {
+  height: 0;
+  width: 0;
 }
 
 .title {

@@ -4,13 +4,14 @@ import { setString, remove, getString } from 'tns-core-modules/application-setti
 import { httpGet, httpPost, httpPatch, HttpStatusCode, httpDelete } from '../http/http'
 import { IdTokenResult } from 'nativescript-plugin-firebase'
 import { handleException, handleResponse } from '../http/httpHelper'
+import { AppRoles } from '../enum'
 
 const baseUrl = 'https://us-central1-camels-dev.cloudfunctions.net/api/users'
 const login = async (email: string, password: string) => {
   try {
     const { user } = await firebaseApi.auth().signInWithEmailAndPassword(email, password)
     console.log('Firebase login success')
-    return user.getIdTokenResult().then((result: IdTokenResult) => {
+    return user.getIdTokenResult(true).then((result: IdTokenResult) => {
       const userData = { uid: user.uid, token: result.token, role: result.claims['role'] }
       console.log(userData)
       setString('camels-token', userData.token)
@@ -33,11 +34,11 @@ const logout = async () => {
 
 async function checkIfTokenIsValid() {
   try {
-    const result = await httpGet(baseUrl + '/verifyIdToken')
-    if (result.status !== HttpStatusCode.OK) {
+    const response = await httpGet(baseUrl + '/verifyIdToken')
+    if (response.status !== HttpStatusCode.OK) {
       throw new Error()
     }
-    return { verified: true }
+    return await handleResponse(response)
   } catch (e) {
     return { verified: false }
   }
@@ -94,7 +95,7 @@ const signup = async (email: string, password: string) => {
       email,
       password,
       displayName: email,
-      role: 'user',
+      role: AppRoles.User,
       pushToken,
     })
     console.log(response)

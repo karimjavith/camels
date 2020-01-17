@@ -4,6 +4,10 @@
         "directory": "..\\..\\node_modules\\@nativescript\\theme"
     },
     {
+        "name": "@nstudio/nativescript-cardview",
+        "directory": "..\\..\\node_modules\\@nstudio\\nativescript-cardview"
+    },
+    {
         "name": "@nstudio/nativescript-loading-indicator",
         "directory": "..\\..\\node_modules\\@nstudio\\nativescript-loading-indicator"
     },
@@ -38,6 +42,10 @@
     {
         "name": "nativescript-vue",
         "directory": "..\\..\\node_modules\\nativescript-vue"
+    },
+    {
+        "name": "nativescript-windowed-modal",
+        "directory": "..\\..\\node_modules\\nativescript-windowed-modal"
     },
     {
         "name": "tns-core-modules",

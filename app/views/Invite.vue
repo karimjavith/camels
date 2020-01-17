@@ -42,7 +42,12 @@ export default {
   <Page>
     <!-- <FlexboxLayout class="page"> -->
     <ActionBar>
-      <Button @tap="onNavigationButtonTap" text="Back" />
+      <ActionItem
+        @tap="onNavigationButtonTap"
+        ios.systemIcon="9"
+        ios.position="left"
+        android.systemIcon="ic_menu_back"
+      ></ActionItem>
     </ActionBar>
     <StackLayout class="form">
       <Label class="header" text="Invite the camel" />
