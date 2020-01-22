@@ -77,6 +77,9 @@
     <color name="common_google_signin_btn_text_light_disabled">#1F000000</color>
     <color name="common_google_signin_btn_text_light_focused">#90000000</color>
     <color name="common_google_signin_btn_text_light_pressed">#DE000000</color>
+    <color name="data_form_invalid_validation_color">#C73339</color>
+    <color name="data_form_list_selected">#cccccc</color>
+    <color name="data_form_valid_validation_color">#4CAF50</color>
     <color name="design_bottom_navigation_shadow_color">#14000000</color>
     <color name="design_default_color_primary">#3F51B5</color>
     <color name="design_default_color_primary_dark">#303F9F</color>
@@ -101,6 +104,7 @@
     <color name="highlighted_text_material_light">#66009688</color>
     <color name="listAccentColor">#FF009688</color>
     <color name="listItemTextColor">#DF000000</color>
+    <color name="list_item_disabled_text_color">#50000000</color>
     <color name="material_blue_grey_800">#ff37474f</color>
     <color name="material_blue_grey_900">#ff263238</color>
     <color name="material_blue_grey_950">#ff21272b</color>
@@ -151,6 +155,8 @@
     <color name="switch_thumb_disabled_material_light">#ffbdbdbd</color>
     <color name="switch_thumb_normal_material_dark">#ffbdbdbd</color>
     <color name="switch_thumb_normal_material_light">#fff1f1f1</color>
+    <color name="token_normal">#E0E0E0</color>
+    <color name="token_selected">#6C6C6C</color>
     <color name="tooltip_background_dark">#e6616161</color>
     <color name="tooltip_background_light">#e6FFFFFF</color>
     <color name="transparent">#00000000</color>
@@ -230,6 +236,8 @@
     <dimen name="abc_text_size_subtitle_material_toolbar">16dp</dimen>
     <dimen name="abc_text_size_title_material">20sp</dimen>
     <dimen name="abc_text_size_title_material_toolbar">20dp</dimen>
+    <dimen name="autocomplete_icon_spacing">10dp</dimen>
+    <dimen name="autocomplete_min_text_width">80dp</dimen>
     <dimen name="browser_actions_context_menu_max_width">500dp</dimen>
     <dimen name="browser_actions_context_menu_min_padding">20dp</dimen>
     <dimen name="card_deck_translation">8dp</dimen>
@@ -243,6 +251,13 @@
     <dimen name="compat_control_corner_material">2dp</dimen>
     <dimen name="compat_notification_large_icon_max_height">320dp</dimen>
     <dimen name="compat_notification_large_icon_max_width">320dp</dimen>
+    <dimen name="data_form_editor_header_text_size">12sp</dimen>
+    <dimen name="data_form_editor_height">42dp</dimen>
+    <dimen name="data_form_editor_margin_horizontal">12dp</dimen>
+    <dimen name="data_form_editor_padding_horizontal">4dp</dimen>
+    <dimen name="data_form_editor_padding_vertical">8dp</dimen>
+    <dimen name="data_form_editor_text_size">16sp</dimen>
+    <dimen name="data_form_editor_validation_text_size">13sp</dimen>
     <dimen name="design_appbar_elevation">4dp</dimen>
     <dimen name="design_bottom_navigation_active_item_max_width">168dp</dimen>
     <dimen name="design_bottom_navigation_active_item_min_width">96dp</dimen>
@@ -475,7 +490,7 @@
     <string name="bottom_sheet_behavior" translatable="false">com.google.android.material.bottomsheet.BottomSheetBehavior</string>
     <string name="character_counter_content_description">Character limit exceeded %1$d of %2$d</string>
     <string name="character_counter_pattern" translatable="false">%1$d / %2$d</string>
-    <string name="com.crashlytics.android.build_id" ns2:ignore="UnusedResources,TypographyDashes" translatable="false">7f5bbe18-fdc8-4c54-8f09-82f64367e285</string>
+    <string name="com.crashlytics.android.build_id" ns2:ignore="UnusedResources,TypographyDashes" translatable="false">4dc9ad25-0dd5-4a4f-98d4-e6c3fe69ae33</string>
     <string msgid="2523291102206661146" name="common_google_play_services_enable_button">Enable</string>
     <string msgid="227660514972886228" name="common_google_play_services_enable_text"><ns1:g id="app_name">%1$s</ns1:g> won\'t work unless you enable Google Play services.</string>
     <string msgid="5122002158466380389" name="common_google_play_services_enable_title">Enable Google Play services</string>

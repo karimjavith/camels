@@ -24,17 +24,9 @@ export default {
 }
 </script>
 <template>
-  <Button @tap="handleOnClick" class="btn-base-icon -outlined -primary -rounded-lg fa ta-14">
+  <Button @tap="handleOnClick" class="nt-button -outline -custom -rounded-lg fa ta-14">
     {{ icon | fonticon }} {{ text }}
   </Button>
 </template>
 
-<style lang="scss">
-.btn-base-icon {
-  font-size: 16;
-  font-weight: 300;
-}
-.t-14 {
-  font-size: 14;
-}
-</style>
+<style lang="scss"></style>

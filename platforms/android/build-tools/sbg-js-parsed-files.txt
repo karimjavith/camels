@@ -1,3 +1,13 @@
+C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\src\main\assets\app\bundle.2c8ec8c98d7264af2aa4.hot-update.js
+C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\src\main\assets\app\bundle.3b0b2ca095e37ab8ab35.hot-update.js
+C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\src\main\assets\app\bundle.49f153b8c5dde2aff825.hot-update.js
+C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\src\main\assets\app\bundle.70b646e7042dbb914bab.hot-update.js
+C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\src\main\assets\app\bundle.7ac3661a706aefcf9c9f.hot-update.js
+C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\src\main\assets\app\bundle.7e80b173d82da32210e9.hot-update.js
+C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\src\main\assets\app\bundle.88187eb6dbde0f117ca2.hot-update.js
+C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\src\main\assets\app\bundle.e0543652e218fd2fd5cb.hot-update.js
+C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\src\main\assets\app\bundle.e22b38710691d72cc978.hot-update.js
+C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\src\main\assets\app\bundle.f001664236f690d04e16.hot-update.js
 C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\src\main\assets\app\bundle.js
 C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\src\main\assets\app\runtime.js
 C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\src\main\assets\app\tns-java-classes.js

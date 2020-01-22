@@ -1,19 +1,66 @@
 <script>
+const dialogs = require('tns-core-modules/ui/dialogs')
 import { mapActions, mapState } from 'vuex'
-import { login } from '../_shared/firebase/users.ts'
+import { login, sendPasswordResetEmail } from '../_shared/firebase/users.ts'
+import { ToastService } from '../_shared/Toasty.ts'
 import Home from './Home.vue'
 import CreatePassword from './CreatePassword.vue'
-import BaseTextField from '../components/BaseTextField.vue'
 import BaseButton from '../components/BaseButton.vue'
 
 export default {
   name: 'Login',
-  components: { BaseTextField, BaseButton },
+  components: { BaseButton },
   data() {
     return {
-      user: {
-        email: '',
-        password: '',
+      state: {
+        user: {
+          email: '',
+          password: '',
+        },
+        userMetadata: {
+          isReadOnly: false,
+          commitMode: 'Immediate',
+          validationMode: 'Immediate',
+          propertyAnnotations: [
+            {
+              name: 'email',
+              displayName: 'E-Mail',
+              index: 0,
+              editor: 'Email',
+              validators: [
+                {
+                  name: 'NonEmpty',
+                },
+                {
+                  name: 'RegEx',
+                  params: {
+                    regEx:
+                      '[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}\\@[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}(\\.[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25})+',
+                    errorMessage: 'Please provide your valid email.',
+                  },
+                },
+              ],
+            },
+            {
+              name: 'password',
+              displayName: 'Password',
+              editor: 'Password',
+              index: 1,
+              validators: [
+                {
+                  name: 'NonEmpty',
+                },
+                {
+                  name: 'MinimumLength',
+                  params: {
+                    length: 6,
+                  },
+                },
+              ],
+            },
+          ],
+        },
+        loading: false,
       },
     }
   },
@@ -22,6 +69,7 @@ export default {
   }),
   watch: {
     userContext(newValue) {
+      console.log(`invited -  :: ${newValue.invited}`)
       if (newValue && newValue.invited && !newValue.loggedIn) {
         console.log(`invited - watched :: ${newValue.invited}`)
         if (newValue.invited) {
@@ -32,11 +80,11 @@ export default {
   },
   mounted: function() {
     this.$nextTick(function() {
-      console.log('login :: mounted')
+      console.log('LOGIN :: mounted')
     })
   },
   updated: function() {
-    console.log('login :: updated')
+    console.log('LOGIN :: updated')
   },
   methods: {
     ...mapActions('authenticationModule', {
@@ -47,50 +95,52 @@ export default {
       this.$navigateTo(CreatePassword, { clearHistory: true })
     },
     handleOnSubmit() {
-      if (!this.user.email || !this.user.password) {
-        this.alert('Please provide both an email address and password.')
+      this.state = { ...this.state, loading: true }
+      const userEmail = this.$refs.dataform.getPropertyByName('email')
+      const userPassword = this.$refs.dataform.getPropertyByName('password')
+      if (!userEmail.valueCandidate || !userPassword.valueCandidate) {
+        ToastService('Please provide both an email address and password.', '#be5138').show()
+        this.$refs.dataform.notifyValidated('email', false)
+        this.$refs.dataform.notifyValidated('password', false)
+        this.state = { ...this.state, loading: false }
         return
       }
+      if (userPassword.valueCandidate.length < 6) {
+        ToastService('Password should be of minimum 6 characters', '#be5138').show()
+        this.$refs.dataform.notifyValidated('email', false)
+        this.$refs.dataform.notifyValidated('password', false)
+        this.state = { ...this.state, loading: false }
+        return
+      }
+      this.$refs.dataform.commitAll()
       this.login()
     },
-
     async login() {
-      const { uid, token, role, isError } = await login(this.user.email, this.user.password)
+      const { uid, token, role, isError } = await login(
+        this.state.user.email,
+        this.state.user.password
+      )
+
       if (!isError) {
         this.setGlobalLoginState({ token, uid, role, loggedIn: true })
         this.$navigateTo(Home, { clearHistory: true })
       }
+      this.state = { ...this.state, loading: false }
     },
 
     forgotPassword() {
       prompt({
         title: 'Forgot Password',
         message: 'Enter the email address you used to register for Camels to reset your password.',
-        inputType: 'email',
+        inputType: dialogs.inputType.email,
         defaultText: '',
-        okButtonText: 'Ok',
+        okButtonText: 'Send me a link',
         cancelButtonText: 'Cancel',
-      }).then(data => {
+      }).then(async data => {
         if (data.result) {
-          console.log(`Email for password reset :: ${data.result}`)
+          console.log(`Email for password reset :: ${JSON.stringify(data)}`)
+          await sendPasswordResetEmail(data.text)
         }
-      })
-    },
-
-    focusPassword() {
-      this.$refs.password.nativeView.focus()
-    },
-    focusLoginButton() {
-      this.$refs.loginButton.nativeView.focus()
-    },
-    handleOnChange(data) {
-      this.user[data['modelkey']] = data['value']
-    },
-    alert(message) {
-      return alert({
-        title: 'Camels',
-        okButtonText: 'OK',
-        message: message,
       })
     },
   },
@@ -98,35 +148,17 @@ export default {
 </script>
 
 <template>
-  <Page actionBarHidden="true">
+  <Page actionBarHidden="true" class="nt-page">
     <FlexboxLayout class="page">
       <StackLayout class="nt-form form">
-        <Image class="logo nt-image" src="~/assets/images/NativeScript-Vue.png" />
-        <Label class="header" text="Camels" />
-        <BaseTextField
-          v-model="user.email"
-          @handleOnChange="handleOnChange"
-          @returnPress="focusPassword"
-          modelkey="email"
-          returnKeyType="next"
-          keyboardType="email"
-          placeHolderText="name@camels.com"
-        ></BaseTextField>
-        <BaseTextField
-          ref="password"
-          v-model="user.password"
-          :secure="true"
-          @handleOnChange="handleOnChange"
-          @returnPress="focusLoginButton"
-          modelkey="password"
-          returnKeyType="next"
-          keyboardType="password"
-          placeHolderText="***********"
-        ></BaseTextField>
+        <Image class="logo nt-image" src="~/assets/images/logo.png" />
+        <RadDataForm ref="dataform" :source="state.user" :metadata="state.userMetadata">
+        </RadDataForm>
         <BaseButton
-          ref="loginButton"
+          :loading="state.loading"
           @handleOnClick="handleOnSubmit"
           :class="{ 'm-t-20': true, '-primary': true }"
+          refFromParent="loginButton"
           text="Log In"
         ></BaseButton>
         <Label @tap="forgotPassword" text="Forgot your password?" class="nt-label login-label" />

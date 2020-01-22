@@ -7,20 +7,54 @@ export default {
       type: String,
       default: '',
     },
+    loading: {
+      type: Boolean,
+      default: false,
+    },
+    refFromParent: {
+      type: String,
+      default: 'baseButtonRef',
+    },
   },
   data() {
-    return {}
+    return {
+      state: {
+        showLoading: false,
+      },
+    }
   },
   computed: {},
+  watch: {
+    loading(newValue) {
+      setTimeout(() => {
+        this.state.showLoading = newValue
+      }, 25)
+    },
+  },
   methods: {
     handleOnClick: function(event) {
-      this.$emit('handleOnClick', event)
+      if (!this.state.showLoading) {
+        this.$emit('handleOnClick', event)
+      }
     },
   },
 }
 </script>
 <template>
-  <Button @tap="handleOnClick" :text="text" class="btn btn-base -primary -rounded-lg" />
+  <StackLayout>
+    <Button
+      ref="baseButtonLoading"
+      v-if="state.showLoading"
+      class="nt-btn btn-base -primary -rounded-lg"
+      text="One moment..."/>
+    <Button
+      :ref="refFromParent"
+      v-if="!state.showLoading"
+      :text="text"
+      @tap="handleOnClick"
+      :key="refFromParent"
+      class="nt-btn btn-base -primary -rounded-lg"
+  /></StackLayout>
 </template>
 
 <style lang="scss">

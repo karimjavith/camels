@@ -21,7 +21,7 @@ public final class R {
 
         public static final int adjust_height = 0x7f08001b;
         public static final int adjust_width = 0x7f08001c;
-        public static final int none = 0x7f08007b;
+        public static final int none = 0x7f08009c;
     }
     public static final class integer {
         private integer() {}

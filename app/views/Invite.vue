@@ -39,18 +39,18 @@ export default {
 </script>
 
 <template>
-  <Page>
-    <!-- <FlexboxLayout class="page"> -->
-    <ActionBar>
-      <ActionItem
+  <Page class="nt-page">
+    <ActionBar class="nt-action-bar" title="Invite">
+      <NavigationButton
         @tap="onNavigationButtonTap"
         ios.systemIcon="9"
         ios.position="left"
+        text="Back"
         android.systemIcon="ic_menu_back"
-      ></ActionItem>
+      ></NavigationButton>
     </ActionBar>
-    <StackLayout class="form">
-      <Label class="header" text="Invite the camel" />
+    <StackLayout class="nt-form form">
+      <Label class="header h2 m-30" text="Invite the camel" />
       <StackLayout class="input-field" margin-bottom="25">
         <TextField
           v-model="email"
@@ -70,7 +70,7 @@ export default {
         ref="submitButton"
         @tap="sendInvite"
         text="Send Invite"
-        class="btn btn-primary m-t-20"
+        class="btn -primary -rounded-lg m-t-20"
       />
     </StackLayout>
     <!-- </FlexboxLayout> -->
@@ -78,9 +78,7 @@ export default {
 </template>
 
 <style scoped lang="scss">
-ActionBar {
-  background-color: #ffffff;
-}
+@import '~/_app.common';
 .form {
   padding: 10;
   flex-grow: 2;
@@ -88,11 +86,9 @@ ActionBar {
 
   .header {
     horizontal-align: center;
-    font-size: 25;
     font-weight: 400;
-    margin-bottom: 70;
     text-align: center;
-    color: #000;
+    color: $text-color;
   }
   .input {
     font-size: 18;

@@ -12,8 +12,8 @@ public final class R {
     public static final class drawable {
         private drawable() {}
 
-        public static final int circle_shape = 0x7f07005d;
-        public static final int circular_progress_bar = 0x7f07005e;
-        public static final int circular_progress_bar_thick = 0x7f07005f;
+        public static final int circle_shape = 0x7f070060;
+        public static final int circular_progress_bar = 0x7f070061;
+        public static final int circular_progress_bar_thick = 0x7f070062;
     }
 }

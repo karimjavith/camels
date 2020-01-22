@@ -1,9 +1,8 @@
 // https://github.com/msaelices/ns-ui-vue-demo/blob/master/app/views/List.vue
 <script>
-import BaseButton from './BaseButton.vue'
 export default {
   name: 'BaseCardListScrollView',
-  components: { BaseButton },
+  components: {},
   props: {
     items: {
       type: Array,
@@ -15,6 +14,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    refFromParent: {
+      type: String,
+      default: 'cardRadListView',
+    },
   },
   data() {
     return {
@@ -23,13 +26,24 @@ export default {
       },
     }
   },
+  computed: {
+    itemList() {
+      return this.items
+    },
+  },
   methods: {
-    onItemTap(event) {
-      this.$emit('itemTap', event)
+    onItemEdit(item) {
+      this.$emit('handleOnItemEdit', item)
+    },
+    onItemDelete(item) {
+      this.$emit('handleOnItemDelete', item)
     },
     onPullToRefreshInitiated({ object }) {
       console.log('Pulling...')
       this.$emit('pulling', object)
+    },
+    handleOnItemClick(item) {
+      this.$emit('handleOnItemClick', item)
     },
     handleOnCancel(item) {
       this.$emit('handleOnCancel', { status: true, ...item })
@@ -38,53 +52,86 @@ export default {
       this.$emit('handleOnOk', { status: true, ...item })
     },
     refresh() {
-      this.$refs.cardListView.refresh()
+      this.$refs[this.refFromParent].refresh()
     },
   },
 }
 </script>
 <template>
   <RadListView
-    ref="cardListView"
+    :ref="refFromParent"
     :pullToRefresh="pullToRefresh"
-    @itemTap="onItemTap"
     @pullToRefreshInitiated="onPullToRefreshInitiated"
     swipeActions="false"
-    for="item in items"
+    for="item in itemList"
+    class="nt-list-view"
   >
     <v-template>
-      <CardView ripple="true" padding="5" margin="5" height="300">
+      <CardView ripple="true" padding="5" margin="5" height="auto">
         <StackLayout>
-          <Label class="info" horizontalAlignment="center" verticalAlignment="center">
-            <FormattedString>
-              <Span :text="item.title" />
-              <Span
-                :text="item.statusIcon | fonticon"
-                v-if="Boolean(item.status)"
-                class="fa t-16"
-              />
-            </FormattedString>
-          </Label>
-          <Image src="~/assets/images/ground.jpg" stretch="aspectFit" height="120" />
-          <label :text="item.body" class="info" textWrap="true" />
-          <Button
-            @tap="handleOnCancel(item)"
-            :class="{ fa: item.cancelTextIcon }"
-            :style="[item.cancelTextStyles]"
-            :isEnabled="!item.actionButtonDisabled"
-            v-if="item.showActionItems"
-          >
-            {{ item.cancelText }} {{ item.cancelTextIcon && item.cancelTextIcon | fonticon }}
-          </Button>
-          <Button
-            @tap="handleOnOk(item)"
-            :class="{ fa: item.okTextIcon }"
-            :style="[item.okTextStyles]"
-            :isEnabled="!item.actionButtonDisabled"
-            v-if="item.showActionItems"
-          >
-            {{ item.okText }} {{ item.okTextIcon && item.okTextIcon | fonticon }}
-          </Button>
+          <FlexBoxLayout justifyContent="space-between">
+            <Label class="nt-label">
+              <FormattedString>
+                <Span :text="item.title" class="p-r-15 t-14" />
+                <Span
+                  :text="item.statusIcon | fonticon"
+                  :style="item.statusIconStyle"
+                  v-if="Boolean(item.status)"
+                  class="fa t-16"
+                />
+              </FormattedString>
+            </Label>
+            <StackLayout orientation="horizontal"
+              ><Label v-if="item.showEditOption" @tap="onItemEdit(item)" class="nt-label">
+                <FormattedString>
+                  <Span class="fa t-16  nt-icon"> {{ 'fa-edit' | fonticon }}</Span>
+                </FormattedString></Label
+              >
+              <Label v-if="item.showDeleteOption" @tap="onItemDelete(item)" class="nt-label">
+                <FormattedString>
+                  <Span class="fa t-16  nt-icon"> {{ 'fa-trash' | fonticon }}</Span>
+                </FormattedString></Label
+              ></StackLayout
+            >
+          </FlexBoxLayout>
+          <FlexBoxLayout flexDirection="column">
+            <Image
+              @tap="handleOnItemClick(item)"
+              src="~/assets/images/ground.jpg"
+              stretch="aspectFit"
+              class="nt-image"
+            />
+            <label :text="item.body" class="info nt-label t-14" textWrap="true" />
+          </FlexBoxLayout>
+          <FlexBoxLayout justifyContent="space-between">
+            <Button
+              @tap="handleOnCancel(item)"
+              :class="{
+                fa: item.cancelTextIcon,
+                'nt-button': true,
+                '-outline': true,
+                '-rounded-lg': true,
+              }"
+              :style="[item.cancelTextStyles]"
+              :isEnabled="!item.actionButtonDisabled"
+              v-if="item.showActionItems"
+              >{{ item.cancelText }}
+              {{ item.cancelTextIcon && item.cancelTextIcon | fonticon }}</Button
+            >
+            <Button
+              @tap="handleOnOk(item)"
+              :class="{
+                fa: item.okTextIcon,
+                'nt-button': true,
+                '-outline': true,
+                '-rounded-lg': true,
+              }"
+              :style="[item.okTextStyles]"
+              :isEnabled="!item.actionButtonDisabled"
+              v-if="item.showActionItems"
+              >{{ item.okText }} {{ item.okTextIcon && item.okTextIcon | fonticon }}</Button
+            >
+          </FlexBoxLayout>
         </StackLayout>
       </CardView>
     </v-template>
@@ -94,5 +141,8 @@ export default {
 <style lang="scss">
 .t-16 {
   font-size: 16;
+}
+.t-14 {
+  font-size: 14;
 }
 </style>

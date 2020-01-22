@@ -47,6 +47,7 @@ C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\build\exploded-
 C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\build\exploded-dependencies\7009a6f4618a61cbceb0dfeafc2d1d4d\classes.jar
 C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\build\exploded-dependencies\705f7261816024e2127d13434b256c0e\classes.jar
 C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\build\exploded-dependencies\70c33989d36adda1715931c55d567929\classes.jar
+C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\build\exploded-dependencies\7600c8bb6912c2f0829b9312c2851823\classes.jar
 C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\build\exploded-dependencies\773ab7d12fef93d3cb5fe81041c83a1f\classes.jar
 C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\build\exploded-dependencies\7a7313a719a389a67819965c305968b4\guava-26.0-android.jar
 C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\build\exploded-dependencies\7b1a4cf3858599d66b7005c9684eb592\classes.jar
@@ -101,6 +102,7 @@ C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\build\exploded-
 C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\build\exploded-dependencies\e32a165767881ac02291d846f272b8f6\classes.jar
 C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\build\exploded-dependencies\e62f01d5a719cf0f1d67a8814396b6e9\classes.jar
 C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\build\exploded-dependencies\e7c4ed352b830f9ae99aeee9d1a9dc9c\j2objc-annotations-1.1.jar
+C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\build\exploded-dependencies\f048ec8ebd365787c70b902aae04c640\classes.jar
 C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\build\exploded-dependencies\f1ce60e7ac82eafe2cdf3701f2888735\classes.jar
 C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\build\exploded-dependencies\f43b2b855c0d106a2fe6920cc8bac050\classes.jar
 C:\Users\Karim Mohamed\dev\camelscc\camels\platforms\android\app\build\exploded-dependencies\f54f25f7037c811d9b09863ad715e1a1\classes.jar
