@@ -5,13 +5,13 @@ import { mapState, mapActions } from 'vuex'
 import Invite from './Invite.vue'
 import UserList from './UserList.vue'
 import Login from './Login.vue'
-import BaseListScrollView from '../components/BaseListScrollView.vue'
+import BaseListView from '../components/BaseListView.vue'
 import { logout } from '../_shared/firebase/users.ts'
 import { AppRoles } from '../_shared/enum'
 
 export default {
   name: 'Account',
-  components: { BaseListScrollView },
+  components: { BaseListView },
   data() {
     return {
       state: {
@@ -66,7 +66,7 @@ export default {
 </script>
 <template>
   <StackLayout orientation="horizontal">
-    <BaseListScrollView ref="list" @itemTap="onItemTap" :items="state.items"> </BaseListScrollView>
+    <BaseListView @itemTap="onItemTap" :items="items" refFromParent="accountList"> </BaseListView>
   </StackLayout>
 </template>
 

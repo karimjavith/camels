@@ -2,13 +2,13 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import BaseListScrollView from '../components/BaseListScrollView.vue'
+import BaseListView from '../components/BaseListView.vue'
 import { getAllUsers, updateUser, removeUser } from '../_shared/firebase/users.ts'
 import { AppRoles } from '../_shared/enum'
 
 export default {
   name: 'UserList',
-  components: { BaseListScrollView },
+  components: { BaseListView },
   data() {
     return {
       state: {
@@ -84,7 +84,6 @@ export default {
           await this.getUserList()
         }
       }
-      this.$refs.userlist.refresh()
       this.state = {
         ...this.state,
         loading: false,
@@ -116,7 +115,6 @@ export default {
           await this.getUserList()
         }
       }
-      this.$refs.userlist.refresh()
       this.state = {
         ...this.state,
         loading: false,
@@ -129,9 +127,15 @@ export default {
 }
 </script>
 <template>
-  <Page>
-    <ActionBar>
-      <Button @tap="onNavigationButtonTap" text="Back" />
+  <Page class="nt-page">
+    <ActionBar class="nt-action-bar" title="Users">
+      <NavigationButton
+        @tap="onNavigationButtonTap"
+        ios.systemIcon="9"
+        ios.position="left"
+        text="Back"
+        android.systemIcon="ic_menu_back"
+      ></NavigationButton>
     </ActionBar>
     <StackLayout orientation="horizontal">
       <ActivityIndicator
@@ -139,27 +143,24 @@ export default {
         :busy="state.loading"
         width="20"
         height="20"
-        class="loader"
+        class="loader nt-activity-indicator"
       ></ActivityIndicator>
       <StackLayout v-show="!state.loading" orientation="horizontal">
-        <BaseListScrollView
-          ref="userlist"
+        <BaseListView
           :items="state.items"
           @itemTap="onItemTap"
           @itemDeleted="onItemDeleted"
           @itemMarked="onItemMarked"
           :swipeActions="true"
+          refFromParent="userList"
         >
-        </BaseListScrollView>
+        </BaseListView>
       </StackLayout>
     </StackLayout>
   </Page>
 </template>
 
 <style scoped lang="scss">
-ActionBar {
-  background-color: #ffffff;
-}
 .loader {
   margin-left: 30;
   margin-right: 30;

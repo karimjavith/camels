@@ -23,8 +23,8 @@
 		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-ui-sidedrawer\\platforms\\android\\typings\\sidedrawer.d.ts": "8256a2295125597755fe6a6faee866b0750e65f2"
 	},
 	"nativescript-ui-core": {
-		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-ui-core\\platforms\\android\\typings\\core.d.ts": "5c032652edfa1719ef8c8190fc0f66d3b1c313c2",
-		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-ui-core\\platforms\\android\\TNSCore-release.aar": "0e2fe0b867821ad56b8f0b9c8ac4c90f4c399e3c"
+		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-ui-autocomplete\\node_modules\\nativescript-ui-core\\platforms\\android\\typings\\core.d.ts": "5c032652edfa1719ef8c8190fc0f66d3b1c313c2",
+		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-ui-autocomplete\\node_modules\\nativescript-ui-core\\platforms\\android\\TNSCore-release.aar": "0e2fe0b867821ad56b8f0b9c8ac4c90f4c399e3c"
 	},
 	"tns-core-modules-widgets": {
 		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\tns-core-modules-widgets\\platforms\\android\\widgets-release.aar": "0746721bed98e833a85c066a1994200dd8dd111b"
@@ -34,5 +34,18 @@
 	},
 	"@nstudio/nativescript-cardview": {
 		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\@nstudio\\nativescript-cardview\\platforms\\android\\include.gradle": "b9669d8865e024caa64606a276f328d63ff9686c"
+	},
+	"nativescript-ui-calendar": {
+		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-ui-calendar\\platforms\\android\\typings\\calendar.d.ts": "31bf824396f956c7d699c50f72170ba00fdb5cd2",
+		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-ui-calendar\\platforms\\android\\TNSCalendar-release.aar": "3f4c4f7cf98e65d8a278b98835694a1997316420"
+	},
+	"nativescript-ui-dataform": {
+		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-ui-dataform\\platforms\\android\\TNSDataForm-release.aar": "b4b959092dbae216ede7c75b506a2042839a2cef",
+		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-ui-dataform\\platforms\\android\\typings\\dataform.d.ts": "bbb4343cd8b00aa1cf0d0b9217ac949ba47e5feb"
+	},
+	"nativescript-ui-autocomplete": {
+		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-ui-autocomplete\\platforms\\android\\include.gradle": "f3cee71f7a1cfc3f567bb82cf49fe10a8cccd33a",
+		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-ui-autocomplete\\platforms\\android\\typings\\autocomplete.d.ts": "b23552a4388a500700bd43f37f285c8f80cce042",
+		"C:\\Users\\Karim Mohamed\\dev\\camelscc\\camels\\node_modules\\nativescript-ui-autocomplete\\platforms\\android\\TNSAutoComplete-release.aar": "5568e7c9f027d196da613241dcbc3fcbcf5b8a05"
 	}
 }

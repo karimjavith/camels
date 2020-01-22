@@ -1,4 +1,5 @@
 import { IHttpBasicResponse, IHttpResponse, HttpStatusCode } from './http'
+import { ToastService } from '../Toasty'
 async function getJson(response: IHttpBasicResponse): Promise<any> {
   try {
     return await response.json()
@@ -9,40 +10,25 @@ async function getJson(response: IHttpBasicResponse): Promise<any> {
 
 const handleException = (error: any, type: string) => {
   console.log(error)
-  alert(type + ': ' + error.message)
+  ToastService(type + ': ' + error.message, '#be5138').show()
   return { message: error.message, type, isError: true, status: error.status, json: '' }
 }
 
 async function handleResponse(response: IHttpBasicResponse): Promise<IHttpResponse> {
   if (response.status === HttpStatusCode.Unauthorized) {
-    return await handleException(
-      { status: response.status, message: response.statusText },
-      'Unauthorised'
-    )
+    return await handleException({ status: response.status, message: response.statusText }, 'Error')
   }
   if (response.status === HttpStatusCode.Forbidden) {
-    return await handleException(
-      { status: response.status, message: response.statusText },
-      'Forbidden'
-    )
+    return await handleException({ status: response.status, message: response.statusText }, 'Error')
   }
   if (response.status === HttpStatusCode.NotFound) {
-    return await handleException(
-      { status: response.status, message: response.statusText },
-      'Resource not found'
-    )
+    return await handleException({ status: response.status, message: response.statusText }, 'Error')
   }
   if (response.status === HttpStatusCode.BadRequest) {
-    return await handleException(
-      { status: response.status, message: response.statusText },
-      'Not enough data'
-    )
+    return await handleException({ status: response.status, message: response.statusText }, 'Error')
   }
   if (response.status === HttpStatusCode.InternalServerError) {
-    return await handleException(
-      { status: response.status, message: response.statusText },
-      'Server error'
-    )
+    return await handleException({ status: response.status, message: response.statusText }, 'Error')
   }
   const ok = response.status === HttpStatusCode.OK || response.status === HttpStatusCode.Created
   const json = await getJson(response)

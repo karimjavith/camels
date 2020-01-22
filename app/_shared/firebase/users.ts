@@ -6,6 +6,8 @@ import { IdTokenResult } from 'nativescript-plugin-firebase'
 import { handleException, handleResponse } from '../http/httpHelper'
 import { AppRoles } from '../enum'
 
+import { ToastService } from '../Toasty'
+
 const baseUrl = 'https://us-central1-camels-dev.cloudfunctions.net/api/users'
 const login = async (email: string, password: string) => {
   try {
@@ -18,7 +20,9 @@ const login = async (email: string, password: string) => {
       return userData
     })
   } catch (e) {
-    return handleException(e, 'Login failed')
+    console.log(e)
+    const errorObj = { ...e, message: 'Invalid login' }
+    return handleException(errorObj, 'Login failed')
   }
 }
 const logout = async () => {
@@ -40,7 +44,7 @@ async function checkIfTokenIsValid() {
     }
     return await handleResponse(response)
   } catch (e) {
-    return { verified: false }
+    return handleException(e, 'Session expired')
   }
 }
 const getUser = async (id: string) => {
@@ -87,18 +91,20 @@ const createUser = async (email: string, password: string) => {
     return handleException(e, 'Creating user failed')
   }
 }
-const signup = async (email: string, password: string) => {
-  console.log('signup for ' + email)
+const signup = async (email: string, password: string, displayName: string) => {
   try {
     const pushToken = await firebase.getCurrentPushToken()
     const response = await httpPost(baseUrl + '/signup', {
       email,
       password,
-      displayName: email,
+      displayName,
       role: AppRoles.User,
       pushToken,
     })
     console.log(response)
+    if (response.status === HttpStatusCode.InternalServerError) {
+      throw new Error('Invalid entries')
+    }
     return await handleResponse(response)
   } catch (e) {
     return handleException(e, 'Sign up failed')
@@ -135,6 +141,15 @@ const removeUser = async (id: string) => {
     return handleException(e, 'Delete failed')
   }
 }
+const sendPasswordResetEmail = async (email: string) => {
+  try {
+    await firebaseApi.auth().sendPasswordResetEmail(email)
+    ToastService('Email sent', '#a5d6a7').show()
+  } catch (e) {
+    ToastService('Something went wrong. Please try again later', '#ff4350').show()
+    return
+  }
+}
 export {
   login,
   logout,
@@ -147,4 +162,5 @@ export {
   checkIfTokenIsValid,
   updateUser,
   removeUser,
+  sendPasswordResetEmail,
 }

@@ -26,10 +26,18 @@ export default {
       return this.state.loading
     },
   }),
+  created: function() {
+    console.log(`Home :: Created`)
+  },
   mounted: function() {
     this.$nextTick(function() {
       console.log(`Home :: mounted`)
       this.checkAuthentication()
+    })
+  },
+  updated: function() {
+    this.$nextTick(function() {
+      console.log(`Home :: updated`)
     })
   },
 
@@ -42,72 +50,56 @@ export default {
     },
     async checkAuthentication() {
       const result = await checkIfTokenIsValid()
-      if (result.json && !result.json.verified) {
-        this.$navigateTo(Login)
+      console.log(result)
+      if (result && result.isError) {
+        this.redirectToLogin()
       }
       const { uid, role } = result.json.user
       this.setGlobalLoginState({ uid, role, loggedIn: true, token: this.userContext.token })
-      this.state.loading = false
-    },
-
-    navigateToPasswordCreationPage() {
-      this.$navigateTo(CreatePassword, { clearHistory: true })
-    },
-    onNavigationButtonTap() {
-      // Frame.topmost().goBack()
+      this.state = { ...this.state, loading: false }
     },
     onTabItemTap(event) {
       this.state = { ...this.state, item: { index: event.index } }
-      console.log(this.state.item.index)
     },
   },
 }
 </script>
 
 <template>
-  <Page>
-    <ActionBar>
-      <StackLayout orientation="horizontal">
-        <NavigationButton
-          @tap="onNavigationButtonTap"
-          text="Back"
-          android-system-icon="ic_menu_back"
-        />
-        <Label text="Camels" font-size="18" vertical-alignment="center" />
-      </StackLayout>
-    </ActionBar>
-    <BottomNavigation selected-index="0">
+  <Page actionBarHidden="true" class="nt-page">
+    <ActivityIndicator :busy="state.loading" class="nt-activity-indicator"></ActivityIndicator>
+    <BottomNavigation selected-index="0" class="nt-bottom-navigation">
       <!-- The bottom tab UI is created via TabStrip (the containier) and TabStripItem (for each tab)-->
-      <TabStrip @itemTap="onTabItemTap">
-        <TabStripItem class="tabstripitem">
-          <Label :text="'fa-home' | fonticon" class="fa t-16" />
-          <Image src="font://&#xf00e;" class="fa hide"></Image>
+      <TabStrip @itemTap="onTabItemTap" class="nt-tab-strip">
+        <TabStripItem class="tabstripitem nt-tab-strip__item">
+          <Image src="~/assets/images/fa-home.svg" class="hide"></Image>
+          <Label :text="'fa-home' | fonticon" class="fa t-16 nt-label" />
         </TabStripItem>
-        <TabStripItem name="matches" class="tabstripitem">
-          <Label :text="'fa-running' | fonticon" class="fa t-16" />
-          <Image src="font://&#xf00e;" class="fa hide"></Image>
+        <TabStripItem name="matches" class="tabstripitem nt-tab-strip__item">
+          <Image src="~/assets/images/fa-home.svg" class="hide"></Image>
+          <Label :text="'fa-baseball-ball' | fonticon" class="fa t-16 nt-label" />
         </TabStripItem>
-        <TabStripItem class="tabstripitem">
-          <Label :text="'fa-user-circle' | fonticon" class="fa t-16" />
-          <Image src="font://&#xf00e;" class="fa hide"></Image>
+        <TabStripItem class="tabstripitem nt-tab-strip__item">
+          <Image src="~/assets/images/fa-home.svg" class="hide"></Image>
+          <Label :text="'fa-user-circle' | fonticon" class="fa t-16 nt-label" />
         </TabStripItem>
       </TabStrip>
 
       <!-- The number of TabContentItem components should corespond to the number of TabStripItem components -->
-      <TabContentItem>
+      <TabContentItem class="nt-tab-content__item">
         <StackLayout orientation="Horizontal">
-          <Label v-if="!state.loading" text="Home" class="h2" />
+          <Label v-if="!state.loading" text="Home" class="h2 p-10 nt-label" />
         </StackLayout>
       </TabContentItem>
-      <TabContentItem>
+      <TabContentItem class="nt-tab-content__item">
         <FlexBoxLayout flexDirection="column" flexGrow="1">
-          <Label text="Matches" class="h2" height="70" />
+          <Label text="Matches" class="h2 m-10 nt-label" height="70" />
           <Matches v-if="state.item.index === 1" />
         </FlexBoxLayout>
       </TabContentItem>
-      <TabContentItem>
+      <TabContentItem class="nt-tab-content__item">
         <StackLayout>
-          <Label text="Account" class="h2" />
+          <Label text="Account" class="h2 p-10 nt-label" />
           <Account />
         </StackLayout>
       </TabContentItem>
@@ -115,39 +107,15 @@ export default {
   </Page>
 </template>
 
-<style scoped>
-ActionBar {
-  color: #ffffff;
-}
-.hide {
-  height: 0;
-  width: 0;
-}
-
-.title {
-  text-align: left;
-  padding-left: 16;
-}
-
-.message {
-  vertical-align: center;
-  text-align: center;
-  font-size: 20;
-  color: #333333;
-}
-
+<style scoped lang="scss">
 /* bottom-navigation */
-TabStripItem.tabstripitem {
-  background-color: teal;
+.tabstripitem {
+  .hide {
+    display: none;
+  }
 }
-
 TabStripItem.tabstripitem:active {
-  background-color: yellowgreen;
-}
-
-.fas {
-  font-family: 'Font Awesome 5 Free', 'fa-solid-900';
-  font-weight: 900;
+  font-weight: 500;
 }
 
 .t-16 {

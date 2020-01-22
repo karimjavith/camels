@@ -40,7 +40,7 @@ const getUnreadMatchCount = async (uid: string) => {
 }
 const createMatch = async (matchDetails: TMatchDetails) => {
   try {
-    const response = await httpPost(baseUrl + '/createUser', {
+    const response = await httpPost(baseUrl + '/create', {
       ...matchDetails,
     })
     return await handleResponse(response)

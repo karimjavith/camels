@@ -33,6 +33,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    refFromParent: {
+      type: String,
+      default: 'refButton',
+    },
   },
   data() {
     return {}
@@ -48,6 +52,7 @@ export default {
 <template>
   <StackLayout class="nt-input input-field">
     <TextField
+      :ref="refFromParent"
       :value="value"
       @textChange="updateValue"
       @returnPress="returnPress"
@@ -55,7 +60,7 @@ export default {
       :hint="placeHolderText"
       :keyboardType="keyboardType"
       :secure="secure"
-      class="input nt-input"
+      class="input"
       autocorrect="false"
       autocapitalizationType="none"
     />

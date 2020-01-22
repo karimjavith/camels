@@ -12,6 +12,10 @@
         "directory": "..\\..\\node_modules\\@nstudio\\nativescript-loading-indicator"
     },
     {
+        "name": "nativescript-datetimepicker",
+        "directory": "..\\..\\node_modules\\nativescript-datetimepicker"
+    },
+    {
         "name": "nativescript-fonticon",
         "directory": "..\\..\\node_modules\\nativescript-fonticon"
     },
@@ -32,6 +36,10 @@
         "directory": "..\\..\\node_modules\\nativescript-toasty"
     },
     {
+        "name": "nativescript-ui-dataform",
+        "directory": "..\\..\\node_modules\\nativescript-ui-dataform"
+    },
+    {
         "name": "nativescript-ui-listview",
         "directory": "..\\..\\node_modules\\nativescript-ui-listview"
     },
@@ -50,6 +58,10 @@
     {
         "name": "tns-core-modules",
         "directory": "..\\..\\node_modules\\tns-core-modules"
+    },
+    {
+        "name": "nativescript-ui-autocomplete",
+        "directory": "..\\..\\node_modules\\nativescript-ui-autocomplete"
     },
     {
         "name": "nativescript-ui-core",
