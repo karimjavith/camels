@@ -92,14 +92,14 @@ export default {
     <v-template>
       <ActivityIndicator :busy="loading" class="loader nt-activity-indicator"></ActivityIndicator>
       <FlexBoxLayout columns="50, *" rows="*" class="item">
-        <Label :text="item.icon | fonticon" col="0" class="thumbnail fa t-16 nt-icon" />
+        <Label :text="item.icon | fonticon" col="0" class="thumbnail fas t-16 nt-icon" />
         <FlexBoxLayout col="1">
           <label :text="item.name" class="h3 t-24" col="1" />
           <label :text="item.description" class="p" col="1" />
           <Label
             :text="item.secondaryIcon | fonticon"
             v-if="Boolean(item.secondaryIcon)"
-            class="fa t-16"
+            class="fas t-16 nt-icon"
           />
         </FlexBoxLayout>
       </FlexBoxLayout>
@@ -112,7 +112,7 @@ export default {
         </FlexBoxLayout>
         <FlexBoxLayout id="delete-view" @tap="onRightSwipeClick" col="2" class="swipe-item right">
           <Label
-            :text="'fa-trash' | fonticon"
+            :text="'fa-trash-alt' | fonticon"
             class="fa"
             verticalAlignment="center"
             horizontalAlignment="center"

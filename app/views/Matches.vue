@@ -122,6 +122,7 @@ export default {
     async handleModalCb() {
       this.state = { ...this.state, loading: true }
       await this.getMatches()
+      this.$emit('onMatchEventSetIndexCb', 1)
     },
     async handleOnItemClick(item) {
       if (this.role === AppRoles.Admin) {
@@ -163,6 +164,7 @@ export default {
       this.state = { ...this.state, loading: true }
       const result = await updateMatchStatusForUser(data.id, this.uid, MatchAvailabilityStatus.NO)
       if (!result.isError) {
+        await this.$emit('onMatchEventSetIndexCb', 1)
         await this.getMatches()
       }
       this.state = { ...this.state, loading: false }
@@ -171,6 +173,7 @@ export default {
       this.state = { ...this.state, loading: true }
       const result = await updateMatchStatusForUser(data.id, this.uid, MatchAvailabilityStatus.YES)
       if (!result.isError) {
+        await this.$emit('onMatchEventSetIndexCb', 1)
         await this.getMatches()
       }
       this.state = { ...this.state, loading: false }
@@ -179,7 +182,8 @@ export default {
 }
 </script>
 <template>
-  <StackLayout>
+  <StackLayout orientation="horizonatal">
+    <Label text="Matches" class="h1 m-t-20 m-l-20 nt-label" fontWeight="bold" height="70" />
     <ActivityIndicator
       :visibility="loading ? 'visible' : 'collapse'"
       :busy="loading"
@@ -187,16 +191,23 @@ export default {
       height="20"
       class="loader nt-activity-indicator"
     ></ActivityIndicator>
-    <DockLayout v-if="role === 1" stretchLastChild="false">
-      <BaseButtonWithIcon
-        @handleOnClick="handleOnCreateMatchClick"
-        text="New Match"
-        icon="fa-plus-circle"
-        doc="right"
-      />
-    </DockLayout>
-    <StackLayout orientation="horizontal">
+    <BaseButtonWithIcon
+      :primary="true"
+      @handleOnClick="handleOnCreateMatchClick"
+      text="New Match"
+      icon="fa-plus-circle"
+    />
+    <StackLayout>
+      <FlexBoxLayout
+        v-if="state.items.length === 0 && !loading"
+        flex="1"
+        justifyContent="center"
+        class="m-t-10"
+      >
+        <Label class="nt-label h3" text="No schedule yet.." />
+      </FlexBoxLayout>
       <BaseCardListScrollView
+        v-if="state.items.length > 0"
         :items="state.items"
         @handleOnItemClick="handleOnItemClick"
         @handleOnItemEdit="handleOnItemEdit"

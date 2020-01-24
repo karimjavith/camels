@@ -1,22 +1,22 @@
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 import Login from './Login.vue'
-import Account from './Account.vue'
-import Matches from './Matches.vue'
-import { checkIfTokenIsValid } from '../_shared/firebase/users.ts'
-import CreatePassword from './CreatePassword.vue'
+import { getUpcomingMatchDetails, patchUserMatchStatus } from '../_shared/firebase/home'
+import { ToastService } from '../_shared/Toasty'
+import BaseButtonWithIcon from '../components/BaseButtonWithIcon.vue'
+import BaseButton from '../components/BaseButton.vue'
+import { MatchAvailabilityStatus } from '../types/EMatchAvailabilityStatus'
+import { HttpStatusCode } from '../_shared/http/http'
 
 export default {
   name: 'Home',
-  components: { Account, Matches },
+  components: { BaseButtonWithIcon, BaseButton },
   props: {},
   data() {
     return {
       state: {
         loading: true,
-        item: {
-          index: 0,
-        },
+        upcomingMatch: {},
       },
     }
   },
@@ -25,6 +25,9 @@ export default {
     loading() {
       return this.state.loading
     },
+    matchDetails() {
+      return this.state.upcomingMatch
+    },
   }),
   created: function() {
     console.log(`Home :: Created`)
@@ -32,7 +35,7 @@ export default {
   mounted: function() {
     this.$nextTick(function() {
       console.log(`Home :: mounted`)
-      this.checkAuthentication()
+      this.getUpcomingMatchDetails()
     })
   },
   updated: function() {
@@ -42,83 +45,223 @@ export default {
   },
 
   methods: {
-    ...mapActions('authenticationModule', {
-      setGlobalLoginState: 'signedIn',
-    }),
-    redirectToLogin() {
-      this.$navigateTo(Login)
-    },
-    async checkAuthentication() {
-      const result = await checkIfTokenIsValid()
-      console.log(result)
-      if (result && result.isError) {
-        this.redirectToLogin()
+    async getUpcomingMatchDetails() {
+      const result = await getUpcomingMatchDetails(this.userContext.uid)
+      if (result.status === HttpStatusCode.Unauthorized) {
+        this.$navigateTo(Login, { clearHistory: true })
       }
-      const { uid, role } = result.json.user
-      this.setGlobalLoginState({ uid, role, loggedIn: true, token: this.userContext.token })
+      if (result && !result.isError) {
+        console.log(`-------------`)
+        console.log(`Upcoming match details`)
+        if (result.json.count > 0) {
+          const matchDetails = Object.values(result.json.match)[0]
+          console.log(matchDetails)
+          console.log(`----------------`)
+          this.state = {
+            ...this.state,
+            upcomingMatch: { ...matchDetails, date: new Date(matchDetails.date).toDateString() },
+          }
+        }
+      }
+
       this.state = { ...this.state, loading: false }
     },
-    onTabItemTap(event) {
-      this.state = { ...this.state, item: { index: event.index } }
+    async handleOnNoClick() {
+      this.state = { ...this.state, loading: true }
+      const result = await patchUserMatchStatus(this.matchDetails.id, {
+        uid: this.userContext.uid,
+        status: MatchAvailabilityStatus.NO,
+      })
+      if (!result.isError) {
+        this.$emit('onMatchEventSetIndexCb', 0)
+        ToastService('All done', '#a5d6a7').show()
+        await this.getUpcomingMatchDetails()
+      }
+      this.state = { ...this.state, loading: false }
+    },
+    async handleOnYesClick() {
+      this.state = { ...this.state, loading: true }
+      const result = await patchUserMatchStatus(this.matchDetails.id, {
+        uid: this.userContext.uid,
+        status: MatchAvailabilityStatus.YES,
+      })
+      if (!result.isError) {
+        this.$emit('onMatchEventSetIndexCb', 0)
+        ToastService('All done', '#a5d6a7').show()
+        await this.getUpcomingMatchDetails()
+      }
+      this.state = { ...this.state, loading: false }
+    },
+    handleOnViewAllMatchesClick() {
+      this.$emit('onHomeEventSetIndexCb', 1)
+    },
+    onScroll: function() {
+      //access to the native event
+      const scrollView = this.$refs.scrollView.nativeView
+      const topView = this.$refs.topView.nativeView
+
+      // if the offset is less than the height of the header.
+      if (scrollView.verticalOffset < 250) {
+        const offset = scrollView.verticalOffset / 1.65 // you can adjust this number to make the parallax more subtle or dramatic
+        if (scrollView.ios) {
+          // iOS adjust the position with an animation to create a smother scrolling effect.
+          topView.animate({ translate: { x: 0, y: offset } }).then(
+            () => {},
+            () => {}
+          )
+        } else {
+          // Android, animations are jerky so instead just adjust the position without animation.
+          topView.translateY = Math.floor(offset)
+        }
+      }
     },
   },
 }
 </script>
 
 <template>
-  <Page actionBarHidden="true" class="nt-page">
-    <ActivityIndicator :busy="state.loading" class="nt-activity-indicator"></ActivityIndicator>
-    <BottomNavigation selected-index="0" class="nt-bottom-navigation">
-      <!-- The bottom tab UI is created via TabStrip (the containier) and TabStripItem (for each tab)-->
-      <TabStrip @itemTap="onTabItemTap" class="nt-tab-strip">
-        <TabStripItem class="tabstripitem nt-tab-strip__item">
-          <Image src="~/assets/images/fa-home.svg" class="hide"></Image>
-          <Label :text="'fa-home' | fonticon" class="fa t-16 nt-label" />
-        </TabStripItem>
-        <TabStripItem name="matches" class="tabstripitem nt-tab-strip__item">
-          <Image src="~/assets/images/fa-home.svg" class="hide"></Image>
-          <Label :text="'fa-baseball-ball' | fonticon" class="fa t-16 nt-label" />
-        </TabStripItem>
-        <TabStripItem class="tabstripitem nt-tab-strip__item">
-          <Image src="~/assets/images/fa-home.svg" class="hide"></Image>
-          <Label :text="'fa-user-circle' | fonticon" class="fa t-16 nt-label" />
-        </TabStripItem>
-      </TabStrip>
-
-      <!-- The number of TabContentItem components should corespond to the number of TabStripItem components -->
-      <TabContentItem class="nt-tab-content__item">
-        <StackLayout orientation="Horizontal">
-          <Label v-if="!state.loading" text="Home" class="h2 p-10 nt-label" />
+  <StackLayout class="image">
+    <ActivityIndicator
+      :visibility="loading ? 'visible' : 'collapse'"
+      :busy="loading"
+      class="nt-activity-indicator loader"
+      left="100"
+      top="100"
+    ></ActivityIndicator>
+    <ScrollView ref="scrollView" @scroll="onScroll">
+      <StackLayout>
+        <StackLayout ref="topView" height="500">
+          <!-- this is the header for collapsing --->
+          <!-- Note: this can be any type of layout you want -->
+          <FlexBoxLayout flexDirection="column">
+            <Label
+              text="Camels"
+              color="white"
+              textAlignment="center"
+              fontSize="36"
+              marginTop="120"
+              textTransform="uppercase"
+            />
+            <Label text="VS" color="white" textAlignment="center" fontSize="20" marginTop="10" />
+            <Label
+              v-if="!matchDetails.opponent"
+              text="-----"
+              color="white"
+              textAlignment="center"
+              fontSize="36"
+              marginTop="10"
+              textTransform="uppercase"
+            />
+            <Label
+              v-if="matchDetails.opponent"
+              :text="matchDetails.opponent"
+              color="white"
+              textAlignment="center"
+              fontSize="36"
+              marginTop="10"
+              textTransform="uppercase"
+            />
+          </FlexBoxLayout>
+          <FlexBoxLayout v-if="matchDetails.venue" flex="1" justifyContent="center" class="m-t-10">
+            <Label
+              color="white"
+              fontWeight="bold"
+              textAlignment="center"
+              fontSize="16"
+              marginTop="50"
+              >{{ matchDetails.venue }} , {{ matchDetails.postCode }}</Label
+            >
+          </FlexBoxLayout>
+          <FlexBoxLayout v-if="!matchDetails.venue" flex="1" justifyContent="center" class="m-t-10">
+            <Label
+              color="white"
+              fontWeight="bold"
+              textAlignment="center"
+              fontSize="16"
+              marginTop="50"
+              >------, -----</Label
+            >
+          </FlexBoxLayout>
+          <FlexBoxLayout v-if="matchDetails.venue" flex="1" justifyContent="center">
+            <Label
+              color="white"
+              fontWeight="bold"
+              textAlignment="center"
+              fontSize="16"
+              marginTop="10"
+              >{{ matchDetails.date }} @ {{ matchDetails.time }}</Label
+            >
+          </FlexBoxLayout>
+          <FlexBoxLayout v-if="!matchDetails.date" flex="1" justifyContent="center">
+            <Label
+              color="white"
+              fontWeight="bold"
+              textAlignment="center"
+              fontSize="16"
+              marginTop="10"
+              >--/--/---- --:--</Label
+            >
+          </FlexBoxLayout>
+          <FlexBoxLayout v-if="matchDetails.id" flex="1" justifyContent="center" class="m-t-25">
+            <BaseButtonWithIcon
+              :styleObject="{
+                color: matchDetails.myStatus === 1 << 1 ? '#ff4350' : '#888e90',
+              }"
+              @handleOnClick="handleOnNoClick"
+              text="Not In"
+              icon="fa-times-circle"
+            />
+            <BaseButtonWithIcon
+              :styleObject="{
+                color: matchDetails.myStatus === 1 << 0 ? 'green' : '#888e90',
+              }"
+              @handleOnClick="handleOnYesClick"
+              text="I am In"
+              icon="fa-check-circle"
+            />
+          </FlexBoxLayout>
         </StackLayout>
-      </TabContentItem>
-      <TabContentItem class="nt-tab-content__item">
-        <FlexBoxLayout flexDirection="column" flexGrow="1">
-          <Label text="Matches" class="h2 m-10 nt-label" height="70" />
-          <Matches v-if="state.item.index === 1" />
-        </FlexBoxLayout>
-      </TabContentItem>
-      <TabContentItem class="nt-tab-content__item">
-        <StackLayout>
-          <Label text="Account" class="h2 p-10 nt-label" />
-          <Account />
+        <StackLayout width="100%" padding="10">
+          <!--Add your page content here-->
         </StackLayout>
-      </TabContentItem>
-    </BottomNavigation>
-  </Page>
+      </StackLayout>
+    </ScrollView>
+    <FlexBoxLayout flex="1" justifyContent="center" class="m-t-10">
+      <BaseButton
+        :class="{ 'm-t-20': true, '-primary': true }"
+        @handleOnClick="handleOnViewAllMatchesClick"
+        :loading="false"
+        refFromParent="viewallmatches"
+        text="View All Matches"
+      /> </FlexBoxLayout
+  ></StackLayout>
 </template>
 
 <style scoped lang="scss">
-/* bottom-navigation */
-.tabstripitem {
-  .hide {
-    display: none;
-  }
-}
-TabStripItem.tabstripitem:active {
-  font-weight: 500;
+ScrollView {
+  height: 80%;
 }
 
 .t-16 {
   font-size: 16;
+}
+.image {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('~/assets/images/home.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 100%;
+  /* Add the blur effect */
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+  .loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+  }
 }
 </style>

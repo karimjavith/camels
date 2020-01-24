@@ -25,7 +25,7 @@ import { isAndroid, isIOS } from 'tns-core-modules/platform'
 import { getString } from 'tns-core-modules/application-settings'
 import Theme from '@nativescript/theme'
 import Login from './views/Login.vue'
-import Home from './views/Home.vue'
+import Index from './views/Index.vue'
 
 import store from './store'
 Theme.setMode(Theme.Light) // Or Theme.Light
@@ -118,7 +118,7 @@ if (getString('camels-token')) {
   store.dispatch('authenticationModule/setAuthToken', {
     token: getString('camels-token'),
   })
-  app = Home
+  app = Index
 }
 
 new Vue({

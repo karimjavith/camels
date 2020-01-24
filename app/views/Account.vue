@@ -4,6 +4,7 @@
 import { mapState, mapActions } from 'vuex'
 import Invite from './Invite.vue'
 import UserList from './UserList.vue'
+import ChangePassword from './ChangePassword.vue'
 import Login from './Login.vue'
 import BaseListView from '../components/BaseListView.vue'
 import { logout } from '../_shared/firebase/users.ts'
@@ -27,6 +28,12 @@ export default {
             name: 'Users',
             component: UserList,
             icon: 'fa-user',
+          },
+          {
+            role: AppRoles.User,
+            name: 'Change Password',
+            component: ChangePassword,
+            icon: 'fa-key',
           },
           {
             role: AppRoles.User,
@@ -65,7 +72,10 @@ export default {
 }
 </script>
 <template>
-  <StackLayout orientation="horizontal">
+  <StackLayout>
+    <StackLayout alignItems="center">
+      <Image src="~/assets/images/profile.png" class="accountPic"> </Image>
+    </StackLayout>
     <BaseListView @itemTap="onItemTap" :items="items" refFromParent="accountList"> </BaseListView>
   </StackLayout>
 </template>
@@ -73,5 +83,13 @@ export default {
 <style scoped lang="scss">
 scrollview {
   height: 100%;
+  .accountPic {
+    width: 150;
+    height: 150;
+    border-radius: 100;
+    margin: 20;
+    border-color: #4db8ff;
+    border-width: 1;
+  }
 }
 </style>

@@ -1,36 +1,105 @@
-import { LoadingIndicator, Mode, OptionsCommon } from '@nstudio/nativescript-loading-indicator'
+import * as application from 'tns-core-modules/application'
+import { isIOS, isAndroid } from 'tns-core-modules/platform'
+import * as utils from 'tns-core-modules/utils/utils'
+import { Color } from 'tns-core-modules/color'
+import * as frame from 'tns-core-modules/ui/frame'
 
-const loader = new LoadingIndicator()
+declare var android: {
+    app: {
+      ProgressDialog: {
+        show: (
+          arg0: any,
+          arg1: string,
+          arg2: string
+        ) => {
+          center: any
+          layer: { cornerRadius: number }
+          backgroundColor: any
+          addSubview: (arg0: any) => void
+          removeFromSuperview: () => void
+          dismiss: () => void
+        } | null
+      }
+    }
+  },
+  UIApplication: { sharedApplication: any },
+  UIView: {
+    alloc: () => { (): any; new (): any; initWithFrame: { (arg0: any): any; new (): any } }
+  },
+  CGRectMake: (arg0: number, arg1: number, arg2: number, arg3: number) => any,
+  CGPointMake: (arg0: number, arg1: number) => any,
+  UIActivityIndicatorView: {
+    alloc: () => {
+      (): any
+      new (): any
+      initWithActivityIndicatorStyle: { (arg0: any): any; new (): any }
+    }
+  },
+  UIActivityIndicatorViewStyle: { WhiteLarge: any }
 
-const loaderOptions: OptionsCommon = {
-  message: 'One moment...',
-  //   details: "Additional detail note!",
-  progress: 0.65,
-  margin: 10,
-  dimBackground: true,
-  color: '#4B9ED6', // color of indicator and labels
-  // background box around indicator
-  // hideBezel will override this if true
-  backgroundColor: 'yellow',
-  userInteractionEnabled: false, // default true. Set false so that the touches will fall through it.
-  hideBezel: true, // default false, can hide the surrounding bezel
-  mode: Mode.AnnularDeterminate, // see options below
-  android: {
-    // view: someStackLayout.android, // Target view to show on top of (Defaults to entire window)
-    // cancelable: true,
-    // cancelListener: function(dialog) {
-    //   console.log("Loading cancelled");
-    // }
-  },
-  ios: {
-    // view: someButton.ios, // Target view to show on top of (Defaults to entire window)
-    square: false,
-  },
+let loaderView: {
+  center: any
+  layer: { cornerRadius: number }
+  backgroundColor: any
+  addSubview: (arg0: any) => void
+  removeFromSuperview: () => void
+  dismiss: () => void
+} | null
+
+export function showLoader(message: string = 'Loading...') {
+  if (loaderView) {
+    return
+  }
+
+  if (isIOS) {
+    utils.ios
+      // @ts-ignore
+      .getter(UIApplication, UIApplication.sharedApplication)
+      .beginIgnoringInteractionEvents()
+
+    const currentView = frame.topmost().ios.controller.view
+    loaderView = UIView.alloc().initWithFrame(CGRectMake(0, 0, 90, 90))
+    // @ts-ignore
+    loaderView.center = currentView.center
+    // @ts-ignore
+    loaderView.layer.cornerRadius = 4
+    // @ts-ignore
+    loaderView.backgroundColor = new Color('#CC000000').ios
+
+    const indicator = UIActivityIndicatorView.alloc().initWithActivityIndicatorStyle(
+      UIActivityIndicatorViewStyle.WhiteLarge
+    )
+    indicator.center = CGPointMake(45, 45)
+    // @ts-ignore
+    loaderView.addSubview(indicator)
+    currentView.addSubview(loaderView)
+
+    indicator.startAnimating()
+  }
+
+  if (isAndroid) {
+    // loaderView = android.app.ProgressDialog.show(
+    //   application.android.foregroundActivity,
+    //   '',
+    //   message
+    // )
+  }
 }
 
-// indicator.show(options);
+export function hideLoader() {
+  if (!loaderView) {
+    return
+  }
 
-// after some async event maybe or a timeout hide the indicator
-// indicator.hide();
+  if (isIOS) {
+    loaderView.removeFromSuperview()
+    // @ts-ignore
+    utils.ios.getter(UIApplication, UIApplication.sharedApplication).endIgnoringInteractionEvents()
+  }
 
-export { loader, loaderOptions }
+  if (isAndroid) {
+    loaderView.dismiss()
+  }
+
+  loaderView = null
+}

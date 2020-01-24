@@ -27,7 +27,7 @@ export default {
       default: '',
     },
     date: {
-      type: String,
+      type: Date,
       default: new Date(),
     },
     time: {

@@ -11,6 +11,16 @@ export default {
       type: String,
       default: '',
     },
+    styleObject: {
+      type: Object,
+      default: function() {
+        return {}
+      },
+    },
+    primary: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {}
@@ -24,7 +34,19 @@ export default {
 }
 </script>
 <template>
-  <Button @tap="handleOnClick" class="nt-button -outline -custom -rounded-lg fa ta-14">
+  <Button
+    @tap="handleOnClick"
+    :style="[styleObject]"
+    :class="{
+      'nt-button': true,
+      '-outline': true,
+      '-primary': primary,
+      '-rounded-lg': true,
+      fa: true,
+      fas: true,
+      'ta-16': true,
+    }"
+  >
     {{ icon | fonticon }} {{ text }}
   </Button>
 </template>
