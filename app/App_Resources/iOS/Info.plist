@@ -47,5 +47,33 @@
 	<string>UIStatusBarStyleLightContent</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>GADApplicationIdentifier</key>
+  <string>ca-app-pub-9791179910775561~4309428216</string>
+  <key>NSAppTransportSecurity</key>
+<dict>
+  <key>NSAllowsArbitraryLoads</key>
+  <true/>
+  <key>NSAllowsArbitraryLoadsForMedia</key>
+  <true/>
+  <key>NSAllowsArbitraryLoadsInWebContent</key>
+  <true/>
+</dict>
+<key>UIBackgroundModes</key>
+<array>
+  <string>remote-notification</string>
+</array>
+<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>firebaseplugin.camels.urlscheme</string><!-- anything you like, but must be unique -->
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.cricket.camels</string><!-- the same as your bundle id (nativescript.id in package.json) -->
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>

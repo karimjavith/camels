@@ -40,12 +40,16 @@ if (isAndroid) {
     new NSError({
       domain: 'ShiploopHttpResponseErrorDomain',
       code: 42,
+      // @ts-ignore
       userInfo: null,
     })
   )
 }
 firebase
   .init({
+    // Optionally pass in properties for database, authentication and cloud messaging,
+    // see their respective docs and 'iOSEmulatorFlush' to flush token before init.
+    iOSEmulatorFlush: true,
     // Optionally pass in properties for database, authentication and cloud messaging,
     // see their respective docs.
     crashlyticsCollectionEnabled: true,
