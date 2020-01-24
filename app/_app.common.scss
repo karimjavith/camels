@@ -1,27 +1,4 @@
 // Override variables here
-// $base-theme: Default;
-// $skin-name: custom;
-// $swatch-name: Moonlight;
-// $border-radius: 2px;
-// $accent: #f4af03;
-// $info: #0c779b;
-// $success: #2b893c;
-// $warning: #ea9d07;
-// $error: #be5138;
-// $text-color: #ffffff;
-// $bg-color: #2f3640;
-// $base-text: #ffffff;
-// $base-bg: #282f36;
-// $hovered-text: #ffffff;
-// $hovered-bg: #40444f;
-// $selected-text: #ffffff;
-// $selected-bg: #f4af03;
-// $series-a: #ffca08;
-// $series-b: #ff710f;
-// $series-c: #ed2e24;
-// $series-d: #ff9f03;
-// $series-e: #e13c02;
-// $series-f: #a00201;
 $base-theme: Default;
 $skin-name: camels;
 $swatch-name: Nova;
@@ -51,8 +28,43 @@ $series-f: #ffd78c;
 
 // Global SCSS styling
 // @see https://docs.nativescript.org/ui/styling
+Page {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18;
+  padding: 0;
+}
+RadDataForm {
+  input: {
+    font-size: 14;
+  }
+  label: {
+    font-size: 14;
+  }
+}
+.fs14 {
+  font-size: 14;
+}
+.fs12 {
+  font-size: 12;
+}
+.fs10 {
+  font-size: 10;
+}
+.fs18 {
+  font-size: 18;
+}
+.fs20 {
+  font-size: 20;
+}
 .fa {
+  font-family: FontAwesome, fa-regular-400;
+}
+.fas {
   font-family: FontAwesome, fa-solid-900;
+}
+
+.mt {
+  font-family: Montserrat;
 }
 .page {
   align-items: center;

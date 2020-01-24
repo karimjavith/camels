@@ -10,7 +10,8 @@ async function getJson(response: IHttpBasicResponse): Promise<any> {
 
 const handleException = (error: any, type: string) => {
   console.log(error)
-  ToastService(type + ': ' + error.message, '#be5138').show()
+  const errorMessage = error.message || ''
+  ToastService(type + ': ' + errorMessage, '#be5138').show()
   return { message: error.message, type, isError: true, status: error.status, json: '' }
 }
 

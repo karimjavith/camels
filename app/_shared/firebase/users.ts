@@ -150,6 +150,14 @@ const sendPasswordResetEmail = async (email: string) => {
     return
   }
 }
+const updatePassword = async (password: string) => {
+  try {
+    await firebaseApi.auth().updatePassword(password)
+    return { isError: false }
+  } catch (e) {
+    return handleException(e, 'Update failed :: Please sign out and try again')
+  }
+}
 export {
   login,
   logout,
@@ -163,4 +171,5 @@ export {
   updateUser,
   removeUser,
   sendPasswordResetEmail,
+  updatePassword,
 }

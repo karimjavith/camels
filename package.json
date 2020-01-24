@@ -9,7 +9,6 @@
   "dependencies": {
     "@nativescript/theme": "^2.2.1",
     "@nstudio/nativescript-cardview": "^1.0.0",
-    "@nstudio/nativescript-loading-indicator": "^2.0.1",
     "nativescript-datetimepicker": "^1.2.2",
     "nativescript-fonticon": "^2.0.0",
     "nativescript-loading-indicator": "^2.5.2",

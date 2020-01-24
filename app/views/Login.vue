@@ -3,7 +3,7 @@ const dialogs = require('tns-core-modules/ui/dialogs')
 import { mapActions, mapState } from 'vuex'
 import { login, sendPasswordResetEmail } from '../_shared/firebase/users.ts'
 import { ToastService } from '../_shared/Toasty.ts'
-import Home from './Home.vue'
+import Index from './Index.vue'
 import CreatePassword from './CreatePassword.vue'
 import BaseButton from '../components/BaseButton.vue'
 
@@ -123,7 +123,7 @@ export default {
 
       if (!isError) {
         this.setGlobalLoginState({ token, uid, role, loggedIn: true })
-        this.$navigateTo(Home, { clearHistory: true })
+        this.$navigateTo(Index, { clearHistory: true })
       }
       this.state = { ...this.state, loading: false }
     },
@@ -151,7 +151,7 @@ export default {
   <Page actionBarHidden="true" class="nt-page">
     <FlexboxLayout class="page">
       <StackLayout class="nt-form form">
-        <Image class="logo nt-image" src="~/assets/images/logo.png" />
+        <Image class="logo nt-image" src="~/assets/images/logo.png" stretch="aspectFill" />
         <RadDataForm ref="dataform" :source="state.user" :metadata="state.userMetadata">
         </RadDataForm>
         <BaseButton
@@ -184,6 +184,8 @@ Page {
   margin-bottom: 12;
   height: 90;
   font-weight: bold;
+  width: 150;
+  height: 150;
 }
 
 .header {

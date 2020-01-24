@@ -8,10 +8,6 @@
         "directory": "..\\..\\node_modules\\@nstudio\\nativescript-cardview"
     },
     {
-        "name": "@nstudio/nativescript-loading-indicator",
-        "directory": "..\\..\\node_modules\\@nstudio\\nativescript-loading-indicator"
-    },
-    {
         "name": "nativescript-datetimepicker",
         "directory": "..\\..\\node_modules\\nativescript-datetimepicker"
     },

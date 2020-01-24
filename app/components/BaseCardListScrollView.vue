@@ -67,7 +67,7 @@ export default {
     class="nt-list-view"
   >
     <v-template>
-      <CardView ripple="true" padding="5" margin="5" height="auto">
+      <CardView :key="item.id" ripple="true" padding="5" margin="5" height="auto">
         <StackLayout>
           <FlexBoxLayout justifyContent="space-between">
             <Label class="nt-label">
@@ -89,7 +89,7 @@ export default {
               >
               <Label v-if="item.showDeleteOption" @tap="onItemDelete(item)" class="nt-label">
                 <FormattedString>
-                  <Span class="fa t-16  nt-icon"> {{ 'fa-trash' | fonticon }}</Span>
+                  <Span class="fa t-16  nt-icon"> {{ 'fa-trash-alt' | fonticon }}</Span>
                 </FormattedString></Label
               ></StackLayout
             >
@@ -104,32 +104,36 @@ export default {
             <label :text="item.body" class="info nt-label t-14" textWrap="true" />
           </FlexBoxLayout>
           <FlexBoxLayout justifyContent="space-between">
-            <Button
-              @tap="handleOnCancel(item)"
-              :class="{
-                fa: item.cancelTextIcon,
-                'nt-button': true,
-                '-outline': true,
-                '-rounded-lg': true,
-              }"
-              :style="[item.cancelTextStyles]"
-              :isEnabled="!item.actionButtonDisabled"
-              v-if="item.showActionItems"
-              >{{ item.cancelText }}
-              {{ item.cancelTextIcon && item.cancelTextIcon | fonticon }}</Button
+            <StackLayout>
+              <Button
+                @tap="handleOnCancel(item)"
+                :class="{
+                  fa: item.cancelTextIcon,
+                  'nt-button': true,
+                  '-outline': true,
+                  '-rounded-lg': true,
+                }"
+                :style="[item.cancelTextStyles]"
+                :isEnabled="!item.actionButtonDisabled"
+                v-if="item.showActionItems"
+                >{{ item.cancelText }}
+                {{ item.cancelTextIcon && item.cancelTextIcon | fonticon }}</Button
+              ></StackLayout
             >
-            <Button
-              @tap="handleOnOk(item)"
-              :class="{
-                fa: item.okTextIcon,
-                'nt-button': true,
-                '-outline': true,
-                '-rounded-lg': true,
-              }"
-              :style="[item.okTextStyles]"
-              :isEnabled="!item.actionButtonDisabled"
-              v-if="item.showActionItems"
-              >{{ item.okText }} {{ item.okTextIcon && item.okTextIcon | fonticon }}</Button
+            <StackLayout>
+              <Button
+                @tap="handleOnOk(item)"
+                :class="{
+                  fa: item.okTextIcon,
+                  'nt-button': true,
+                  '-outline': true,
+                  '-rounded-lg': true,
+                }"
+                :style="[item.okTextStyles]"
+                :isEnabled="!item.actionButtonDisabled"
+                v-if="item.showActionItems"
+                >{{ item.okText }} {{ item.okTextIcon && item.okTextIcon | fonticon }}</Button
+              ></StackLayout
             >
           </FlexBoxLayout>
         </StackLayout>
