@@ -15,8 +15,8 @@
  */
 #import <Foundation/Foundation.h>
 
-#import <FirebaseCore/FIRComponentType.h>
-#import <FirebaseCore/FIRLibrary.h>
+#import "FIRComponentType.h"
+#import "FIRLibrary.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

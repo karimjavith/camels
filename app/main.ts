@@ -2,9 +2,8 @@ import VueDevtools from 'nativescript-vue-devtools'
 import Vue from 'nativescript-vue'
 import RadListView from 'nativescript-ui-listview/vue'
 import { ModalStack, overrideModalViewMethod, VueWindowedModal } from 'nativescript-windowed-modal'
-import DateTimePicker from 'nativescript-datetimepicker/vue'
 import RadDataForm from 'nativescript-ui-dataform/vue'
-import firebase from 'nativescript-plugin-firebase'
+var firebase = require('nativescript-plugin-firebase')
 // @ts-ignore
 import { TNSFontIcon, fonticon } from 'nativescript-fonticon'
 // TNSFontIcon.debug = true
@@ -17,8 +16,6 @@ Vue.filter('fonticon', fonticon)
 Vue.use(VueDevtools)
 Vue.use(RadListView)
 Vue.use(RadDataForm)
-// @ts-ignore
-Vue.use(DateTimePicker)
 
 import { crashlytics } from 'nativescript-plugin-firebase'
 import { isAndroid, isIOS } from 'tns-core-modules/platform'
@@ -29,8 +26,40 @@ import Index from './views/Index.vue'
 
 import store from './store'
 Theme.setMode(Theme.Light) // Or Theme.Light
+firebase
+  .init({
+    // Optionally pass in properties for database, authentication and cloud messaging,
+    // see their respective docs and 'iOSEmulatorFlush' to flush token before init.
+    iOSEmulatorFlush: true,
+    // Optionally pass in properties for database, authentication and cloud messaging,
+    // see their respective docs.
+    crashlyticsCollectionEnabled: true,
+    onDynamicLinkCallback: function (result: any) {
+      console.log('Dynamic link :: ' + result.url)
+      store.dispatch('authenticationModule/setCreatePasswordPage')
+    },
+    showNotificationsWhenInForeground: true,
+    // @ts-ignore
+    onMessageReceivedCallback: (message: firebase.Message) => {
+      console.log(`Title :: ${message.title}`)
+      console.log(`Body :: ${message.body}`)
+    },
+    onPushTokenReceivedCallback: function (token: string) {
+      console.log('Firebase push token :: ' + token)
+    },
+  })
+  .then(
+    () => {
+      console.log('firebase.init :: done')
+    },
+    (error: any) => {
+      console.log(`firebase.init error :: ${error}`)
+    }
+  )
 
 if (isAndroid) {
+  // eslint-disable-next-line no-undef
+  // @ts-ignore
   // eslint-disable-next-line no-undef
   crashlytics.sendCrashLog(new java.lang.Exception('Crash Exception'))
 } else if (isIOS) {
@@ -45,35 +74,6 @@ if (isAndroid) {
     })
   )
 }
-firebase
-  .init({
-    // Optionally pass in properties for database, authentication and cloud messaging,
-    // see their respective docs and 'iOSEmulatorFlush' to flush token before init.
-    iOSEmulatorFlush: true,
-    // Optionally pass in properties for database, authentication and cloud messaging,
-    // see their respective docs.
-    crashlyticsCollectionEnabled: true,
-    onDynamicLinkCallback: function(result: any) {
-      console.log('Dynamic link :: ' + result.url)
-      store.dispatch('authenticationModule/setCreatePasswordPage')
-    },
-    showNotificationsWhenInForeground: true,
-    onMessageReceivedCallback: (message: firebase.Message) => {
-      console.log(`Title :: ${message.title}`)
-      console.log(`Body :: ${message.body}`)
-    },
-    onPushTokenReceivedCallback: function(token: string) {
-      console.log('Firebase push token :: ' + token)
-    },
-  })
-  .then(
-    () => {
-      console.log('firebase.init :: done')
-    },
-    (error: any) => {
-      console.log(`firebase.init error :: ${error}`)
-    }
-  )
 // setTimeout(() => {
 //   firebase.admob
 //     .showBanner({
@@ -110,7 +110,6 @@ firebase
 Vue.config.silent = TNS_ENV === 'production'
 
 overrideModalViewMethod()
-Vue.registerElement('RadSideDrawer', () => require('nativescript-ui-sidedrawer').RadSideDrawer)
 Vue.registerElement('CardView', () => require('@nstudio/nativescript-cardview').CardView)
 Vue.registerElement('ModalStack', () => ModalStack)
 Vue.use(VueWindowedModal)
@@ -127,5 +126,5 @@ if (getString('camels-token')) {
 
 new Vue({
   store,
-  render: h => h('Frame', [h(app)]),
+  render: (h: any) => h('Frame', [h(app)]), // @ts-ignore
 }).$start()

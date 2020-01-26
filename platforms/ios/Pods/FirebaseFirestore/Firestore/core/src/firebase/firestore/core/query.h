@@ -27,7 +27,6 @@
 #include "Firestore/core/src/firebase/firestore/core/bound.h"
 #include "Firestore/core/src/firebase/firestore/core/filter.h"
 #include "Firestore/core/src/firebase/firestore/core/order_by.h"
-#include "Firestore/core/src/firebase/firestore/core/target.h"
 #include "Firestore/core/src/firebase/firestore/immutable/append_only_list.h"
 #include "Firestore/core/src/firebase/firestore/model/document.h"
 #include "Firestore/core/src/firebase/firestore/model/document_set.h"
@@ -39,16 +38,14 @@ namespace core {
 
 using CollectionGroupId = std::shared_ptr<const std::string>;
 
-enum class LimitType { None, First, Last };
-
 /**
- * Encapsulates all the query attributes we support in the SDK. It represents
- * query features visible to user, and can be run against the LocalStore.
- * `Query` is first convert to `Target` to run against RemoteStore to query
- * backend results, because `Target` encapsulates features backend knows about.
+ * Represents the internal structure of a Firestore Query. Query instances are
+ * immutable.
  */
 class Query {
  public:
+  static constexpr int32_t kNoLimit = std::numeric_limits<int32_t>::max();
+
   Query() = default;
 
   explicit Query(model::ResourcePath path,
@@ -65,7 +62,6 @@ class Query {
         FilterList filters,
         OrderByList explicit_order_bys,
         int32_t limit,
-        LimitType limit_type,
         std::shared_ptr<Bound> start_at,
         std::shared_ptr<Bound> end_at)
       : path_(std::move(path)),
@@ -73,7 +69,6 @@ class Query {
         filters_(std::move(filters)),
         explicit_order_bys_(std::move(explicit_order_bys)),
         limit_(limit),
-        limit_type_(limit_type),
         start_at_(std::move(start_at)),
         end_at_(std::move(end_at)) {
   }
@@ -151,17 +146,9 @@ class Query {
   /** Returns the first field in an order-by constraint, or nullptr if none. */
   const model::FieldPath* FirstOrderByField() const;
 
-  bool has_limit_to_first() const {
-    return limit_type_ == LimitType::First && limit_ != Target::kNoLimit;
+  int32_t limit() const {
+    return limit_;
   }
-
-  bool has_limit_to_last() const {
-    return limit_type_ == LimitType::Last && limit_ != Target::kNoLimit;
-  }
-
-  LimitType limit_type() const;
-
-  int32_t limit() const;
 
   const std::shared_ptr<Bound>& start_at() const {
     return start_at_;
@@ -184,27 +171,14 @@ class Query {
   Query AddingOrderBy(OrderBy order_by) const;
 
   /**
-   * Returns a new `Query` that returns the first matching documents up to
-   * the specified number.
+   * Returns a copy of this Query with the given limit on how many results can
+   * be returned.
    *
    * @param limit The maximum number of results to return. If
    *     `limit == kNoLimit`, then no limit is applied. Otherwise, if
    *     `limit <= 0`, behavior is unspecified.
    */
-  Query WithLimitToFirst(int32_t limit) const;
-
-  /**
-   * Returns a new `Query` that returns the last matching documents up to
-   * the specified number.
-   *
-   * You must specify at least one `OrderBy` clause for `LimitToLast` queries,
-   * it is an error otherwise.
-   *
-   * @param limit The maximum number of results to return. If
-   *     `limit == kNoLimit`, then no limit is applied. Otherwise, if
-   *     `limit <= 0`, behavior is unspecified.
-   */
-  Query WithLimitToLast(int32_t limit) const;
+  Query WithLimit(int32_t limit) const;
 
   /**
    * Returns a copy of this Query starting at the provided bound.
@@ -235,19 +209,12 @@ class Query {
    */
   model::DocumentComparator Comparator() const;
 
-  const std::string CanonicalId() const;
+  const std::string& CanonicalId() const;
 
   std::string ToString() const;
 
-  /**
-   * Returns a `Target` instance this query will be mapped to in backend
-   * and local store.
-   */
-  const Target& ToTarget() const&;
-
   friend std::ostream& operator<<(std::ostream& os, const Query& query);
 
-  friend bool operator==(const Query& lhs, const Query& rhs);
   size_t Hash() const;
 
  private:
@@ -272,17 +239,15 @@ class Query {
   // The memoized list of sort orders.
   mutable OrderByList memoized_order_bys_;
 
-  int32_t limit_ = Target::kNoLimit;
-  LimitType limit_type_ = LimitType::None;
-
+  int32_t limit_ = kNoLimit;
   std::shared_ptr<Bound> start_at_;
   std::shared_ptr<Bound> end_at_;
 
-  // The corresponding Target of this Query instance.
-  mutable std::shared_ptr<const Target> memoized_target;
+  mutable std::string canonical_id_;
 };
 
 bool operator==(const Query& lhs, const Query& rhs);
+
 inline bool operator!=(const Query& lhs, const Query& rhs) {
   return !(lhs == rhs);
 }

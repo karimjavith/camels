@@ -1,5 +1,4 @@
 <script>
-var getViewById = require('tns-core-modules/ui/core/view').getViewById
 import { mapState, mapActions } from 'vuex'
 import Login from './Login.vue'
 import Home from './Home.vue'
@@ -97,7 +96,7 @@ export default {
 <template>
   <Page actionBarHidden="true" class="nt-page">
     <DockLayout>
-      <StackLayout dock="top" height="93%" width="100%" style="">
+      <StackLayout dock="top" height="94%" width="100%" style="">
         <Home
           v-if="state.item.index === 0"
           @onHomeEventSetIndexCb="onHomeEventSetIndexCb"
@@ -106,7 +105,7 @@ export default {
         <Matches v-if="state.item.index === 1" @onMatchEventSetIndexCb="onMatchEventSetIndexCb" />
         <Account v-if="state.item.index === 2" />
       </StackLayout>
-      <StackLayout dock="bottom" height="7%" class="bottomNavBar">
+      <StackLayout dock="bottom" height="6%" class="bottomNavBar">
         <StackLayout orientation="horizontal">
           <StackLayout @tap="handleOnMenuTap(0)" class="navItem">
             <Label
@@ -119,7 +118,7 @@ export default {
               :class="{ active: state.item.index === 0 }"
               android:style="font-size:25;margin-top:-15"
               ios:style="font-size:30;margin-top:-15"
-              class="fas"
+              class="fas fs16 nt-icon"
               >{{ 'fa-home' | fonticon }}</Label
             >
           </StackLayout>
@@ -133,7 +132,7 @@ export default {
               :class="{ active: state.item.index === 1 }"
               android:style="font-size:25;margin-top:-15"
               ios:style="font-size:30;margin-top:-15"
-              class="fas"
+              class="fas fs16 nt-icon"
               >{{ 'fa-quidditch' | fonticon }}</Label
             >
           </StackLayout>
@@ -146,10 +145,10 @@ export default {
             />
             <Label
               :class="{ active: state.item.index === 2 }"
-              text=""
+              :text="'fa-user' | fonticon"
               android:style="font-size:25;margin-top:-15"
               ios:style="font-size:30;margin-top:-15"
-              class="fas"
+              class="fas nt-icon fs16"
             />
           </StackLayout>
         </StackLayout>
@@ -159,13 +158,9 @@ export default {
 </template>
 
 <style scoped lang="scss">
-@import '~/_app.common.scss';
+@import '~/_app.common';
 .active {
   color: $accent;
-}
-
-.t-16 {
-  font-size: 16;
 }
 /* bottom nav bar */
 .bottomNavBar {

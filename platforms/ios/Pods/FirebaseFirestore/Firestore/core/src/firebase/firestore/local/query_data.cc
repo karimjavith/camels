@@ -24,7 +24,7 @@ namespace firebase {
 namespace firestore {
 namespace local {
 
-using core::Target;
+using core::Query;
 using model::ListenSequenceNumber;
 using model::SnapshotVersion;
 using model::TargetId;
@@ -55,66 +55,52 @@ std::ostream& operator<<(std::ostream& os, QueryPurpose purpose) {
 
 // MARK: - QueryData
 
-QueryData::QueryData(Target target,
+QueryData::QueryData(Query query,
                      TargetId target_id,
                      ListenSequenceNumber sequence_number,
                      QueryPurpose purpose,
                      SnapshotVersion snapshot_version,
-                     SnapshotVersion last_limbo_free_snapshot_version,
                      ByteString resume_token)
-    : target_(std::move(target)),
+    : query_(std::move(query)),
       target_id_(target_id),
       sequence_number_(sequence_number),
       purpose_(purpose),
       snapshot_version_(std::move(snapshot_version)),
-      last_limbo_free_snapshot_version_(
-          std::move(last_limbo_free_snapshot_version)),
       resume_token_(std::move(resume_token)) {
 }
 
-QueryData::QueryData(Target target,
+QueryData::QueryData(Query query,
                      int target_id,
                      ListenSequenceNumber sequence_number,
                      QueryPurpose purpose)
-    : QueryData(std::move(target),
+    : QueryData(std::move(query),
                 target_id,
                 sequence_number,
                 purpose,
-                SnapshotVersion::None(),
                 SnapshotVersion::None(),
                 ByteString()) {
 }
 
 QueryData QueryData::Invalid() {
-  return QueryData({}, /*target_id=*/-1, /*sequence_number=*/-1,
+  return QueryData(Query(), /*target_id=*/-1, /*sequence_number=*/-1,
                    QueryPurpose::Listen,
-                   SnapshotVersion(SnapshotVersion::None()),
                    SnapshotVersion(SnapshotVersion::None()), {});
 }
 
 QueryData QueryData::WithSequenceNumber(
     ListenSequenceNumber sequence_number) const {
-  return QueryData(target_, target_id_, sequence_number, purpose_,
-                   snapshot_version_, last_limbo_free_snapshot_version_,
-                   resume_token_);
+  return QueryData(Query(query_), target_id_, sequence_number, purpose_,
+                   snapshot_version_, resume_token_);
 }
 
 QueryData QueryData::WithResumeToken(ByteString resume_token,
                                      SnapshotVersion snapshot_version) const {
-  return QueryData(target_, target_id_, sequence_number_, purpose_,
-                   std::move(snapshot_version),
-                   last_limbo_free_snapshot_version_, std::move(resume_token));
-}
-
-QueryData QueryData::WithLastLimboFreeSnapshotVersion(
-    SnapshotVersion last_limbo_free_snapshot_version) const {
-  return QueryData(target_, target_id_, sequence_number_, purpose_,
-                   snapshot_version_,
-                   std::move(last_limbo_free_snapshot_version), resume_token_);
+  return QueryData(Query(query_), target_id_, sequence_number_, purpose_,
+                   std::move(snapshot_version), std::move(resume_token));
 }
 
 bool operator==(const QueryData& lhs, const QueryData& rhs) {
-  return lhs.target() == rhs.target() && lhs.target_id() == rhs.target_id() &&
+  return lhs.query() == rhs.query() && lhs.target_id() == rhs.target_id() &&
          lhs.sequence_number() == rhs.sequence_number() &&
          lhs.purpose() == rhs.purpose() &&
          lhs.snapshot_version() == rhs.snapshot_version() &&
@@ -122,7 +108,7 @@ bool operator==(const QueryData& lhs, const QueryData& rhs) {
 }
 
 size_t QueryData::Hash() const {
-  return util::Hash(target_, target_id_, sequence_number_, purpose_,
+  return util::Hash(query_, target_id_, sequence_number_, purpose_,
                     snapshot_version_, resume_token_);
 }
 
@@ -133,12 +119,9 @@ std::string QueryData::ToString() const {
 }
 
 std::ostream& operator<<(std::ostream& os, const QueryData& value) {
-  return os << "QueryData(target=" << value.target_
-            << ", target_id=" << value.target_id_
-            << ", purpose=" << value.purpose_
+  return os << "QueryData(query=," << value.query_
+            << ", target=" << value.target_id_ << ", purpose=" << value.purpose_
             << ", version=" << value.snapshot_version_
-            << ", last_limbo_free_snapshot_version="
-            << value.last_limbo_free_snapshot_version_
             << ", resume_token=" << value.resume_token_ << ")";
 }
 

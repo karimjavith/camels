@@ -26,10 +26,6 @@
     #import <FirebaseAuth/FirebaseAuth.h>
   #endif
 
-  #if __has_include(<FirebaseCrashlytics/FirebaseCrashlytics.h>)
-    #import <FirebaseCrashlytics/FirebaseCrashlytics.h>
-  #endif
-
   #if __has_include(<FirebaseDatabase/FirebaseDatabase.h>)
     #import <FirebaseDatabase/FirebaseDatabase.h>
   #endif
