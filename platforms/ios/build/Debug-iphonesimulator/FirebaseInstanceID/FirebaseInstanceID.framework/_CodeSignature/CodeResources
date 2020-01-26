@@ -18,7 +18,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		vT3z7UmHnXw8dEL8+fPG6f0PPt4=
+		kTH4puRL493TVq1tXeaosjPhGkE=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -26,7 +26,7 @@
 		</data>
 		<key>PrivateHeaders/FIRInstanceID+Private.h</key>
 		<data>
-		8kzWFiTsRmetdCf90Qd7/2YcjAM=
+		OejBBsg7yaNT1NSbOnPZ0BAeSvQ=
 		</data>
 		<key>PrivateHeaders/FIRInstanceIDCheckinPreferences.h</key>
 		<data>
@@ -34,7 +34,7 @@
 		</data>
 		<key>PrivateHeaders/FIRInstanceID_Private.h</key>
 		<data>
-		FbywTnxDwUAZXSootUlnDrKN9lc=
+		/+eGU5Nz2KrsKz4kXMPZTqYtQXs=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -87,11 +87,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			8kzWFiTsRmetdCf90Qd7/2YcjAM=
+			OejBBsg7yaNT1NSbOnPZ0BAeSvQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			iC73N62uyUEcxh5wOuGlM0XnfH8qvjRbQ88WGlMjYiE=
+			JsjiHE5Vy1wqOVdONoBBkJKx/N8DBIj+C50j2kZ/jnU=
 			</data>
 		</dict>
 		<key>PrivateHeaders/FIRInstanceIDCheckinPreferences.h</key>
@@ -109,11 +109,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			FbywTnxDwUAZXSootUlnDrKN9lc=
+			/+eGU5Nz2KrsKz4kXMPZTqYtQXs=
 			</data>
 			<key>hash2</key>
 			<data>
-			dXWBMBwLLAaleMxeBqAMQZmBAUV4CgDZMjO2HMwQ7mY=
+			J1schQH7P/QptUQJRWc97rZRxIq0gMoLSsIgBeQKX4E=
 			</data>
 		</dict>
 	</dict>

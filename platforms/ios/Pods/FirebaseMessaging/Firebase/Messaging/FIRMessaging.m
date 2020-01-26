@@ -145,6 +145,8 @@ const BOOL FIRMessagingIsAPNSSyncMessage(NSDictionary *message) {
 
 @property(nonatomic, readwrite, strong) FIRInstanceID *instanceID;
 
+@property(nonatomic, readwrite, assign) BOOL isClientSetup;
+
 @property(nonatomic, readwrite, strong) FIRMessagingClient *client;
 @property(nonatomic, readwrite, strong) GULReachabilityChecker *reachability;
 @property(nonatomic, readwrite, strong) FIRMessagingDataMessageManager *dataMessageManager;
@@ -268,10 +270,6 @@ const BOOL FIRMessagingIsAPNSSyncMessage(NSDictionary *message) {
 }
 
 - (void)start {
-  [self setupFileManagerSubDirectory];
-  [self setupNotificationListeners];
-
-#if !TARGET_OS_WATCH
   // Print the library version for logging.
   NSString *currentLibraryVersion = FIRMessagingCurrentLibraryVersion();
   FIRMessagingLoggerInfo(kFIRMessagingMessageCodeMessagingPrintLibraryVersion,
@@ -285,6 +283,7 @@ const BOOL FIRMessagingIsAPNSSyncMessage(NSDictionary *message) {
                                                                           withHost:hostname];
   [self.reachability start];
 
+  [self setupFileManagerSubDirectory];
   // setup FIRMessaging objects
   [self setupRmqManager];
   [self setupClient];
@@ -292,7 +291,8 @@ const BOOL FIRMessagingIsAPNSSyncMessage(NSDictionary *message) {
   [self setupDataMessageManager];
   [self setupTopics];
 
-#endif
+  self.isClientSetup = YES;
+  [self setupNotificationListeners];
 }
 
 - (void)setupFileManagerSubDirectory {
@@ -373,6 +373,7 @@ const BOOL FIRMessagingIsAPNSSyncMessage(NSDictionary *message) {
   self.rmq2Manager = nil;
   self.dataMessageManager = nil;
   self.client = nil;
+  self.isClientSetup = NO;
   FIRMessagingLoggerDebug(kFIRMessagingMessageCodeMessaging001, @"Did successfully teardown");
 }
 
@@ -686,7 +687,7 @@ const BOOL FIRMessagingIsAPNSSyncMessage(NSDictionary *message) {
 }
 
 - (BOOL)shouldBeConnectedAutomatically {
-#if TARGET_OS_OSX || TARGET_OS_WATCH
+#if TARGET_OS_OSX
     return NO;
 #else
   // We require a token from Instance ID

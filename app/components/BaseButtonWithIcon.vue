@@ -42,7 +42,7 @@ export default {
       '-outline': true,
       '-primary': primary,
       '-rounded-lg': true,
-      fa: true,
+      'nt-icon': true,
       fas: true,
       'ta-16': true,
     }"

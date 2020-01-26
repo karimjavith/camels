@@ -167,42 +167,42 @@ PODS:
   - Crashlytics (3.14.0):
     - Fabric (~> 1.10.2)
   - Fabric (1.10.2)
-  - Firebase/AdMob (6.15.0):
+  - Firebase/AdMob (6.13.0):
     - Firebase/CoreOnly
     - Google-Mobile-Ads-SDK (~> 7.50)
-  - Firebase/Analytics (6.15.0):
+  - Firebase/Analytics (6.13.0):
     - Firebase/Core
-  - Firebase/Auth (6.15.0):
+  - Firebase/Auth (6.13.0):
     - Firebase/CoreOnly
-    - FirebaseAuth (~> 6.4.2)
-  - Firebase/Core (6.15.0):
+    - FirebaseAuth (~> 6.4.0)
+  - Firebase/Core (6.13.0):
     - Firebase/CoreOnly
-    - FirebaseAnalytics (= 6.2.1)
-  - Firebase/CoreOnly (6.15.0):
-    - FirebaseCore (= 6.6.0)
-  - Firebase/DynamicLinks (6.15.0):
+    - FirebaseAnalytics (= 6.1.6)
+  - Firebase/CoreOnly (6.13.0):
+    - FirebaseCore (= 6.4.0)
+  - Firebase/DynamicLinks (6.13.0):
     - Firebase/CoreOnly
-    - FirebaseDynamicLinks (~> 4.0.6)
-  - Firebase/Firestore (6.15.0):
+    - FirebaseDynamicLinks (~> 4.0.5)
+  - Firebase/Firestore (6.13.0):
     - Firebase/CoreOnly
-    - FirebaseFirestore (~> 1.9.0)
-  - Firebase/Functions (6.15.0):
+    - FirebaseFirestore (~> 1.8.0)
+  - Firebase/Functions (6.13.0):
     - Firebase/CoreOnly
     - FirebaseFunctions (~> 2.5.1)
-  - Firebase/Messaging (6.15.0):
+  - Firebase/Messaging (6.13.0):
     - Firebase/CoreOnly
-    - FirebaseMessaging (~> 4.2.0)
-  - Firebase/Performance (6.15.0):
+    - FirebaseMessaging (~> 4.1.9)
+  - Firebase/Performance (6.13.0):
     - Firebase/CoreOnly
-    - FirebasePerformance (~> 3.1.9)
+    - FirebasePerformance (~> 3.1.7)
   - FirebaseABTesting (3.1.2):
     - FirebaseAnalyticsInterop (~> 1.3)
     - FirebaseCore (~> 6.1)
     - Protobuf (>= 3.9.2, ~> 3.9)
-  - FirebaseAnalytics (6.2.1):
-    - FirebaseCore (~> 6.6)
-    - FirebaseInstanceID (~> 4.3)
-    - GoogleAppMeasurement (= 6.2.1)
+  - FirebaseAnalytics (6.1.6):
+    - FirebaseCore (~> 6.4)
+    - FirebaseInstanceID (~> 4.2)
+    - GoogleAppMeasurement (= 6.1.6)
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
     - GoogleUtilities/Network (~> 6.0)
@@ -216,11 +216,11 @@ PODS:
     - GoogleUtilities/Environment (~> 6.2)
     - GTMSessionFetcher/Core (~> 1.1)
   - FirebaseAuthInterop (1.0.0)
-  - FirebaseCore (6.6.0):
-    - FirebaseCoreDiagnostics (~> 1.2)
-    - FirebaseCoreDiagnosticsInterop (~> 1.2)
-    - GoogleUtilities/Environment (~> 6.5)
-    - GoogleUtilities/Logger (~> 6.5)
+  - FirebaseCore (6.4.0):
+    - FirebaseCoreDiagnostics (~> 1.0)
+    - FirebaseCoreDiagnosticsInterop (~> 1.0)
+    - GoogleUtilities/Environment (~> 6.2)
+    - GoogleUtilities/Logger (~> 6.2)
   - FirebaseCoreDiagnostics (1.2.0):
     - FirebaseCoreDiagnosticsInterop (~> 1.2)
     - GoogleDataTransportCCTSupport (~> 1.3)
@@ -231,7 +231,7 @@ PODS:
   - FirebaseDynamicLinks (4.0.6):
     - FirebaseAnalyticsInterop (~> 1.3)
     - FirebaseCore (~> 6.2)
-  - FirebaseFirestore (1.9.0):
+  - FirebaseFirestore (1.8.3):
     - abseil/algorithm (= 0.20190808)
     - abseil/base (= 0.20190808)
     - abseil/memory (= 0.20190808)
@@ -248,27 +248,22 @@ PODS:
     - FirebaseAuthInterop (~> 1.0)
     - FirebaseCore (~> 6.0)
     - GTMSessionFetcher/Core (~> 1.1)
-  - FirebaseInstallations (1.1.0):
-    - FirebaseCore (~> 6.6)
-    - GoogleUtilities/UserDefaults (~> 6.5)
-    - PromisesObjC (~> 1.2)
-  - FirebaseInstanceID (4.3.0):
-    - FirebaseCore (~> 6.6)
-    - FirebaseInstallations (~> 1.0)
-    - GoogleUtilities/Environment (~> 6.5)
-    - GoogleUtilities/UserDefaults (~> 6.5)
-  - FirebaseMessaging (4.2.0):
-    - FirebaseAnalyticsInterop (~> 1.5)
-    - FirebaseCore (~> 6.6)
-    - FirebaseInstanceID (~> 4.3)
-    - GoogleUtilities/AppDelegateSwizzler (~> 6.5)
-    - GoogleUtilities/Environment (~> 6.5)
-    - GoogleUtilities/Reachability (~> 6.5)
-    - GoogleUtilities/UserDefaults (~> 6.5)
+  - FirebaseInstanceID (4.2.7):
+    - FirebaseCore (~> 6.0)
+    - GoogleUtilities/Environment (~> 6.0)
+    - GoogleUtilities/UserDefaults (~> 6.0)
+  - FirebaseMessaging (4.1.10):
+    - FirebaseAnalyticsInterop (~> 1.3)
+    - FirebaseCore (~> 6.2)
+    - FirebaseInstanceID (~> 4.1)
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.2)
+    - GoogleUtilities/Environment (~> 6.2)
+    - GoogleUtilities/Reachability (~> 6.2)
+    - GoogleUtilities/UserDefaults (~> 6.2)
     - Protobuf (>= 3.9.2, ~> 3.9)
-  - FirebasePerformance (3.1.9):
-    - FirebaseCore (~> 6.6)
-    - FirebaseInstanceID (~> 4.3)
+  - FirebasePerformance (3.1.7):
+    - FirebaseCore (~> 6.4)
+    - FirebaseInstanceID (~> 4.2)
     - FirebaseRemoteConfig (~> 4.4)
     - GoogleToolboxForMac/Logger (~> 2.1)
     - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
@@ -287,7 +282,7 @@ PODS:
     - Protobuf (>= 3.9.2, ~> 3.9)
   - Google-Mobile-Ads-SDK (7.53.1):
     - GoogleAppMeasurement (~> 6.0)
-  - GoogleAppMeasurement (6.2.1):
+  - GoogleAppMeasurement (6.1.6):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
     - GoogleUtilities/Network (~> 6.0)
@@ -371,14 +366,12 @@ PODS:
   - MaterialComponents/Typography (94.5.0):
     - MaterialComponents/private/Application
     - MaterialComponents/private/Math
-  - MBProgressHUD (1.2.0)
   - MDFInternationalization (2.0.0)
   - nanopb (0.3.9011):
     - nanopb/decode (= 0.3.9011)
     - nanopb/encode (= 0.3.9011)
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
-  - PromisesObjC (1.2.8)
   - Protobuf (3.11.2)
   - Socket.IO-Client-Swift (15.1.0):
     - Starscream (~> 3.1)
@@ -391,13 +384,13 @@ DEPENDENCIES:
   - Firebase/AdMob
   - Firebase/Analytics
   - Firebase/Auth
+  - Firebase/Core (~> 6.13.0)
   - Firebase/DynamicLinks
   - Firebase/Firestore
   - Firebase/Functions
   - Firebase/Messaging
   - Firebase/Performance
   - MaterialComponents/Tabs (~> 94.5)
-  - MBProgressHUD
   - Socket.IO-Client-Swift (from `https://github.com/triniwiz/socket.io-client-swift.git`)
   - Toast-Swift (from `https://github.com/triniwiz/Toast-Swift.git`)
 
@@ -419,7 +412,6 @@ SPEC REPOS:
     - FirebaseDynamicLinks
     - FirebaseFirestore
     - FirebaseFunctions
-    - FirebaseInstallations
     - FirebaseInstanceID
     - FirebaseMessaging
     - FirebasePerformance
@@ -435,10 +427,8 @@ SPEC REPOS:
     - GTMSessionFetcher
     - leveldb-library
     - MaterialComponents
-    - MBProgressHUD
     - MDFInternationalization
     - nanopb
-    - PromisesObjC
     - Protobuf
     - Starscream
 
@@ -461,25 +451,24 @@ SPEC CHECKSUMS:
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
   Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
   Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
-  Firebase: 5d77105d9740a07ca6b16927ca971db7e860faaf
+  Firebase: 458d109512200d1aca2e1b9b6cf7d68a869a4a46
   FirebaseABTesting: 0d10f3cdc3fa00f3f175b5b56c1003c8e888299f
-  FirebaseAnalytics: e83e64b1231dedcd9ddd4bdecd9bcfd6ba341679
+  FirebaseAnalytics: 45f36d9c429fc91d206283900ab75390cd05ee8a
   FirebaseAnalyticsInterop: 3f86269c38ae41f47afeb43ebf32a001f58fcdae
   FirebaseAuth: ce45d7c5d46bed90159f3a73b6efbe8976ed3573
   FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
-  FirebaseCore: 4aeb81ff53dcd9a3634ca725dc1fb8c2a4622046
+  FirebaseCore: 307ea2508df730c5865334e41965bd9ea344b0e5
   FirebaseCoreDiagnostics: 5e78803ab276bc5b50340e3c539c06c3de35c649
   FirebaseCoreDiagnosticsInterop: 296e2c5f5314500a850ad0b83e9e7c10b011a850
   FirebaseDynamicLinks: 5ba2a0d46ba1615c6c08819fc964c495ca1d0845
-  FirebaseFirestore: b7e6adda31974dbd259fc25b541e8850420c92ed
+  FirebaseFirestore: 52120e2833f804a874ba1a9f59aab864a8ae2286
   FirebaseFunctions: 5af7c35d1c5e41608fecbb667eb6c4e672e318d0
-  FirebaseInstallations: 575cd32f2aec0feeb0e44f5d0110a09e5e60b47b
-  FirebaseInstanceID: 6668efc1655a4052c083f287a7141f1ead12f9c2
-  FirebaseMessaging: 448cf4c727f3c95f4f90816907d67306ba785cfe
-  FirebasePerformance: 18ac5d515f0da0a96cde94b7fc5b1514b235e2d9
+  FirebaseInstanceID: ebd2ea79ee38db0cb5f5167b17a0d387e1cc7b6e
+  FirebaseMessaging: 089b7a4991425783384acc8bcefcd78c0af913bd
+  FirebasePerformance: 22273a775eaed4cd3e072c9b88396a5e4b285c3f
   FirebaseRemoteConfig: c11d74d8b1ff8463b587fc8899d92ee089f9a691
   Google-Mobile-Ads-SDK: fac081606dbd438d8db57198b83ba8b5f875a601
-  GoogleAppMeasurement: a08a43b8677b95ed51fcef880e36737334d804fd
+  GoogleAppMeasurement: dfe55efa543e899d906309eaaac6ca26d249862f
   GoogleDataTransport: 574a983e829327d7c18f2627f65d9e80164ea8a4
   GoogleDataTransportCCTSupport: cad3cd6cdbdbad6b5c2c9206ec413402755faaaa
   GoogleToolboxForMac: 800648f8b3127618c1b59c7f97684427630c5ea3
@@ -489,15 +478,13 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: cea130bbfe5a7edc8d06d3f0d17288c32ffe9925
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   MaterialComponents: 36435454351719ef5c9bf1192a25fdcd2191c712
-  MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
-  PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   Protobuf: dd1aaea7140debfe4dd0683fb8ef208e527ae153
   Socket.IO-Client-Swift: 554ab1004ba68249d1dd14b10eddb11ea4cb4133
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: 20729acf310aa2fc1cf6bb9de36a7d7e6511a82f
+PODFILE CHECKSUM: 290ab63631b220f6b241f093c7b8059d0cf0a0ca
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.0.beta.2

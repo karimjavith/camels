@@ -28,6 +28,10 @@
     <string>LaunchScreen</string>
     <key>UIRequiresFullScreen</key>
     <true/>
+    <key>UIDeviceFamily</key>
+    <array>
+      <integer>1</integer>
+    </array>
     <key>UIRequiredDeviceCapabilities</key>
     <array>
       <string>armv7</string>
@@ -60,18 +64,27 @@
       <key>NSAllowsArbitraryLoadsInWebContent</key>
       <true/>
     </dict>
-    <key>CFBundleIdentifier</key>
-    <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    <key>UIBackgroundModes</key>
+    <array>
+      <string>remote-notification</string>
+    </array>
     <key>CFBundleURLTypes</key>
     <array>
       <dict>
         <key>CFBundleTypeRole</key>
         <string>Editor</string>
+        <key>CFBundleURLName</key>
+        <string>firebaseplugin.camels.urlscheme</string>
         <key>CFBundleURLSchemes</key>
         <array>
+          <string>com.cricket.camels</string>
           <string>comcricketcamels</string>
         </array>
       </dict>
     </array>
+    <key>firebase_crashlytics_collection_enabled</key>
+    <string>false</string>
+    <key>CFBundleIdentifier</key>
+    <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
   </dict>
 </plist>

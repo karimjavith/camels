@@ -50,19 +50,19 @@
 	<key>GADApplicationIdentifier</key>
   <string>ca-app-pub-9791179910775561~4309428216</string>
   <key>NSAppTransportSecurity</key>
-<dict>
-  <key>NSAllowsArbitraryLoads</key>
-  <true/>
-  <key>NSAllowsArbitraryLoadsForMedia</key>
-  <true/>
-  <key>NSAllowsArbitraryLoadsInWebContent</key>
-  <true/>
-</dict>
-<key>UIBackgroundModes</key>
-<array>
-  <string>remote-notification</string>
-</array>
-<key>CFBundleURLTypes</key>
+	<dict>
+  	<key>NSAllowsArbitraryLoads</key>
+  	<true/>
+  	<key>NSAllowsArbitraryLoadsForMedia</key>
+  	<true/>
+  	<key>NSAllowsArbitraryLoadsInWebContent</key>
+  	<true/>
+	</dict>
+  <key>UIBackgroundModes</key>
+	<array>
+  	<string>remote-notification</string>
+	</array>
+	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
 			<key>CFBundleTypeRole</key>
@@ -75,5 +75,10 @@
 			</array>
 		</dict>
 	</array>
+
+  <key>firebase_crashlytics_collection_enabled</key>
+  <string>false</string>
+  <key>UIUserInterfaceStyle</key>
+  <string>Light</string>
 </dict>
 </plist>

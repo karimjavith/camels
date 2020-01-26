@@ -30,7 +30,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		Z0t/Q+OmBHfho51TLx5JegKaBlg=
+		bCXlTvmMdSJyQesCSDksDcgN7jw=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -48,17 +48,21 @@
 		<data>
 		5YW09R2E4Fkdt2OTeKslWd8cYV0=
 		</data>
+		<key>PrivateHeaders/FIRBundleUtil.h</key>
+		<data>
+		l1QzIb08dm3BrMF7KYSwFNT1BvI=
+		</data>
 		<key>PrivateHeaders/FIRComponent.h</key>
 		<data>
 		stqBu/dMKzLvycPSa/955TkcSQY=
 		</data>
 		<key>PrivateHeaders/FIRComponentContainer.h</key>
 		<data>
-		aTsnb6OD6tDMZ2zcxPUk+SVe1Zo=
+		d/QcRMz4sVTbksPTU/yvOFQJvQw=
 		</data>
 		<key>PrivateHeaders/FIRComponentContainerInternal.h</key>
 		<data>
-		k6/FVUQdZesCZeX5LctAeZ4MBKg=
+		am+IzaUHxwNbinZ6XIknj8AJA6g=
 		</data>
 		<key>PrivateHeaders/FIRComponentType.h</key>
 		<data>
@@ -66,7 +70,7 @@
 		</data>
 		<key>PrivateHeaders/FIRConfigurationInternal.h</key>
 		<data>
-		hRt5YPhd0+OWmUKUUKWItrwNp8M=
+		h2KGppHRZO4Kxy0b6XHtbiqvPRI=
 		</data>
 		<key>PrivateHeaders/FIRCoreDiagnosticsConnector.h</key>
 		<data>
@@ -88,13 +92,9 @@
 		<data>
 		5txW4DMfAYgqhqqtoSZdK6uL61k=
 		</data>
-		<key>PrivateHeaders/FIRHeartbeatInfo.h</key>
-		<data>
-		tNg/kXA5V7BFDg598I9P2pc8Dmc=
-		</data>
 		<key>PrivateHeaders/FIRLibrary.h</key>
 		<data>
-		wEpzYIcBGHLZPhoYna4+0QjqSNQ=
+		Cbp4lSeXQ1x5k59TVZV00ZdJT+w=
 		</data>
 		<key>PrivateHeaders/FIRLogger.h</key>
 		<data>
@@ -103,6 +103,10 @@
 		<key>PrivateHeaders/FIROptionsInternal.h</key>
 		<data>
 		clZFXECLOyWJeV9du7LexIvdj4A=
+		</data>
+		<key>PrivateHeaders/FIRVersion.h</key>
+		<data>
+		w3K/fAYJoXLuCRnBawoIt4cmF04=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -217,6 +221,17 @@
 			OyVurtegMsfK5o6b38GpNe+ycp9lOhEqmgufKjaKk0U=
 			</data>
 		</dict>
+		<key>PrivateHeaders/FIRBundleUtil.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			l1QzIb08dm3BrMF7KYSwFNT1BvI=
+			</data>
+			<key>hash2</key>
+			<data>
+			eNas+NxnQpmlik8JfRpCbyk4bxLHy2CIZ13Mhk7Yt7Y=
+			</data>
+		</dict>
 		<key>PrivateHeaders/FIRComponent.h</key>
 		<dict>
 			<key>hash</key>
@@ -232,22 +247,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			aTsnb6OD6tDMZ2zcxPUk+SVe1Zo=
+			d/QcRMz4sVTbksPTU/yvOFQJvQw=
 			</data>
 			<key>hash2</key>
 			<data>
-			LRRDh3EYEzeltJxvijoRx81e/TZlugwIa+jIsJy3XI8=
+			X3v+Oi07IbohgcpgTMuZDZCSlQIZ7j4aFyVFgnaAjkA=
 			</data>
 		</dict>
 		<key>PrivateHeaders/FIRComponentContainerInternal.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			k6/FVUQdZesCZeX5LctAeZ4MBKg=
+			am+IzaUHxwNbinZ6XIknj8AJA6g=
 			</data>
 			<key>hash2</key>
 			<data>
-			3cN/2bYxMHFnV01XDdQD4HOq/mxTQmKb7GJ897tmsDM=
+			bP0OIXtZ2v2co8jDAimiM5lZSdINj9hdkAMUNqoEF4g=
 			</data>
 		</dict>
 		<key>PrivateHeaders/FIRComponentType.h</key>
@@ -265,11 +280,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			hRt5YPhd0+OWmUKUUKWItrwNp8M=
+			h2KGppHRZO4Kxy0b6XHtbiqvPRI=
 			</data>
 			<key>hash2</key>
 			<data>
-			tqc9SNivvi7wqWKFrwuEQrjG1Mb5hnEeU9eqDU1nuo0=
+			iwSHGJwpVNRFRuzhGyWCxQMnu4EpeKb0qauuccDN2pw=
 			</data>
 		</dict>
 		<key>PrivateHeaders/FIRCoreDiagnosticsConnector.h</key>
@@ -327,26 +342,15 @@
 			XNbkxxyiehiCrs7xgesKbgb1Lc6XU0uCbC0RBqUToyo=
 			</data>
 		</dict>
-		<key>PrivateHeaders/FIRHeartbeatInfo.h</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			tNg/kXA5V7BFDg598I9P2pc8Dmc=
-			</data>
-			<key>hash2</key>
-			<data>
-			TXhQilnZIwaeYXFCH8iITucKtZqnZowvfNdRLaVja2E=
-			</data>
-		</dict>
 		<key>PrivateHeaders/FIRLibrary.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			wEpzYIcBGHLZPhoYna4+0QjqSNQ=
+			Cbp4lSeXQ1x5k59TVZV00ZdJT+w=
 			</data>
 			<key>hash2</key>
 			<data>
-			q8x5RzfGvE+5iAe1XZYnUnEbJYSgEOXymR6mWakusJ4=
+			an/M3NGViCy0GcDoxEAwSc7Y2cgNqir7XA8+uEvs+Ps=
 			</data>
 		</dict>
 		<key>PrivateHeaders/FIRLogger.h</key>
@@ -369,6 +373,17 @@
 			<key>hash2</key>
 			<data>
 			uSpb9k20EPc+G9fQ9vk+KIUaFvGE5MM66ZRmiAKF2Oc=
+			</data>
+		</dict>
+		<key>PrivateHeaders/FIRVersion.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			w3K/fAYJoXLuCRnBawoIt4cmF04=
+			</data>
+			<key>hash2</key>
+			<data>
+			7KWcVIbGMT5FT0CoDp+DeC7pXZIRvicnxujkBcJDe2k=
 			</data>
 		</dict>
 	</dict>

@@ -77,19 +77,19 @@ export default {
                   :text="item.statusIcon | fonticon"
                   :style="item.statusIconStyle"
                   v-if="Boolean(item.status)"
-                  class="fa t-16"
+                  class="fa fs16"
                 />
               </FormattedString>
             </Label>
             <StackLayout orientation="horizontal"
               ><Label v-if="item.showEditOption" @tap="onItemEdit(item)" class="nt-label">
                 <FormattedString>
-                  <Span class="fa t-16  nt-icon"> {{ 'fa-edit' | fonticon }}</Span>
+                  <Span class="fa fs16  nt-icon"> {{ 'fa-edit' | fonticon }}</Span>
                 </FormattedString></Label
               >
               <Label v-if="item.showDeleteOption" @tap="onItemDelete(item)" class="nt-label">
                 <FormattedString>
-                  <Span class="fa t-16  nt-icon"> {{ 'fa-trash-alt' | fonticon }}</Span>
+                  <Span class="fa fs16  nt-icon"> {{ 'fa-trash-alt' | fonticon }}</Span>
                 </FormattedString></Label
               ></StackLayout
             >
@@ -143,9 +143,6 @@ export default {
 </template>
 
 <style lang="scss">
-.t-16 {
-  font-size: 16;
-}
 .t-14 {
   font-size: 14;
 }
