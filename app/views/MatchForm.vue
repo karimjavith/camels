@@ -3,10 +3,13 @@ import BaseButton from '../components/BaseButton.vue'
 import { createMatch, updateMatch } from '../_shared/firebase/matches'
 import { MatchStatus } from '../types/EMatchStatus'
 import { ToastService } from '../_shared/Toasty.ts'
+import DateService from '../_shared/date.ts'
+import ValidationService from '../_shared/validation.ts'
+import BaseFormFields from '../components/BaseFormFields.vue'
 
 export default {
   name: 'MatchForm',
-  components: { BaseButton },
+  components: { BaseButton, BaseFormFields },
   props: {
     cb: {
       type: Function,
@@ -27,8 +30,8 @@ export default {
       default: '',
     },
     date: {
-      type: Date,
-      default: new Date(),
+      type: String,
+      default: DateService.toLocalDateFormat(new Date()),
     },
     time: {
       type: String,
@@ -45,96 +48,101 @@ export default {
         match: {
           venue: this.venue,
           postCode: this.postCode,
-          date: new Date(this.date) || new Date(),
-          time: this.time || `${new Date().getHours()}:${new Date().getMinutes()}`,
+          date: this.date,
+          time: this.time,
           opponent: this.opponent,
         },
-        matchMetaData: {
-          isReadOnly: false,
-          commitMode: 'Immediate',
-          validationMode: 'OnLostFocus',
-          propertyAnnotations: [
-            {
-              name: 'venue',
-              displayName: 'Venue',
-              index: 0,
-              validators: [{ name: 'NonEmpty' }, { name: 'MaximumLength', params: { length: 20 } }],
-            },
-            {
-              name: 'postCode',
-              displayName: 'Postcode',
-              index: 1,
-              validators: [
-                { name: 'NonEmpty' },
-                {
-                  name: 'RegEx',
-                  params: {
-                    regEx:
-                      '^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([AZa-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z]))))[0-9][A-Za-z]{2})$',
-                    errorMessage: 'Please provide valid postcode',
-                  },
-                },
-              ],
-            },
-            {
-              name: 'date',
-              displayName: 'Date',
-              index: 2,
-              editor: 'DatePicker',
-            },
-            {
-              name: 'time',
-              displayName: 'Time',
-              index: 3,
-              editor: 'TimePicker',
-            },
-            {
-              name: 'opponent',
-              displayName: 'Opponent',
-              index: 4,
-              validators: [{ name: 'NonEmpty' }, { name: 'MaximumLength', params: { length: 20 } }],
-            },
-          ],
-        },
+        matchMetaData: [
+          {
+            index: 0,
+            type: 'text',
+            name: 'venue',
+            model: this.venue,
+            returnPressElm: 'postCode',
+            hint: 'Venue',
+            keyboardType: 'text',
+            isSecure: false,
+            returnKeyType: 'next',
+          },
+          {
+            index: 1,
+            type: 'text',
+            name: 'postCode',
+            model: this.postCode,
+            returnPressElm: 'date',
+            hint: 'Postcode',
+            keyboardType: 'text',
+            isSecure: false,
+            returnKeyType: 'next',
+          },
+          {
+            index: 2,
+            type: 'date',
+            name: 'date',
+            model: this.date,
+            minDate: DateService.toLocalDateFormat(new Date()),
+            returnPressElm: 'time',
+            hint: 'Date',
+            keyboardType: 'date',
+            isSecure: false,
+            returnKeyType: 'next',
+          },
+          {
+            index: 3,
+            type: 'text',
+            name: 'time',
+            model: this.time,
+            returnPressElm: 'opponent',
+            hint: 'Time',
+            keyboardType: 'text',
+            isSecure: false,
+            returnKeyType: 'next',
+          },
+          {
+            index: 4,
+            type: 'text',
+            name: 'opponent',
+            model: this.opponent,
+            returnPressElm: 'submitButton',
+            hint: 'Opponent',
+            keyboardType: 'text',
+            isSecure: false,
+            returnKeyType: 'next',
+          },
+        ],
         loading: false,
-        formValidation: {},
       },
     }
   },
+  mounted: function() {
+    this.$nextTick(function() {})
+  },
   methods: {
     focusSubmitButton() {
-      this.$refs.submitButton.nativeView.focus()
+      this.state = { ...this.state, focusSubmitButton: true }
     },
-    async handleOnPropertyValidated({ object, propertyName, entityProperty }) {
-      this.state = {
-        ...this.state,
-        formValidation: {
-          ...this.state.formValidation,
-          [propertyName]: { name: propertyName, isValid: entityProperty.isValid },
-        },
-      }
+    handleOnTextChange({ key, value }) {
+      this.state = { ...this.state, match: { ...this.state.match, [key]: value } }
     },
-    async handleOnSubmit() {
-      const venue = this.$refs.matchform.getPropertyByName('venue')
-      const postCode = this.$refs.matchform.getPropertyByName('postCode')
-      const opponent = this.$refs.matchform.getPropertyByName('opponent')
-      if (this.state.formValidation) {
-        const isAnyFieldInvalid = Object.values(this.state.formValidation).filter(x => !x.isValid)
-        if (isAnyFieldInvalid.length > 0) {
-          isAnyFieldInvalid.forEach(x => {
-            this.$refs.matchform.notifyValidated(x.name, false)
-          })
-          ToastService(`Invalid entries - Please try again`, '#be5138').show()
-          return
-        }
-      }
-      if (!venue.valueCandidate || !postCode.valueCandidate || !opponent.valueCandidate) {
-        ToastService('Invalid entries. Please fill up all the respective details', '#be5138').show()
-        return
+    handleFormValidation() {
+      const { venue, postCode, date, time, opponent } = this.state.match
+      if (!venue || !postCode || !date || !time || !opponent) {
+        return { isValid: false, message: 'Please fill up the fields.' }
       }
 
-      this.$refs.matchform.commitAll()
-      this.state = { ...this.state, loading: true }
+      if (!ValidationService.isPostCodeValid(postCode)) {
+        return { isValid: false, message: 'Please provide valid postcode.' }
+      }
+      return { isValid: true }
+    },
+    async handleOnSubmit() {
+      this.state = { ...this.state, loading: true, focusSubmitButton: false }
+      const { isValid, message } = this.handleFormValidation()
+      if (!isValid) {
+        ToastService(message, '#ffbfc4', '#32364c').show()
+        this.state = { ...this.state, loading: false }
+        return
+      }
       const matchDetails = {
         ...this.state.match,
         address: this.state.match.postCode,
@@ -165,14 +173,17 @@ export default {
       </StackLayout>
       <ScrollView orientation="vertical" scrollBarIndicatorVisible="false">
         <StackLayout class="nt-form">
-          <RadDataForm
-            ref="matchform"
-            :source="state.match"
-            :metadata="state.matchMetaData"
-            @propertyValidated="handleOnPropertyValidated"
-          >
-          </RadDataForm>
+          <GridLayout rows="auto, auto, auto, auto, auto">
+            <BaseFormFields
+              :key="state.matchMetaData.length"
+              :metadata="state.matchMetaData"
+              @handleFinalReturnCb="focusSubmitButton"
+              @handleOnTextChange="handleOnTextChange"
+            />
+          </GridLayout>
           <BaseButton
+            ref="submitButton"
+            :focusButton="state.focusSubmitButton"
             :loading="state.loading"
             @handleOnClick="handleOnSubmit"
             :text="itemId ? 'Update Match' : 'Create Match'"
@@ -207,32 +218,6 @@ Scrollview {
     vertical-align: middle;
     background-color: $bg-color;
     width: 80%;
-    RadDataForm {
-      width: 100%;
-      PropertyEditor {
-        width: 100%;
-      }
-      DataFormEditorLabel {
-        color: #212121;
-        background-color: white;
-        font-style: italic;
-        padding: 10;
-        margin: 10;
-        border-color: #303f9f;
-        border-width: 5;
-        border-radius: 5;
-        width: 150;
-        position: left;
-      }
-    }
-
-    .input {
-      placeholder-color: #a8a8a8;
-      font-size: 16;
-    }
-    .no-border {
-      border: none;
-    }
   }
 }
 </style>

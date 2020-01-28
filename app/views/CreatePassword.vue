@@ -1,131 +1,105 @@
 <script>
 import Login from './Login.vue'
 import { signup } from '../_shared/firebase/users.ts'
+import ValidationService from '../_shared/validation.ts'
 import { ToastService } from '../_shared/Toasty.ts'
 import BaseButton from '../components/BaseButton.vue'
+import BaseFormFields from '../components/BaseFormFields.vue'
 
 export default {
   name: 'CreatePassword',
-  components: { BaseButton },
+  components: { BaseButton, BaseFormFields },
   data() {
     return {
       state: {
         loading: false,
-
-        formValidation: {
-          isValid: false,
-          entityProperty: null,
-        },
         user: {
           displayName: '',
           email: '',
           password: '',
           confirmPassword: '',
         },
-        userMetadata: {
-          isReadOnly: false,
-          commitMode: 'Immediate',
-          validationMode: 'OnLostFocus',
-          propertyAnnotations: [
-            {
-              name: 'displayName',
-              displayName: 'Display Name',
-              index: 0,
-              validators: [{ name: 'NonEmpty' }, { name: 'MaximumLength', params: { length: 20 } }],
-            },
-            {
-              name: 'email',
-              displayName: 'E-Mail',
-              index: 1,
-              editor: 'Email',
-              validators: [
-                {
-                  name: 'RegEx',
-                  params: {
-                    regEx:
-                      '[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}\\@[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}(\\.[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25})+',
-                    errorMessage: 'Please provide your valid email.',
-                  },
-                },
-              ],
-            },
-            {
-              name: 'password',
-              displayName: 'Password',
-              editor: 'Password',
-              index: 2,
-              validators: [
-                {
-                  name: 'NonEmpty',
-                },
-                {
-                  name: 'MinimumLength',
-                  params: {
-                    length: 6,
-                  },
-                },
-              ],
-            },
-            {
-              name: 'confirmPassword',
-              displayName: 'Confirm Password',
-              editor: 'Password',
-              index: 3,
-              validators: [
-                {
-                  name: 'NonEmpty',
-                },
-                {
-                  name: 'MinimumLength',
-                  params: {
-                    length: 6,
-                  },
-                },
-              ],
-            },
-          ],
-        },
+        userMetadata: [
+          {
+            index: 0,
+            type: 'text',
+            name: 'displayName',
+            model: '',
+            returnPressElm: 'email',
+            hint: 'Display Name',
+            keyboardType: 'text',
+            isSecure: false,
+            returnKeyType: 'next',
+          },
+          {
+            index: 1,
+            type: 'email',
+            name: 'email',
+            model: '',
+            returnPressElm: 'password',
+            hint: 'Email',
+            keyboardType: 'email',
+            isSecure: false,
+            returnKeyType: 'next',
+          },
+          {
+            index: 2,
+            type: 'password',
+            name: 'password',
+            model: '',
+            returnPressElm: 'confirmPassword',
+            hint: 'Password',
+            keyboardType: 'password',
+            isSecure: true,
+            returnKeyType: 'next',
+          },
+          {
+            index: 3,
+            type: 'password',
+            name: 'confirmPassword',
+            model: '',
+            returnPressElm: 'confirmPasswordSubmitButton',
+            hint: 'Confirm Password',
+            keyboardType: 'password',
+            isSecure: true,
+            returnKeyType: 'next',
+          },
+        ],
       },
     }
   },
   methods: {
     focusSubmitButton() {
-      this.$refs.submitButton.nativeView.focus()
+      this.state = { ...this.state, focusSubmitButton: true }
     },
-    async handleOnPropertyValidated({ object, propertyName, entityProperty }) {
-      this.state = {
-        ...this.state,
-        formValidation: { entityProperty, isValid: entityProperty.isValid },
-      }
+    handleOnTextChange({ key, value }) {
+      this.state = { ...this.state, user: { ...this.state.user, [key]: value } }
     },
-    async handleOnSubmit() {
-      const displayName = this.$refs.createPasswordForm.getPropertyByName('displayName')
-      const userEmail = this.$refs.createPasswordForm.getPropertyByName('email')
-      const userPassword = this.$refs.createPasswordForm.getPropertyByName('password')
-      const userConfirmPassword = this.$refs.createPasswordForm.getPropertyByName('confirmPassword')
-      if (!this.state.formValidation.isValid) {
-        ToastService(
-          `Invalid entries - ${this.state.formValidation.entityProperty.valueCandidate}`,
-          '#be5138'
-        ).show()
-        return
-      }
-      if (
-        !displayName.valueCandidate ||
-        !userEmail.valueCandidate ||
-        !userPassword.valueCandidate ||
-        !userConfirmPassword.valueCandidate
-      ) {
-        ToastService('Invalid entries. Please fill up all the respective details', '#be5138').show()
-        return
-      }
-      if (userPassword.valueCandidate !== userConfirmPassword.valueCandidate) {
-        ToastService('Invalid entries. Password do not match', '#be5138').show()
-        return
+    handleFormValidation() {
+      const { displayName, email, password, confirmPassword } = this.state.user
+      if (!displayName || !email || !password || !confirmPassword) {
+        return { isValid: false, message: 'Please fill up the fields.' }
       }
 
-      this.$refs.createPasswordForm.commitAll()
-      this.state = { ...this.state, loading: true }
+      if (!ValidationService.isEmailValid(email)) {
+        return { isValid: false, message: 'Please provide valid email.' }
+      }
+      if (ValidationService.isMinimumLengthValid(password, 6)) {
+        return { isValid: false, message: 'Password should be of minimum 6 characters' }
+      }
+      if (password !== confirmPassword) {
+        return { isValid: false, message: 'Invalid entries. Password do not match.' }
+      }
+      return { isValid: true }
+    },
+    async handleOnSubmit() {
+      this.state = { ...this.state, loading: true, focusSubmitButton: false }
+      const { isValid, message } = this.handleFormValidation()
+      if (!isValid) {
+        ToastService(message, '#ffbfc4', '#32364c').show()
+        this.state = { ...this.state, loading: false }
+        return
+      }
       const result = await signup(
         this.state.user.email,
         this.state.user.password,
@@ -145,14 +119,17 @@ export default {
   <Page actionBarHidden="true" class="nt-page">
     <StackLayout class="nt-form form">
       <Image class="logo" src="~/assets/images/logo.png" />
-      <RadDataForm
-        ref="createPasswordForm"
-        :source="state.user"
-        :metadata="state.userMetadata"
-        @propertyValidated="handleOnPropertyValidated"
-      >
-      </RadDataForm>
+      <GridLayout rows="auto, auto, auto, auto">
+        <BaseFormFields
+          :key="state.userMetadata.length"
+          :metadata="state.userMetadata"
+          @handleFinalReturnCb="focusSubmitButton"
+          @handleOnTextChange="handleOnTextChange"
+        />
+      </GridLayout>
       <BaseButton
+        ref="createPasswordButton"
+        :focusButton="state.focusSubmitButton"
         :loading="state.loading"
         @handleOnClick="handleOnSubmit"
         :class="{ 'm-t-20': true, '-primary': true, '-rounded-lg': true }"
@@ -183,11 +160,6 @@ export default {
     margin-bottom: 70;
     text-align: center;
     color: #c19a6b;
-  }
-
-  .input {
-    font-size: 18;
-    placeholder-color: #a8a8a8;
   }
 }
 </style>

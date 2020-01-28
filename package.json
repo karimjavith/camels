@@ -9,11 +9,11 @@
   "dependencies": {
     "@nativescript/theme": "^2.2.1",
     "@nstudio/nativescript-cardview": "^1.0.0",
+    "nativescript-datetimepicker": "^1.2.2",
     "nativescript-fonticon": "^2.0.0",
     "nativescript-plugin-firebase": "^10.3.3",
     "nativescript-socketio": "^3.3.1",
     "nativescript-toasty": "^3.0.0-alpha.2",
-    "nativescript-ui-dataform": "^6.0.0",
     "nativescript-ui-listview": "^8.0.1",
     "nativescript-vue": "^2.4.0",
     "nativescript-vue-devtools": "^1.2.0",

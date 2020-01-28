@@ -15,6 +15,7 @@
 #import <Crashlytics/CLSLogging.h>
 #endif
 //Crashlytics 1 END
+
 //Crashlytics 2 BEGIN
 #if DEBUG
 #else
@@ -34,6 +35,7 @@ static int stdout_redirect(void *inFD, const char *buffer, int size) {
 //Crashlytics 2 END
 
 int main(int argc, char *argv[]) {
+
 //Crashlytics 3 BEGIN
 #if DEBUG
 #else

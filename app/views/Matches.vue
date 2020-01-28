@@ -12,6 +12,7 @@ import { getAllMatches, updateMatchStatusForUser, removeMatch } from '../_shared
 import { MatchStatus } from '../types/EMatchStatus'
 import { MatchAvailabilityStatus } from '../types/EMatchAvailabilityStatus'
 import { HttpStatusCode } from '../_shared/http/http'
+import DateService from '../_shared/date.ts'
 
 export default {
   name: 'Matches',
@@ -103,14 +104,20 @@ export default {
       }
     },
     async handleOnCreateMatchClick(item) {
+      const matchDate = item.date
+        ? DateService.toLocalDateFormat(item.date)
+        : DateService.toLocalDateFormat(new Date())
+      const matchTime = item.time
+        ? DateService.toLocalTimeFormat(item.time)
+        : DateService.toLocalTimeFormat(new Date())
       this.$showModal(MatchForm, {
         props: {
           cb: this.handleModalCb,
           itemId: item && item.id,
           venue: item && item.venue,
           postCode: item && item.postCode,
-          date: item && item.date,
-          time: item && item.time,
+          date: item && matchDate,
+          time: item && matchTime,
           opponent: item && item.opponent,
         },
         fullscreen: false,

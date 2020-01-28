@@ -15,6 +15,10 @@ export default {
       type: String,
       default: 'baseButtonRef',
     },
+    focusButton: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -29,6 +33,13 @@ export default {
       setTimeout(() => {
         this.state.showLoading = newValue
       }, 25)
+    },
+
+    focusButton(newValue) {
+      if (newValue) {
+        const buttonElm = this.$refs.baseButton.nativeView
+        buttonElm.notify('tap') //TODO
+      }
     },
   },
   methods: {
@@ -48,7 +59,7 @@ export default {
       class="nt-btn btn-base -primary -rounded-lg"
       text="One moment..."/>
     <Button
-      :ref="refFromParent"
+      ref="baseButton"
       v-if="!state.showLoading"
       :text="text"
       @tap="handleOnClick"

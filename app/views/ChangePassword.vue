@@ -1,103 +1,76 @@
 <script>
-import Login from './Login.vue'
 import { updatePassword } from '../_shared/firebase/users.ts'
+import ValidationService from '../_shared/validation.ts'
 import { ToastService } from '../_shared/Toasty.ts'
 import BaseButton from '../components/BaseButton.vue'
+import BaseFormFields from '../components/BaseFormFields.vue'
 
 export default {
   name: 'ChangePassword',
-  components: { BaseButton },
+  components: { BaseButton, BaseFormFields },
   data() {
     return {
       state: {
         loading: false,
-
-        formValidation: {},
         user: {
           password: '',
           confirmPassword: '',
         },
-        userMetadata: {
-          isReadOnly: false,
-          commitMode: 'Immediate',
-          validationMode: 'OnLostFocus',
-          propertyAnnotations: [
-            {
-              name: 'password',
-              displayName: 'Password',
-              editor: 'Password',
-              index: 0,
-              validators: [
-                {
-                  name: 'NonEmpty',
-                },
-                {
-                  name: 'MinimumLength',
-                  params: {
-                    length: 6,
-                  },
-                },
-              ],
-            },
-            {
-              name: 'confirmPassword',
-              displayName: 'Confirm Password',
-              editor: 'Password',
-              index: 1,
-              validators: [
-                {
-                  name: 'NonEmpty',
-                },
-                {
-                  name: 'MinimumLength',
-                  params: {
-                    length: 6,
-                  },
-                },
-              ],
-            },
-          ],
-        },
+        userMetadata: [
+          {
+            index: 0,
+            type: 'password',
+            name: 'password',
+            model: '',
+            returnPressElm: 'confirmPassword',
+            hint: 'Password',
+            keyboardType: 'password',
+            isSecure: true,
+            returnKeyType: 'next',
+          },
+          {
+            index: 1,
+            type: 'password',
+            name: 'confirmPassword',
+            model: '',
+            returnPressElm: 'confirmPasswordSubmitButton',
+            hint: 'Confirm Password',
+            keyboardType: 'password',
+            isSecure: true,
+            returnKeyType: 'next',
+          },
+        ],
       },
     }
   },
   methods: {
     focusSubmitButton() {
-      this.$refs.submitButton.nativeView.focus()
+      this.state = { ...this.state, focusSubmitButton: true }
     },
-    async handleOnPropertyValidated({ object, propertyName, entityProperty }) {
-      this.state = {
-        ...this.state,
-        formValidation: {
-          ...this.state.formValidation,
-          [propertyName]: { name: propertyName, isValid: entityProperty.isValid },
-        },
+    handleOnTextChange({ key, value }) {
+      this.state = { ...this.state, user: { ...this.state.user, [key]: value } }
+    },
+    handleFormValidation() {
+      const { password, confirmPassword } = this.state.user
+      if (!password || !confirmPassword) {
+        return { isValid: false, message: 'Please fill up the fields.' }
       }
+      if (ValidationService.isMinimumLengthValid(password, 6)) {
+        return { isValid: false, message: 'Password should be of minimum 6 characters' }
+      }
+      if (password !== confirmPassword) {
+        return { isValid: false, message: 'Invalid entries. Password do not match.' }
+      }
+      return { isValid: true }
     },
     async handleOnSubmit() {
-      const userPassword = this.$refs.changePasswordForm.getPropertyByName('password')
-      const userConfirmPassword = this.$refs.changePasswordForm.getPropertyByName('confirmPassword')
-      if (this.state.formValidation) {
-        const isAnyFieldInvalid = Object.values(this.state.formValidation).filter(x => !x.isValid)
-        if (isAnyFieldInvalid.length > 0) {
-          isAnyFieldInvalid.forEach(x => {
-            this.$refs.changePasswordForm.notifyValidated(x.name, false)
-          })
-          ToastService(`Invalid entries - Please try again`, '#be5138').show()
-          return
-        }
-      }
-      if (!userPassword.valueCandidate || !userConfirmPassword.valueCandidate) {
-        ToastService('Invalid entries. Please fill up all the respective details', '#be5138').show()
+      this.state = { ...this.state, loading: true, focusSubmitButton: false }
+      const { isValid, message } = this.handleFormValidation()
+      if (!isValid) {
+        ToastService(message, '#ffbfc4', '#32364c').show()
+        this.state = { ...this.state, loading: false }
         return
       }
-      if (userPassword.valueCandidate !== userConfirmPassword.valueCandidate) {
-        ToastService('Invalid entries. Password do not match', '#be5138').show()
-        return
-      }
-
-      this.$refs.changePasswordForm.commitAll()
-      this.state = { ...this.state, loading: true }
       const result = await updatePassword(this.state.user.password)
       if (result && !result.isError) {
         ToastService('Password updated', '#a5d6a7').show()
@@ -126,14 +99,17 @@ export default {
     </ActionBar>
     <StackLayout class="nt-form form">
       <Image class="logo" stretch="aspectFit" src="~/assets/images/logo.png" />
-      <RadDataForm
-        ref="changePasswordForm"
-        :source="state.user"
-        :metadata="state.userMetadata"
-        @propertyValidated="handleOnPropertyValidated"
-      >
-      </RadDataForm>
+      <GridLayout rows="auto, auto, auto">
+        <BaseFormFields
+          :key="state.userMetadata.length"
+          :metadata="state.userMetadata"
+          @handleFinalReturnCb="focusSubmitButton"
+          @handleOnTextChange="handleOnTextChange"
+        />
+      </GridLayout>
       <BaseButton
+        ref="changePasswordButton"
+        :focusButton="state.focusSubmitButton"
         :loading="state.loading"
         @handleOnClick="handleOnSubmit"
         :class="{ 'm-t-20': true, '-primary': true, '-rounded-lg': true }"
