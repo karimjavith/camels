@@ -2,14 +2,16 @@
 const dialogs = require('tns-core-modules/ui/dialogs')
 import { mapActions, mapState } from 'vuex'
 import { login, sendPasswordResetEmail } from '../_shared/firebase/users.ts'
+import ValidationService from '../_shared/validation.ts'
 import { ToastService } from '../_shared/Toasty.ts'
 import Index from './Index.vue'
 import CreatePassword from './CreatePassword.vue'
 import BaseButton from '../components/BaseButton.vue'
+import BaseFormFields from '../components/BaseFormFields.vue'
 
 export default {
   name: 'Login',
-  components: { BaseButton },
+  components: { BaseButton, BaseFormFields },
   data() {
     return {
       state: {
@@ -17,7 +19,32 @@ export default {
           email: '',
           password: '',
         },
+        userMetadata: [
+          {
+            index: 0,
+            type: 'text',
+            name: 'email',
+            model: '',
+            returnPressElm: 'password',
+            hint: 'Email',
+            keyboardType: 'email',
+            isSecure: false,
+            returnKeyType: 'next',
+          },
+          {
+            index: 1,
+            type: 'text',
+            name: 'password',
+            model: '',
+            returnPressElm: 'loginButton',
+            hint: 'Password',
+            keyboardType: 'password',
+            isSecure: true,
+            returnKeyType: 'next',
+          },
+        ],
         loading: false,
+        focusSubmitButton: false,
       },
     }
   },
@@ -48,30 +75,34 @@ export default {
       setGlobalLoginState: 'signedIn',
     }),
     focusPassword() {
+      console.log(`focus password`)
       this.$refs.password.nativeView.focus()
+    },
+    focusSubmitButton() {
+      this.state = { ...this.state, focusSubmitButton: true }
     },
     navigateToPasswordCreationPage() {
       this.$navigateTo(CreatePassword, { clearHistory: true })
     },
+    handleOnTextChange({ key, value }) {
+      this.state = { ...this.state, user: { ...this.state.user, [key]: value } }
+    },
     handleFormValidation() {
       const { email, password } = this.state.user
-      const regex = RegExp(
-        '[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}\\@[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}(\\.[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25})+'
-      )
       if (!email || !password) {
         return { isValid: false, message: 'Please provide both an email address and password.' }
       }
 
-      if (!regex.test(email)) {
+      if (!ValidationService.isEmailValid(email)) {
         return { isValid: false, message: 'Please provide valid email.' }
       }
-      if (password.length < 6) {
+      if (ValidationService.isMinimumLengthValid(password, 6)) {
         return { isValid: false, message: 'Password should be of minimum 6 characters' }
       }
       return { isValid: true }
     },
     handleOnSubmit() {
-      this.state = { ...this.state, loading: true }
+      this.state = { ...this.state, loading: true, focusSubmitButton: false }
       const { isValid, message } = this.handleFormValidation()
       if (!isValid) {
         ToastService(message, '#ffbfc4', '#32364c').show()
@@ -118,33 +149,22 @@ export default {
       <StackLayout class="nt-form form">
         <Image class="logo nt-image" src="~/assets/images/logo.png" stretch="aspectFill" />
         <Label class="header" text="Camels CC"></Label>
-         <GridLayout rows="auto, auto, auto">
-                    <StackLayout row="0" class="input-field">
-                        <TextField 
-                        ref="email" 
-                        :isEnabled="!state.loading" 
-                        v-model="state.user.email" 
-                        @returnPress="focusPassword" 
-                        class="input" 
-                        hint="Email" 
-                            keyboardType="email" autocorrect="false"
-                            autocapitalizationType="none" 
-                            returnKeyType="next" ></TextField>
-                        <StackLayout class="hr-light"></StackLayout>
-                    </StackLayout>
+        <GridLayout rows="auto, auto, auto">
+          <BaseFormFields
+            :key="state.userMetadata.length"
+            :metadata="state.userMetadata"
+            @handleFinalReturnCb="focusSubmitButton"
+            @handleOnTextChange="handleOnTextChange"
+          />
 
-                    <StackLayout row="1" class="input-field">
-                        <TextField  ref="password" :isEnabled="!state.loading"
-                             v-model="state.user.password" class="input" secure="true" hint="Password" returnKeyType="done" ></TextField>
-                        <StackLayout class="hr-light"></StackLayout>
-                    </StackLayout>
-
-                    <ActivityIndicator :busy="state.loading" rowSpan="3" ></ActivityIndicator>
-                </GridLayout>
+          <ActivityIndicator :busy="state.loading" rowspan="3"></ActivityIndicator>
+        </GridLayout>
         <BaseButton
+          ref="loginButton"
           :loading="state.loading"
           @handleOnClick="handleOnSubmit"
           :class="{ 'm-t-20': true, '-primary': true }"
+          :focusButton="state.focusSubmitButton"
           refFromParent="loginButton"
           text="Log In"
         ></BaseButton>
@@ -180,18 +200,6 @@ Page {
     margin-right: 30;
     flex-grow: 2;
     vertical-align: middle;
-    .input-field {
-      margin-bottom: 25;
-      border: none;
-
-      .input {
-        font-size: 18;
-        placeholder-color: #a8a8a8;
-        border: none;
-        border-color: transparent;
-        border-bottom-color: $grey;
-      }
-    }
     .login-label {
       horizontal-align: center;
       font-size: 16;
