@@ -10,27 +10,27 @@
 		</data>
 		<key>Headers/Toast_Swift-Swift.h</key>
 		<data>
-		zQ3xOrewAQJFqOfi2T0GpTmAeRU=
+		cA6/yxZ9rC0/g+XyszgK0bbsFJA=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		w55777KhdwvE3oQTYENYE6uj7cI=
+		L6jZnuXhSNmjMg0ii6jLsF2eLrc=
 		</data>
 		<key>Modules/Toast_Swift.swiftmodule/i386.swiftdoc</key>
 		<data>
-		SZgYzagOr5mC5Spwk0nvlCwIz6I=
+		aLx8XsXzXT/wSn1qmiB8UR2udTE=
 		</data>
 		<key>Modules/Toast_Swift.swiftmodule/i386.swiftmodule</key>
 		<data>
-		SjwIaQkytwvvbLmROB6+ToI0lUo=
+		tv433IihFKAoz/KsJfDW71Ro/pQ=
 		</data>
 		<key>Modules/Toast_Swift.swiftmodule/x86_64.swiftdoc</key>
 		<data>
-		8Hc4M5twf+ltdPnn1BCYnjV4J/s=
+		zc45890mHm16vN8zXucK3mi6a+A=
 		</data>
 		<key>Modules/Toast_Swift.swiftmodule/x86_64.swiftmodule</key>
 		<data>
-		mrdZLoOr1MC9Nr03/QEVXPCERwg=
+		VFDr8QU65+kT+RNqyJBFdAYxiaQ=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -54,55 +54,55 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			zQ3xOrewAQJFqOfi2T0GpTmAeRU=
+			cA6/yxZ9rC0/g+XyszgK0bbsFJA=
 			</data>
 			<key>hash2</key>
 			<data>
-			MwPJjpOkW6waN++86DT7VIyXGqQnkkKYcf7Uy4dLh1E=
+			btwEzdJaxcli19ZpsiFIBH8KVrIusNPv9v1hFT37qHk=
 			</data>
 		</dict>
 		<key>Modules/Toast_Swift.swiftmodule/i386.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			SZgYzagOr5mC5Spwk0nvlCwIz6I=
+			aLx8XsXzXT/wSn1qmiB8UR2udTE=
 			</data>
 			<key>hash2</key>
 			<data>
-			TclSgu+CixT0e2sSCPOUgGyDhpz9VjVqUuk8OG2TBcs=
+			2O7j57rbqeX81TIwv9Uys2JvE2agNYMjTYdQpPl3eQU=
 			</data>
 		</dict>
 		<key>Modules/Toast_Swift.swiftmodule/i386.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			SjwIaQkytwvvbLmROB6+ToI0lUo=
+			tv433IihFKAoz/KsJfDW71Ro/pQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			WUY03UnGgrqxzqsYLsMWVIxlLaJEuZO0LqpqWE2FYMA=
+			OQRZ5+hwITe27QLdCD4yoClvDbne4ut1Dipm/KgTqg4=
 			</data>
 		</dict>
 		<key>Modules/Toast_Swift.swiftmodule/x86_64.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			8Hc4M5twf+ltdPnn1BCYnjV4J/s=
+			zc45890mHm16vN8zXucK3mi6a+A=
 			</data>
 			<key>hash2</key>
 			<data>
-			biP0ZvhFQYCI5S/NyZsOvkV1ukl3tGXIf5TrJD6Y4lo=
+			w1PuawkSNN3C/oovmarfK2FauFvFw9QdkAJJ31tRwUs=
 			</data>
 		</dict>
 		<key>Modules/Toast_Swift.swiftmodule/x86_64.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			mrdZLoOr1MC9Nr03/QEVXPCERwg=
+			VFDr8QU65+kT+RNqyJBFdAYxiaQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			WOCPgpIgPwADl1TL1Yhniqu/s0v51WO7z2IMjRRsogg=
+			m1tIermZNjWauLilZ9SqkV1Xgowv9EfcdWR12dl4z0E=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

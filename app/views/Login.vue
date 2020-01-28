@@ -17,49 +17,6 @@ export default {
           email: '',
           password: '',
         },
-        userMetadata: {
-          isReadOnly: false,
-          commitMode: 'Immediate',
-          validationMode: 'Immediate',
-          propertyAnnotations: [
-            {
-              name: 'email',
-              displayName: 'E-Mail',
-              index: 0,
-              editor: 'Email',
-              validators: [
-                {
-                  name: 'NonEmpty',
-                },
-                {
-                  name: 'RegEx',
-                  params: {
-                    regEx:
-                      '[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}\\@[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}(\\.[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25})+',
-                    errorMessage: 'Please provide your valid email.',
-                  },
-                },
-              ],
-            },
-            {
-              name: 'password',
-              displayName: 'Password',
-              editor: 'Password',
-              index: 1,
-              validators: [
-                {
-                  name: 'NonEmpty',
-                },
-                {
-                  name: 'MinimumLength',
-                  params: {
-                    length: 6,
-                  },
-                },
-              ],
-            },
-          ],
-        },
         loading: false,
       },
     }
@@ -90,29 +47,37 @@ export default {
     ...mapActions('authenticationModule', {
       setGlobalLoginState: 'signedIn',
     }),
-
+    focusPassword() {
+      this.$refs.password.nativeView.focus()
+    },
     navigateToPasswordCreationPage() {
       this.$navigateTo(CreatePassword, { clearHistory: true })
     },
+    handleFormValidation() {
+      const { email, password } = this.state.user
+      const regex = RegExp(
+        '[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}\\@[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}(\\.[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25})+'
+      )
+      if (!email || !password) {
+        return { isValid: false, message: 'Please provide both an email address and password.' }
+      }
+
+      if (!regex.test(email)) {
+        return { isValid: false, message: 'Please provide valid email.' }
+      }
+      if (password.length < 6) {
+        return { isValid: false, message: 'Password should be of minimum 6 characters' }
+      }
+      return { isValid: true }
+    },
     handleOnSubmit() {
       this.state = { ...this.state, loading: true }
-      const userEmail = this.$refs.dataform.getPropertyByName('email')
-      const userPassword = this.$refs.dataform.getPropertyByName('password')
-      if (!userEmail.valueCandidate || !userPassword.valueCandidate) {
-        ToastService('Please provide both an email address and password.', '#be5138').show()
-        this.$refs.dataform.notifyValidated('email', false)
-        this.$refs.dataform.notifyValidated('password', false)
+      const { isValid, message } = this.handleFormValidation()
+      if (!isValid) {
+        ToastService(message, '#ffbfc4', '#32364c').show()
         this.state = { ...this.state, loading: false }
         return
       }
-      if (userPassword.valueCandidate.length < 6) {
-        ToastService('Password should be of minimum 6 characters', '#be5138').show()
-        this.$refs.dataform.notifyValidated('email', false)
-        this.$refs.dataform.notifyValidated('password', false)
-        this.state = { ...this.state, loading: false }
-        return
-      }
-      this.$refs.dataform.commitAll()
       this.login()
     },
     async login() {
@@ -152,8 +117,30 @@ export default {
     <FlexboxLayout class="page">
       <StackLayout class="nt-form form">
         <Image class="logo nt-image" src="~/assets/images/logo.png" stretch="aspectFill" />
-        <RadDataForm ref="dataform" :source="state.user" :metadata="state.userMetadata">
-        </RadDataForm>
+        <Label class="header" text="Camels CC"></Label>
+         <GridLayout rows="auto, auto, auto">
+                    <StackLayout row="0" class="input-field">
+                        <TextField 
+                        ref="email" 
+                        :isEnabled="!state.loading" 
+                        v-model="state.user.email" 
+                        @returnPress="focusPassword" 
+                        class="input" 
+                        hint="Email" 
+                            keyboardType="email" autocorrect="false"
+                            autocapitalizationType="none" 
+                            returnKeyType="next" ></TextField>
+                        <StackLayout class="hr-light"></StackLayout>
+                    </StackLayout>
+
+                    <StackLayout row="1" class="input-field">
+                        <TextField  ref="password" :isEnabled="!state.loading"
+                             v-model="state.user.password" class="input" secure="true" hint="Password" returnKeyType="done" ></TextField>
+                        <StackLayout class="hr-light"></StackLayout>
+                    </StackLayout>
+
+                    <ActivityIndicator :busy="state.loading" rowSpan="3" ></ActivityIndicator>
+                </GridLayout>
         <BaseButton
           :loading="state.loading"
           @handleOnClick="handleOnSubmit"
@@ -168,45 +155,47 @@ export default {
 </template>
 
 <style scoped lang="scss">
+@import '~/_app.common';
 Page {
   align-items: center;
   flex-direction: column;
-}
+  .header {
+    horizontal-align: center;
+    font-size: 25;
+    font-weight: 600;
+    margin-bottom: 56;
+    text-align: center;
+    color: $text-color;
+  }
 
-.form {
-  margin-left: 30;
-  margin-right: 30;
-  flex-grow: 2;
-  vertical-align: middle;
-}
+  .logo {
+    margin-bottom: 16;
+    font-weight: bold;
+    width: 150;
+    height: 100;
+  }
 
-.logo {
-  margin-bottom: 12;
-  height: 90;
-  font-weight: bold;
-  width: 150;
-  height: 150;
-}
+  .form {
+    margin-left: 30;
+    margin-right: 30;
+    flex-grow: 2;
+    vertical-align: middle;
+    .input-field {
+      margin-bottom: 25;
+      border: none;
 
-.header {
-  horizontal-align: center;
-  font-size: 25;
-  font-weight: 600;
-  margin-bottom: 70;
-  text-align: center;
-  color: #c19a6b;
-}
-
-.login-label {
-  horizontal-align: center;
-  font-size: 16;
-}
-
-.sign-up-label {
-  margin-bottom: 20;
-}
-
-.bold {
-  color: #000000;
+      .input {
+        font-size: 18;
+        placeholder-color: #a8a8a8;
+        border: none;
+        border-color: transparent;
+        border-bottom-color: $grey;
+      }
+    }
+    .login-label {
+      horizontal-align: center;
+      font-size: 16;
+    }
+  }
 }
 </style>

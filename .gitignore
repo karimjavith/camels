@@ -105,5 +105,4 @@ dist
 
 
 # platform builds
-platforms/**/build
-platforms/**/Pods
+platforms/
