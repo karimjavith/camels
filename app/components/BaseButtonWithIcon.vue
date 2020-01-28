@@ -38,16 +38,16 @@ export default {
     @tap="handleOnClick"
     :style="[styleObject]"
     :class="{
-      'nt-button': true,
-      '-outline': true,
+      'nt-button': 'true',
+      '-outline': 'true',
       '-primary': primary,
       '-rounded-lg': true,
-      'nt-icon': true,
-      fas: true,
-      'ta-16': true,
     }"
   >
-    {{ icon | fonticon }} {{ text }}
+  <FormattedString>
+    <Span :text="icon | fonticon" class="fas fs16 nt-icon m-15" />
+    <Span :text="text" />
+    </FormattedString>
   </Button>
 </template>
 

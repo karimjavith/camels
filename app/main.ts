@@ -9,6 +9,7 @@ import { TNSFontIcon, fonticon } from 'nativescript-fonticon'
 // TNSFontIcon.debug = true
 TNSFontIcon.paths = {
   fa: './assets/fontawesome.css',
+  fas: './assets/fontawesome.css',
 }
 TNSFontIcon.loadCss()
 
@@ -34,7 +35,7 @@ firebase
     // Optionally pass in properties for database, authentication and cloud messaging,
     // see their respective docs.
     crashlyticsCollectionEnabled: true,
-    onDynamicLinkCallback: function (result: any) {
+    onDynamicLinkCallback: function(result: any) {
       console.log('Dynamic link :: ' + result.url)
       store.dispatch('authenticationModule/setCreatePasswordPage')
     },
@@ -44,7 +45,7 @@ firebase
       console.log(`Title :: ${message.title}`)
       console.log(`Body :: ${message.body}`)
     },
-    onPushTokenReceivedCallback: function (token: string) {
+    onPushTokenReceivedCallback: function(token: string) {
       console.log('Firebase push token :: ' + token)
     },
   })

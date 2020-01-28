@@ -115,12 +115,11 @@ export default {
               opacity="0"
             />
             <Label
-              :class="{ active: state.item.index === 0 }"
-              android:style="font-size:25;margin-top:-15"
-              ios:style="font-size:30;margin-top:-15"
-              class="fas fs16 nt-icon"
-              >{{ 'fa-home' | fonticon }}</Label
-            >
+              :class="[ state.item.index === 0 ? 'active' : '', 'fas', 'fs16', 'nt-icon']"
+              :text="'fa-hand-point-up' | fonticon"
+              android:style="font-size:16;margin-top:-15"
+              ios:style="font-size:20;margin-top:-15"
+              />
           </StackLayout>
           <StackLayout @tap="handleOnMenuTap(1)" class="navItem">
             <Label
@@ -129,12 +128,11 @@ export default {
               ios:class="notification"
             />
             <Label
-              :class="{ active: state.item.index === 1 }"
-              android:style="font-size:25;margin-top:-15"
-              ios:style="font-size:30;margin-top:-15"
-              class="fas fs16 nt-icon"
-              >{{ 'fa-quidditch' | fonticon }}</Label
-            >
+              :class="[ state.item.index === 1 ? 'active' : '', 'fas', 'fs16', 'nt-icon']"
+               :text="'fa-quidditch' | fonticon"
+              android:style="font-size:16;margin-top:-15"
+              ios:style="font-size:20;margin-top:-15"
+              />
           </StackLayout>
           <StackLayout @tap="handleOnMenuTap(2)" class="navItem">
             <Label
@@ -144,11 +142,10 @@ export default {
               opacity="0"
             />
             <Label
-              :class="{ active: state.item.index === 2 }"
+              :class="[ state.item.index === 2 ? 'active' : '', 'fas', 'fs16', 'nt-icon']"
               :text="'fa-user' | fonticon"
-              android:style="font-size:25;margin-top:-15"
-              ios:style="font-size:30;margin-top:-15"
-              class="fas nt-icon fs16"
+              android:style="font-size:16;margin-top:-15"
+              ios:style="font-size:20;margin-top:-15"
             />
           </StackLayout>
         </StackLayout>

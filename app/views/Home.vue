@@ -202,10 +202,11 @@ export default {
               >--/--/---- --:--</Label
             >
           </FlexBoxLayout>
-          <FlexBoxLayout v-if="matchDetails.id" flex="1" justifyContent="center" class="m-t-25">
+          <FlexBoxLayout v-if="matchDetails.id" flex="1" justifyContent="center" flexDirection="column" class="m-t-25">
             <BaseButtonWithIcon
               :styleObject="{
                 color: matchDetails.myStatus === 1 << 1 ? '#ff4350' : '#888e90',
+                width: '100px'
               }"
               @handleOnClick="handleOnNoClick"
               text="Not In"
@@ -214,6 +215,7 @@ export default {
             <BaseButtonWithIcon
               :styleObject="{
                 color: matchDetails.myStatus === 1 << 0 ? 'green' : '#888e90',
+                width: '100px'
               }"
               @handleOnClick="handleOnYesClick"
               text="I am In"
