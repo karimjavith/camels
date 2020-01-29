@@ -40,6 +40,7 @@ async function checkIfTokenIsValid() {
   try {
     const response = await httpGet(baseUrl + '/verifyIdToken')
     if (response.status !== HttpStatusCode.OK) {
+      remove('camels-token')
       throw new Error()
     }
     return await handleResponse(response)

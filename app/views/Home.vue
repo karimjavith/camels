@@ -5,7 +5,7 @@ import { getUpcomingMatchDetails, patchUserMatchStatus } from '../_shared/fireba
 import { ToastService } from '../_shared/Toasty'
 import BaseButtonWithIcon from '../components/BaseButtonWithIcon.vue'
 import BaseButton from '../components/BaseButton.vue'
-import { MatchAvailabilityStatus } from '../types/EMatchAvailabilityStatus'
+import { MatchAvailabilityStatus } from '../types/EMatchAvailabilityStatus.ts'
 import { HttpStatusCode } from '../_shared/http/http'
 import { Icons } from '../types/EIconName.ts'
 import { IconStatus } from '../types/EIconStatus.ts'
@@ -79,8 +79,14 @@ export default {
       })
       if (!result.isError) {
         this.$emit('onMatchEventSetIndexCb', 0)
+        this.state = {
+          ...this.state,
+          upcomingMatch: {
+            ...this.state.upcomingMatch,
+            myStatus: this.state.availabilityStatus.NO,
+          },
+        }
         ToastService('All done', '#a5d6a7').show()
-        await this.getUpcomingMatchDetails()
       }
       this.state = { ...this.state, loading: false }
     },
@@ -92,8 +98,14 @@ export default {
       })
       if (!result.isError) {
         this.$emit('onMatchEventSetIndexCb', 0)
+        this.state = {
+          ...this.state,
+          upcomingMatch: {
+            ...this.state.upcomingMatch,
+            myStatus: this.state.availabilityStatus.YES,
+          },
+        }
         ToastService('All done', '#a5d6a7').show()
-        await this.getUpcomingMatchDetails()
       }
       this.state = { ...this.state, loading: false }
     },
@@ -127,21 +139,14 @@ export default {
 <template>
   <StackLayout class="image">
     <ScrollView ref="scrollView" @scroll="onScroll">
-      <StackLayout ref="topView" height="550">
-        <ActivityIndicator
-          :visibility="loading ? 'visible' : 'collapse'"
-          :busy="loading"
-          class="nt-activity-indicator loader"
-          left="100"
-          top="100"
-        ></ActivityIndicator>
-        <FlexBoxLayout flexDirection="column">
+      <GridLayout ref="topView" rows="auto, auto, auto, auto" height="550">
+        <FlexBoxLayout row="0" flexDirection="column">
           <Label
             text="Camels"
             color="white"
             textAlignment="center"
             fontSize="36"
-            marginTop="120"
+            marginTop="100"
             textTransform="uppercase"
           />
           <Label text="VS" color="white" textAlignment="center" fontSize="20" marginTop="10" />
@@ -164,28 +169,41 @@ export default {
             textTransform="uppercase"
           />
         </FlexBoxLayout>
-        <FlexBoxLayout v-if="matchDetails.venue" flex="1" justifyContent="center" class="m-t-10">
+        <FlexBoxLayout
+          v-if="matchDetails.venue"
+          row="1"
+          flex="1"
+          justifyContent="center"
+          class="m-t-10"
+        >
           <Label color="white" fontWeight="bold" textAlignment="center" fontSize="16" marginTop="50"
             >{{ matchDetails.venue }} , {{ matchDetails.postCode }}</Label
           >
         </FlexBoxLayout>
-        <FlexBoxLayout v-if="!matchDetails.venue" flex="1" justifyContent="center" class="m-t-10">
+        <FlexBoxLayout
+          v-if="!matchDetails.venue"
+          row="1"
+          flex="1"
+          justifyContent="center"
+          class="m-t-10"
+        >
           <Label color="white" fontWeight="bold" textAlignment="center" fontSize="16" marginTop="50"
             >------, -----</Label
           >
         </FlexBoxLayout>
-        <FlexBoxLayout v-if="matchDetails.venue" flex="1" justifyContent="center">
+        <FlexBoxLayout v-if="matchDetails.venue" row="2" flex="1" justifyContent="center">
           <Label color="white" fontWeight="bold" textAlignment="center" fontSize="16" marginTop="10"
             >{{ matchDetails.date }} @ {{ matchDetails.time }}</Label
           >
         </FlexBoxLayout>
-        <FlexBoxLayout v-if="!matchDetails.date" flex="1" justifyContent="center">
+        <FlexBoxLayout v-if="!matchDetails.date" row="2" flex="1" justifyContent="center">
           <Label color="white" fontWeight="bold" textAlignment="center" fontSize="16" marginTop="10"
             >--/--/---- --:--</Label
           >
         </FlexBoxLayout>
         <FlexBoxLayout
           v-if="matchDetails.id"
+          row="3"
           flex="1"
           justifyContent="center"
           flexDirection="column"
@@ -193,7 +211,7 @@ export default {
         >
           <BaseButtonWithIcon
             :styleObject="{
-              color: matchDetails.myStatus === state.availabilityStatus.Yes ? '#ff4350' : '#888e90',
+              color: matchDetails.myStatus === state.availabilityStatus.NO ? '#ff4350' : '#888e90',
               width: '100px',
             }"
             @handleOnClick="handleOnNoClick"
@@ -203,7 +221,7 @@ export default {
           />
           <BaseButtonWithIcon
             :styleObject="{
-              color: matchDetails.myStatus === state.availabilityStatus.No ? 'green' : '#888e90',
+              color: matchDetails.myStatus === state.availabilityStatus.YES ? 'green' : '#888e90',
               width: '100px',
             }"
             @handleOnClick="handleOnYesClick"
@@ -212,7 +230,15 @@ export default {
             text="I am In"
           />
         </FlexBoxLayout>
-      </StackLayout>
+        <ActivityIndicator
+          :visibility="loading ? 'visible' : 'collapse'"
+          :busy="loading"
+          rowspan="4"
+          class="nt-activity-indicator loader"
+          left="100"
+          top="100"
+        ></ActivityIndicator>
+      </GridLayout>
     </ScrollView>
     <StackLayout flex="1" justifyContent="center" class="m-t-10">
       <BaseButton

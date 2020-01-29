@@ -5,11 +5,11 @@ post_install do |installer|
   post_installnativescript_plugin_firebase_0 installer
 end
 
-# NativeScriptPlatformSection /Users/Karim/dev/camels/node_modules/nativescript-plugin-firebase/platforms/ios/Podfile with 9.0
+# NativeScriptPlatformSection /Users/Bakalyona/dev/camels/node_modules/nativescript-plugin-firebase/platforms/ios/Podfile with 9.0
 platform :ios, '9.0'
 # End NativeScriptPlatformSection
 
-# Begin Podfile - /Users/Karim/dev/camels/node_modules/nativescript-plugin-firebase/platforms/ios/Podfile
+# Begin Podfile - /Users/Bakalyona/dev/camels/node_modules/nativescript-plugin-firebase/platforms/ios/Podfile
 # platform :ios, '9.0'
 
 pod 'Firebase/Core', '~>6.13.0'
@@ -87,17 +87,17 @@ pod 'Firebase/DynamicLinks'
 #pod 'GoogleSignIn', '~> 5.0'
 # End Podfile
 
-# Begin Podfile - /Users/Karim/dev/camels/node_modules/nativescript-socketio/platforms/ios/Podfile
+# Begin Podfile - /Users/Bakalyona/dev/camels/node_modules/nativescript-socketio/platforms/ios/Podfile
 pod 'Socket.IO-Client-Swift', :git => 'https://github.com/triniwiz/socket.io-client-swift.git'
 
 # End Podfile
 
-# Begin Podfile - /Users/Karim/dev/camels/node_modules/nativescript-toasty/platforms/ios/Podfile
+# Begin Podfile - /Users/Bakalyona/dev/camels/node_modules/nativescript-toasty/platforms/ios/Podfile
 pod 'Toast-Swift', :git => 'https://github.com/triniwiz/Toast-Swift.git'
 
 # End Podfile
 
-# Begin Podfile - /Users/Karim/dev/camels/node_modules/@nativescript/core/platforms/ios/Podfile
+# Begin Podfile - /Users/Bakalyona/dev/camels/node_modules/@nativescript/core/platforms/ios/Podfile
 # platform :ios, '9.0'
 use_frameworks!
 

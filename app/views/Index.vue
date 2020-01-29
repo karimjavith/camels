@@ -68,7 +68,7 @@ export default {
       setGlobalLoginState: 'signedIn',
     }),
     redirectToLogin() {
-      this.$navigateTo(Login)
+      this.$navigateTo(Login, { clearHistory: true })
     },
     async checkAuthentication() {
       const result = await checkIfTokenIsValid()
@@ -106,30 +106,47 @@ export default {
 <template>
   <Page :actionBarHidden="state.item.index !== 1" class="nt-page">
     <ActionBar :title="state.title[state.item.index]" class="nt-action-bar actionBar"></ActionBar>
-    <DockLayout>
-      <StackLayout dock="top" height="94%" width="100%" style>
+    <ActivityIndicator
+      :visibility="loading ? 'visible' : 'collapse'"
+      :busy="loading"
+      rowspan="4"
+      class="nt-activity-indicator"
+    />
+    <DockLayout v-if="!loading">
+      <StackLayout dock="top" height="92%" width="100%">
         <Home
-          v-if="state.item.index === 0"
+          v-if="state.item.index === 0 && !state.loading"
           @onHomeEventSetIndexCb="onHomeEventSetIndexCb"
           @onMatchEventSetIndexCb="onMatchEventSetIndexCb"
         />
-        <Matches v-if="state.item.index === 1" @onMatchEventSetIndexCb="onMatchEventSetIndexCb" />
-        <Account v-if="state.item.index === 2" />
+        <Matches
+          v-if="state.item.index === 1 && !state.loading"
+          @onMatchEventSetIndexCb="onMatchEventSetIndexCb"
+        />
+        <Account v-if="state.item.index === 2 && !state.loading" />
       </StackLayout>
-      <StackLayout dock="bottom" height="6%" class="bottomNavBar">
+      <StackLayout dock="bottom" height="8%" class="bottomNavBar">
         <StackLayout orientation="horizontal">
           <StackLayout @tap="handleOnMenuTap(0)" class="navItem">
             <Label text android:class="notificationAndroid" ios:class="notification" opacity="0" />
             <BaseIcon
               :name="state.icons.Home"
               :state="state.item.index === 0 ? state.iconStatus.Active : state.iconStatus.Default"
-              :size="20"
-              android:style="font-size:16;margin-top:-15"
-              ios:style="font-size:20;margin-top:-15"
+              :size="24"
+              android:style="margin-top:-15"
+              ios:style="margin-top:-15"
             />
           </StackLayout>
           <StackLayout @tap="handleOnMenuTap(1)" class="navItem">
             <Label
+              v-if="!state.count"
+              text
+              android:class="notificationAndroid"
+              ios:class="notification"
+              opacity="0"
+            />
+            <Label
+              v-if="state.count"
               :text="state.count"
               android:class="notificationAndroid"
               ios:class="notification"
@@ -137,9 +154,9 @@ export default {
             <BaseIcon
               :name="state.icons.Cricket"
               :state="state.item.index === 1 ? state.iconStatus.Active : state.iconStatus.Default"
-              :size="20"
-              android:style="font-size:16;margin-top:-15"
-              ios:style="font-size:20;margin-top:-15"
+              :size="24"
+              android:style="margin-top:-15"
+              ios:style="margin-top:-15"
             />
           </StackLayout>
           <StackLayout @tap="handleOnMenuTap(2)" class="navItem">
@@ -147,9 +164,9 @@ export default {
             <BaseIcon
               :name="state.icons.Me"
               :state="state.item.index === 2 ? state.iconStatus.Active : state.iconStatus.Default"
-              :size="20"
-              android:style="font-size:16;margin-top:-15"
-              ios:style="font-size:20;margin-top:-15"
+              :size="24"
+              android:style="margin-top:-15"
+              ios:style="margin-top:-15"
             />
           </StackLayout>
         </StackLayout>
