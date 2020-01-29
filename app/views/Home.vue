@@ -126,130 +126,102 @@ export default {
 
 <template>
   <StackLayout class="image">
-    <ActivityIndicator
-      :visibility="loading ? 'visible' : 'collapse'"
-      :busy="loading"
-      class="nt-activity-indicator loader"
-      left="100"
-      top="100"
-    ></ActivityIndicator>
     <ScrollView ref="scrollView" @scroll="onScroll">
-      <StackLayout>
-        <StackLayout ref="topView" height="500">
-          <!-- this is the header for collapsing --->
-          <!-- Note: this can be any type of layout you want -->
-          <FlexBoxLayout flexDirection="column">
-            <Label
-              text="Camels"
-              color="white"
-              textAlignment="center"
-              fontSize="36"
-              marginTop="120"
-              textTransform="uppercase"
-            />
-            <Label text="VS" color="white" textAlignment="center" fontSize="20" marginTop="10" />
-            <Label
-              v-if="!matchDetails.opponent"
-              text="-----"
-              color="white"
-              textAlignment="center"
-              fontSize="36"
-              marginTop="10"
-              textTransform="uppercase"
-            />
-            <Label
-              v-if="matchDetails.opponent"
-              :text="matchDetails.opponent"
-              color="white"
-              textAlignment="center"
-              fontSize="36"
-              marginTop="10"
-              textTransform="uppercase"
-            />
-          </FlexBoxLayout>
-          <FlexBoxLayout v-if="matchDetails.venue" flex="1" justifyContent="center" class="m-t-10">
-            <Label
-              color="white"
-              fontWeight="bold"
-              textAlignment="center"
-              fontSize="16"
-              marginTop="50"
-              >{{ matchDetails.venue }} , {{ matchDetails.postCode }}</Label
-            >
-          </FlexBoxLayout>
-          <FlexBoxLayout v-if="!matchDetails.venue" flex="1" justifyContent="center" class="m-t-10">
-            <Label
-              color="white"
-              fontWeight="bold"
-              textAlignment="center"
-              fontSize="16"
-              marginTop="50"
-              >------, -----</Label
-            >
-          </FlexBoxLayout>
-          <FlexBoxLayout v-if="matchDetails.venue" flex="1" justifyContent="center">
-            <Label
-              color="white"
-              fontWeight="bold"
-              textAlignment="center"
-              fontSize="16"
-              marginTop="10"
-              >{{ matchDetails.date }} @ {{ matchDetails.time }}</Label
-            >
-          </FlexBoxLayout>
-          <FlexBoxLayout v-if="!matchDetails.date" flex="1" justifyContent="center">
-            <Label
-              color="white"
-              fontWeight="bold"
-              textAlignment="center"
-              fontSize="16"
-              marginTop="10"
-              >--/--/---- --:--</Label
-            >
-          </FlexBoxLayout>
-          <FlexBoxLayout
-            v-if="matchDetails.id"
-            flex="1"
-            justifyContent="center"
-            flexDirection="column"
-            class="m-t-25"
+      <StackLayout ref="topView" height="550">
+        <ActivityIndicator
+          :visibility="loading ? 'visible' : 'collapse'"
+          :busy="loading"
+          class="nt-activity-indicator loader"
+          left="100"
+          top="100"
+        ></ActivityIndicator>
+        <FlexBoxLayout flexDirection="column">
+          <Label
+            text="Camels"
+            color="white"
+            textAlignment="center"
+            fontSize="36"
+            marginTop="120"
+            textTransform="uppercase"
+          />
+          <Label text="VS" color="white" textAlignment="center" fontSize="20" marginTop="10" />
+          <Label
+            v-if="!matchDetails.opponent"
+            text="-----"
+            color="white"
+            textAlignment="center"
+            fontSize="36"
+            marginTop="10"
+            textTransform="uppercase"
+          />
+          <Label
+            v-if="matchDetails.opponent"
+            :text="matchDetails.opponent"
+            color="white"
+            textAlignment="center"
+            fontSize="36"
+            marginTop="10"
+            textTransform="uppercase"
+          />
+        </FlexBoxLayout>
+        <FlexBoxLayout v-if="matchDetails.venue" flex="1" justifyContent="center" class="m-t-10">
+          <Label color="white" fontWeight="bold" textAlignment="center" fontSize="16" marginTop="50"
+            >{{ matchDetails.venue }} , {{ matchDetails.postCode }}</Label
           >
-            <BaseButtonWithIcon
-              :styleObject="{
-                color:
-                  matchDetails.myStatus === state.availabilityStatus.Yes ? '#ff4350' : '#888e90',
-                width: '100px',
-              }"
-              @handleOnClick="handleOnNoClick"
-              :icon="state.icons.No"
-              :iconState="state.iconStatus.Active"
-              text="Not In"
-            />
-            <BaseButtonWithIcon
-              :styleObject="{
-                color: matchDetails.myStatus === state.availabilityStatus.No ? 'green' : '#888e90',
-                width: '100px',
-              }"
-              @handleOnClick="handleOnYesClick"
-              :icon="state.icons.Yes"
-              :iconState="state.iconStatus.Active"
-              text="I am In"
-            />
-          </FlexBoxLayout>
-        </StackLayout>
-        <StackLayout width="100%" padding="10">
-          <!--Add your page content here-->
-        </StackLayout>
+        </FlexBoxLayout>
+        <FlexBoxLayout v-if="!matchDetails.venue" flex="1" justifyContent="center" class="m-t-10">
+          <Label color="white" fontWeight="bold" textAlignment="center" fontSize="16" marginTop="50"
+            >------, -----</Label
+          >
+        </FlexBoxLayout>
+        <FlexBoxLayout v-if="matchDetails.venue" flex="1" justifyContent="center">
+          <Label color="white" fontWeight="bold" textAlignment="center" fontSize="16" marginTop="10"
+            >{{ matchDetails.date }} @ {{ matchDetails.time }}</Label
+          >
+        </FlexBoxLayout>
+        <FlexBoxLayout v-if="!matchDetails.date" flex="1" justifyContent="center">
+          <Label color="white" fontWeight="bold" textAlignment="center" fontSize="16" marginTop="10"
+            >--/--/---- --:--</Label
+          >
+        </FlexBoxLayout>
+        <FlexBoxLayout
+          v-if="matchDetails.id"
+          flex="1"
+          justifyContent="center"
+          flexDirection="column"
+          class="m-t-25"
+        >
+          <BaseButtonWithIcon
+            :styleObject="{
+              color: matchDetails.myStatus === state.availabilityStatus.Yes ? '#ff4350' : '#888e90',
+              width: '100px',
+            }"
+            @handleOnClick="handleOnNoClick"
+            :icon="state.icons.No"
+            :iconState="state.iconStatus.Active"
+            text="Not In"
+          />
+          <BaseButtonWithIcon
+            :styleObject="{
+              color: matchDetails.myStatus === state.availabilityStatus.No ? 'green' : '#888e90',
+              width: '100px',
+            }"
+            @handleOnClick="handleOnYesClick"
+            :icon="state.icons.Yes"
+            :iconState="state.iconStatus.Active"
+            text="I am In"
+          />
+        </FlexBoxLayout>
       </StackLayout>
     </ScrollView>
-    <FlexBoxLayout flex="1" justifyContent="center" class="m-t-10">
+    <StackLayout flex="1" justifyContent="center" class="m-t-10">
       <BaseButton
         :class="{ 'm-t-20': true, '-primary': true }"
         @handleOnClick="handleOnViewAllMatchesClick"
         :loading="false"
         refFromParent="viewallmatches"
         text="View All Matches"
-      /> </FlexBoxLayout
+      /> </StackLayout
   ></StackLayout>
 </template>
 

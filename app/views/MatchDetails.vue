@@ -90,24 +90,30 @@ export default {
 </script>
 <template>
   <ModalStack class="modal-container">
-    <StackLayout class="modal">
+    <GridLayout rows="auto, auto" class="modal">
+      <StackLayout
+        v-show="!state.loading"
+        orientation="vertical"
+        class="nt-form m-l-15  m-r-15"
+        row="0"
+      >
+        <Label class="h2 p-b-15 nt-label" text="User Status List" />
+        <ScrollView orientation="horizontal" scrollBarIndicatorVisible="false"
+          ><BaseListView :items="state.items" refFromParent="userStatuslist"> </BaseListView
+        ></ScrollView>
+      </StackLayout>
+      <StackLayout row="1">
+        <Button @tap="$modal.close" text="close" class="-primary nt-button -rounded-lg" />
+      </StackLayout>
       <ActivityIndicator
         :visibility="state.loading ? 'visible' : 'collapse'"
         :busy="state.loading"
         width="20"
         height="20"
         class="loader nt-activity-indicator"
+        rowspan="3"
       ></ActivityIndicator>
-      <StackLayout v-show="!state.loading" orientation="vertical" class="nt-form m-l-15  m-r-15">
-        <Label class="h2 p-b-15 nt-label" text="User Status List" />
-        <ScrollView orientation="horizontal" scrollBarIndicatorVisible="false"
-          ><BaseListView :items="state.items" refFromParent="userStatuslist"> </BaseListView
-        ></ScrollView>
-      </StackLayout>
-      <StackLayout orientation="horizontal">
-        <Button @tap="$modal.close" text="close" class="-primary nt-button -rounded-lg" />
-      </StackLayout>
-    </StackLayout>
+    </GridLayout>
   </ModalStack>
 </template>
 
