@@ -29,12 +29,12 @@ $series-f: #ffd78c;
 // Global SCSS styling
 // @see https://docs.nativescript.org/ui/styling
 Page {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Montserrat', 'Montserrat-Light', sans-serif;
   font-size: 18;
   padding: 0;
 }
 .ico {
-  font-family: 'icomoon', icomoon;
+  font-family: 'icomoon', 'icomoon-set-1';
 }
 
 .fs14 {

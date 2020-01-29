@@ -189,7 +189,6 @@ export default {
 </script>
 <template>
   <StackLayout orientation="horizonatal">
-    <Label text="Matches" class="h1 m-t-20 m-l-20 nt-label" fontWeight="bold" height="70" />
     <ActivityIndicator
       :visibility="loading ? 'visible' : 'collapse'"
       :busy="loading"

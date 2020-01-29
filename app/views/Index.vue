@@ -24,6 +24,11 @@ export default {
           index: 0,
         },
         count: 0,
+        title: {
+          0: 'Home',
+          1: 'Matches',
+          2: 'Profile',
+        },
       },
     }
   },
@@ -99,7 +104,8 @@ export default {
 </script>
 
 <template>
-  <Page actionBarHidden="true" class="nt-page">
+  <Page :actionBarHidden="state.item.index !== 1" class="nt-page">
+    <ActionBar :title="state.title[state.item.index]" class="nt-action-bar actionBar"></ActionBar>
     <DockLayout>
       <StackLayout dock="top" height="94%" width="100%" style>
         <Home
@@ -154,8 +160,12 @@ export default {
 
 <style scoped lang="scss">
 @import '~/_app.common';
-.active {
-  color: $accent;
+.actionBar {
+  background-color: $bg-color;
+  color: $text-color;
+  border-bottom: 0;
+  height: 70;
+  font-size: 24;
 }
 /* bottom nav bar */
 .bottomNavBar {
