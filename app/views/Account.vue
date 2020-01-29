@@ -9,6 +9,7 @@ import Login from './Login.vue'
 import BaseListView from '../components/BaseListView.vue'
 import { logout } from '../_shared/firebase/users.ts'
 import { AppRoles } from '../_shared/enum'
+import { Icons } from '../types/EIconName.ts'
 
 export default {
   name: 'Account',
@@ -21,24 +22,24 @@ export default {
             role: AppRoles.Admin,
             name: 'Invite',
             component: Invite,
-            icon: 'fa-user-plus',
+            icon: Icons.Invite,
           },
           {
             role: AppRoles.Admin,
             name: 'Users',
             component: UserList,
-            icon: 'fa-user',
+            icon: Icons.Users,
           },
           {
             role: AppRoles.User,
             name: 'Change Password',
             component: ChangePassword,
-            icon: 'fa-key',
+            icon: Icons.ChangePassword,
           },
           {
             role: AppRoles.User,
             name: 'Sign out',
-            icon: 'fa-power-off',
+            icon: Icons.SignOut,
           },
         ],
       },

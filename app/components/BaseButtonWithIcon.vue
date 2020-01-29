@@ -1,5 +1,6 @@
 // https://github.com/msaelices/ns-ui-vue-demo/blob/master/app/views/List.vue
 <script>
+import icons from '../_shared/icons'
 export default {
   name: 'BaseButtonWithIcon',
   props: {
@@ -8,8 +9,12 @@ export default {
       default: '',
     },
     icon: {
-      type: String,
-      default: '',
+      type: Number,
+      default: 0,
+    },
+    iconState: {
+      type: Number,
+      default: 4,
     },
     styleObject: {
       type: Object,
@@ -30,6 +35,9 @@ export default {
     handleOnClick: function(event) {
       this.$emit('handleOnClick', event)
     },
+    getIconString: function(name) {
+      return icons(name)
+    },
   },
 }
 </script>
@@ -44,9 +52,9 @@ export default {
       '-rounded-lg': true,
     }"
   >
-  <FormattedString>
-    <Span :text="icon | fonticon" class="fas fs16 nt-icon m-15" />
-    <Span :text="text" />
+    <FormattedString>
+      <Span :text="text" />
+      <Span :text="getIconString(icon)" class="ico m-r-15" />
     </FormattedString>
   </Button>
 </template>

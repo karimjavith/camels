@@ -4,17 +4,22 @@ import Login from './Login.vue'
 import Home from './Home.vue'
 import Account from './Account.vue'
 import Matches from './Matches.vue'
+import BaseIcon from '../components/BaseIcons.vue'
 import { checkIfTokenIsValid } from '../_shared/firebase/users'
 import { getUnreadMatchCount } from '../_shared/firebase/home'
+import { Icons } from '../types/EIconName.ts'
+import { IconStatus } from '../types/EIconStatus.ts'
 
 export default {
   name: 'Index',
-  components: { Home, Account, Matches },
+  components: { Home, Account, Matches, BaseIcon },
   props: {},
   data() {
     return {
       state: {
         loading: true,
+        icons: Icons,
+        iconStatus: IconStatus,
         item: {
           index: 0,
         },
@@ -96,7 +101,7 @@ export default {
 <template>
   <Page actionBarHidden="true" class="nt-page">
     <DockLayout>
-      <StackLayout dock="top" height="94%" width="100%" style="">
+      <StackLayout dock="top" height="94%" width="100%" style>
         <Home
           v-if="state.item.index === 0"
           @onHomeEventSetIndexCb="onHomeEventSetIndexCb"
@@ -108,18 +113,14 @@ export default {
       <StackLayout dock="bottom" height="6%" class="bottomNavBar">
         <StackLayout orientation="horizontal">
           <StackLayout @tap="handleOnMenuTap(0)" class="navItem">
-            <Label
-              text=""
-              android:class="notificationAndroid"
-              ios:class="notification"
-              opacity="0"
-            />
-            <Label
-              :class="[ state.item.index === 0 ? 'active' : '', 'fas', 'fs16', 'nt-icon']"
-              :text="'fa-hand-point-up' | fonticon"
+            <Label text android:class="notificationAndroid" ios:class="notification" opacity="0" />
+            <BaseIcon
+              :name="state.icons.Home"
+              :state="state.item.index === 0 ? state.iconStatus.Active : state.iconStatus.Default"
+              :size="20"
               android:style="font-size:16;margin-top:-15"
               ios:style="font-size:20;margin-top:-15"
-              />
+            />
           </StackLayout>
           <StackLayout @tap="handleOnMenuTap(1)" class="navItem">
             <Label
@@ -127,23 +128,20 @@ export default {
               android:class="notificationAndroid"
               ios:class="notification"
             />
-            <Label
-              :class="[ state.item.index === 1 ? 'active' : '', 'fas', 'fs16', 'nt-icon']"
-               :text="'fa-quidditch' | fonticon"
+            <BaseIcon
+              :name="state.icons.Cricket"
+              :state="state.item.index === 1 ? state.iconStatus.Active : state.iconStatus.Default"
+              :size="20"
               android:style="font-size:16;margin-top:-15"
               ios:style="font-size:20;margin-top:-15"
-              />
+            />
           </StackLayout>
           <StackLayout @tap="handleOnMenuTap(2)" class="navItem">
-            <Label
-              text=""
-              android:class="notificationAndroid"
-              ios:class="notification"
-              opacity="0"
-            />
-            <Label
-              :class="[ state.item.index === 2 ? 'active' : '', 'fas', 'fs16', 'nt-icon']"
-              :text="'fa-user' | fonticon"
+            <Label text android:class="notificationAndroid" ios:class="notification" opacity="0" />
+            <BaseIcon
+              :name="state.icons.Me"
+              :state="state.item.index === 2 ? state.iconStatus.Active : state.iconStatus.Default"
+              :size="20"
               android:style="font-size:16;margin-top:-15"
               ios:style="font-size:20;margin-top:-15"
             />
@@ -169,7 +167,7 @@ export default {
   width: 25;
   height: 25;
   margin-top: 8%;
-  margin-left: 25;
+  margin-left: 42;
   border-radius: 30;
   z-index: 100;
   color: #fff;
