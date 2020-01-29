@@ -33,6 +33,10 @@ Page {
   font-size: 18;
   padding: 0;
 }
+.ico {
+  font-family: 'icomoon', icomoon;
+}
+
 .fs14 {
   font-size: 14;
 }
@@ -51,18 +55,6 @@ Page {
 .fs20 {
   font-size: 20;
 }
-.fa {
-  font-family: 'Font Awesome 5 Free', fa-regular-400;
-}
-
-.fab {
- font-family: 'Font Awesome 5 Brands', fa-brands-400;
-}
-
-.fas {
- font-family: 'Font Awesome 5 Free', fa-solid-900;
-}
-
 .mt {
   font-family: Montserrat;
 }
@@ -93,16 +85,11 @@ Page {
 }
 
 .swipe-item.left {
-  background-color: #240774;
+  background-color: $info;
 }
 
 .swipe-item.right {
-  background-color: #79000a;
-}
-
-.drawer {
-  padding: 10;
-  background-color: #333366;
+  background-color: $error;
 }
 
 .sideLogo {

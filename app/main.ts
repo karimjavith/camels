@@ -4,16 +4,6 @@ import RadListView from 'nativescript-ui-listview/vue'
 import { ModalStack, overrideModalViewMethod, VueWindowedModal } from 'nativescript-windowed-modal'
 import DateTimePicker from 'nativescript-datetimepicker/vue'
 var firebase = require('nativescript-plugin-firebase')
-// @ts-ignore
-import { TNSFontIcon, fonticon } from 'nativescript-fonticon'
-// TNSFontIcon.debug = true
-TNSFontIcon.paths = {
-  fa: './assets/fontawesome.css',
-  fas: './assets/fontawesome.css',
-}
-TNSFontIcon.loadCss()
-
-Vue.filter('fonticon', fonticon)
 Vue.use(VueDevtools)
 Vue.use(RadListView)
 // @ts-ignore

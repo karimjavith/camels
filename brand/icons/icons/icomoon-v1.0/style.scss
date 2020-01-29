@@ -1,0 +1,140 @@
+@import "variables";
+
+@font-face {
+  font-family: '#{$icomoon-font-family}';
+  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?yxycj6');
+  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?yxycj6#iefix') format('embedded-opentype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?yxycj6') format('truetype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?yxycj6') format('woff'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?yxycj6##{$icomoon-font-family}') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: '#{$icomoon-font-family}' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-calendar {
+  &:before {
+    content: $icon-calendar; 
+  }
+}
+.icon-check-cirlce {
+  &:before {
+    content: $icon-check-cirlce; 
+  }
+}
+.icon-cricket {
+  &:before {
+    content: $icon-cricket; 
+  }
+}
+.icon-delete {
+  &:before {
+    content: $icon-delete; 
+  }
+}
+.icon-edit {
+  &:before {
+    content: $icon-edit; 
+  }
+}
+.icon-exclamation {
+  &:before {
+    content: $icon-exclamation; 
+  }
+}
+.icon-home {
+  &:before {
+    content: $icon-home; 
+  }
+}
+.icon-info {
+  &:before {
+    content: $icon-info; 
+  }
+}
+.icon-lock {
+  &:before {
+    content: $icon-lock; 
+  }
+}
+.icon-plus {
+  &:before {
+    content: $icon-plus; 
+  }
+}
+.icon-pound {
+  &:before {
+    content: $icon-pound; 
+  }
+}
+.icon-power-off {
+  &:before {
+    content: $icon-power-off; 
+  }
+}
+.icon-thumbs-down {
+  &:before {
+    content: $icon-thumbs-down; 
+  }
+}
+.icon-thumbs-up {
+  &:before {
+    content: $icon-thumbs-up; 
+  }
+}
+.icon-times {
+  &:before {
+    content: $icon-times; 
+  }
+}
+.icon-user-add {
+  &:before {
+    content: $icon-user-add; 
+  }
+}
+.icon-user-admin {
+  &:before {
+    content: $icon-user-admin; 
+  }
+}
+.icon-user-cowboy {
+  &:before {
+    content: $icon-user-cowboy; 
+  }
+}
+.icon-user-privacy {
+  &:before {
+    content: $icon-user-privacy; 
+  }
+}
+.icon-user-tag {
+  &:before {
+    content: $icon-user-tag; 
+  }
+}
+.icon-user {
+  &:before {
+    content: $icon-user; 
+  }
+}
+.icon-users {
+  &:before {
+    content: $icon-users; 
+  }
+}
+

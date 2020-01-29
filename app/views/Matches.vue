@@ -13,6 +13,7 @@ import { MatchStatus } from '../types/EMatchStatus'
 import { MatchAvailabilityStatus } from '../types/EMatchAvailabilityStatus'
 import { HttpStatusCode } from '../_shared/http/http'
 import DateService from '../_shared/date.ts'
+import { Icons } from '../types/EIconName.ts'
 
 export default {
   name: 'Matches',
@@ -21,6 +22,7 @@ export default {
     return {
       state: {
         loading: true,
+        icons: Icons,
         items: [],
       },
     }
@@ -60,9 +62,6 @@ export default {
           if (count > 0) {
             const matches = Object.values(data).map(match => {
               match.title = `Camels vs ${match.opponent}`
-              match.statusIcon = 'fa-dot-circle'
-              match.statusIconStyle =
-                match.status === MatchStatus.ON ? { color: 'green' } : { color: 'grey' }
               match.body = `${match.venue} - ${new Date(match.date).toLocaleDateString()} @ ${
                 match.time
               }`
@@ -201,8 +200,8 @@ export default {
     <BaseButtonWithIcon
       :primary="true"
       @handleOnClick="handleOnCreateMatchClick"
+      :icon="state.icons.Cricket"
       text="New Match"
-      icon="fa-plus-circle"
     />
     <StackLayout>
       <FlexBoxLayout

@@ -5,30 +5,29 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
-		05A3C34BE87E4AA3AAC50FDC /* TNSListView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 39FE431CDB3D4E47B9CBD6C4 /* TNSListView.framework */; };
-		0B58E5E794AB420AA8F6105A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 42E1713DDE3A4C0B8D0C8684 /* GoogleService-Info.plist */; };
-		201B33836D004A1A9D7BCC9B /* TNSCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8C894075C0B4EDC85A69A0E /* TNSCore.framework */; };
-		3CB9BEBB4BDF496BAD7F6BD4 /* AuthKey_RJ4TT2U2C7.p8 in Resources */ = {isa = PBXBuildFile; fileRef = 4C69B9311EF54CD8A142993D /* AuthKey_RJ4TT2U2C7.p8 */; };
-		481D53755C7C43ED8AFACE5A /* TNSListView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39FE431CDB3D4E47B9CBD6C4 /* TNSListView.framework */; };
-		4ADFF06FBC234751A55B7B58 /* aps_development.cer in Resources */ = {isa = PBXBuildFile; fileRef = DC4EA13551CC438692ABC1F9 /* aps_development.cer */; };
-		522A51C326884EF3A5F17708 /* TNSCrashlyticsLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9800E43F4001401ABCA91DED /* TNSCrashlyticsLogger.framework */; };
-		548BFFF1C89848EA99F386F6 /* build.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5BC42313DD7E4F168A84AFA2 /* build.xcconfig */; };
-		54F2160EE53A3E9575C74B60 /* Pods_camels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD05DE68FFDCFC30D695383C /* Pods_camels.framework */; };
-		64B68456129D43C5893C13C3 /* TNSCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C8C894075C0B4EDC85A69A0E /* TNSCore.framework */; };
+		0667EBE5BC9F4543A580ED78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 533E5532F1FD4CE28D7557F0 /* Assets.xcassets */; };
+		06F49E57E6FA4C9EA2CC084C /* build.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = C7AFB290ABA347DFA9B0A090 /* build.xcconfig */; };
+		0BFC159FEEDB44C0B7682BAE /* TNSWidgets.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 18D5C8FC75A743F2B021CA13 /* TNSWidgets.framework */; };
+		1CD8040A52BA47EB96AF4ECF /* GoogleService-Info.plist.prod in Resources */ = {isa = PBXBuildFile; fileRef = 51CAB7B9D0E94CA2B367C31E /* GoogleService-Info.plist.prod */; };
+		21FDEC10F7BF47EDB992E487 /* camels.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = C85A80E8BC6542D78BF05010 /* camels.entitlements */; };
+		3406ACA6C94844F8AF6C1F6E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1E5A69A3B7154187A526D044 /* GoogleService-Info.plist */; };
+		35F65A6D1AFE4885B9BDD4DC /* TNSListView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDCBDA4B430D4C6EAEFD1450 /* TNSListView.framework */; };
+		3DC6C3B4C48C49D58BC79F94 /* TNSListView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EDCBDA4B430D4C6EAEFD1450 /* TNSListView.framework */; };
+		40E9560A56FE99BB0B03944C /* Pods_camels.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41DA5F3A03A1A09742976297 /* Pods_camels.framework */; };
+		4B33BEA9146D4938B8EF0FBC /* NativeScriptEmbedder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E3F87B7872B44F3B8DF0DCD /* NativeScriptEmbedder.m */; };
+		7791707ED76F43BEA9A00B99 /* TNSCrashlyticsLogger.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CF435E97CF3041CCA2D11DDE /* TNSCrashlyticsLogger.framework */; };
+		81497ADC871E4F6E96760DC0 /* Camels__Dev.mobileprovision in Resources */ = {isa = PBXBuildFile; fileRef = D27B668D9F8A4AD0A04C13F7 /* Camels__Dev.mobileprovision */; };
+		84DED9E3D559499AAE6092F8 /* aps_development.cer in Resources */ = {isa = PBXBuildFile; fileRef = 7A38D6A95DBE4EB4A58EC366 /* aps_development.cer */; };
 		858B842D18CA22B800AB12DE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 858B833A18CA111C00AB12DE /* InfoPlist.strings */; };
-		A4B7B235A8034CC09B1D1DD4 /* NativeScriptEmbedder.m in Sources */ = {isa = PBXBuildFile; fileRef = B7188890AC5A4328B8FAA7DF /* NativeScriptEmbedder.m */; };
-		A4DF79BD9B0C46709F3952F7 /* TNSWidgets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C87228E34045D8B8B0B698 /* TNSWidgets.framework */; };
-		AA174FB622EF4E0BB5E99890 /* TNSCrashlyticsLogger.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9800E43F4001401ABCA91DED /* TNSCrashlyticsLogger.framework */; };
-		B0CC72877F694A8AAAB0F931 /* TNSWidgets.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7C87228E34045D8B8B0B698 /* TNSWidgets.framework */; };
-		B3431D1FC9AE43D8A8A12658 /* Camels__Dev.mobileprovision in Resources */ = {isa = PBXBuildFile; fileRef = 7F03AB7139194F59A3780977 /* Camels__Dev.mobileprovision */; };
-		B4A4961EBF384C728A8460B8 /* CertificateSigningRequest.certSigningRequest in Resources */ = {isa = PBXBuildFile; fileRef = 69A378F4DF0C4AFDA56C69C2 /* CertificateSigningRequest.certSigningRequest */; };
+		872E56EAFD8E4431A429DA65 /* AuthKey_RJ4TT2U2C7.p8 in Resources */ = {isa = PBXBuildFile; fileRef = D1BDDD5212224F6A865615AC /* AuthKey_RJ4TT2U2C7.p8 */; };
+		8DE7350DB738475DA4A30E90 /* TNSCrashlyticsLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF435E97CF3041CCA2D11DDE /* TNSCrashlyticsLogger.framework */; };
+		A10D40E84EDB4B45BF347517 /* TNSCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4F4CB2B304AD4EC38F56B155 /* TNSCore.framework */; };
+		C07F615A2D694A4088B131F5 /* TNSCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F4CB2B304AD4EC38F56B155 /* TNSCore.framework */; };
+		C567E075A69F472BB32BCCEA /* TNSWidgets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D5C8FC75A743F2B021CA13 /* TNSWidgets.framework */; };
 		CD45EE7C18DC2D5800FB50C0 /* app in Resources */ = {isa = PBXBuildFile; fileRef = CD45EE7A18DC2D5800FB50C0 /* app */; };
 		CD62955D1BB2678900AE3A93 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CD62955C1BB2678900AE3A93 /* main.m */; };
-		EA06368D65074FAE9AF6912D /* GoogleService-Info.plist.prod in Resources */ = {isa = PBXBuildFile; fileRef = E7C779432AF3473DA4B8024F /* GoogleService-Info.plist.prod */; };
-		EA15E12EE41D48ADA7AD4AC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13CAAAE8383D44898EFEEFE9 /* Assets.xcassets */; };
-		EFA09DE24E524A7DB8257EFE /* camels.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 6E98FC9BCFE946E7BF6C0502 /* camels.entitlements */; };
+		F4D386E512564D5E8B0D8EF5 /* CertificateSigningRequest.certSigningRequest in Resources */ = {isa = PBXBuildFile; fileRef = CAF9619006114983B71D255C /* CertificateSigningRequest.certSigningRequest */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -38,10 +37,10 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				AA174FB622EF4E0BB5E99890 /* TNSCrashlyticsLogger.framework in Embed Frameworks */,
-				05A3C34BE87E4AA3AAC50FDC /* TNSListView.framework in Embed Frameworks */,
-				64B68456129D43C5893C13C3 /* TNSCore.framework in Embed Frameworks */,
-				B0CC72877F694A8AAAB0F931 /* TNSWidgets.framework in Embed Frameworks */,
+				7791707ED76F43BEA9A00B99 /* TNSCrashlyticsLogger.framework in Embed Frameworks */,
+				3DC6C3B4C48C49D58BC79F94 /* TNSListView.framework in Embed Frameworks */,
+				A10D40E84EDB4B45BF347517 /* TNSCore.framework in Embed Frameworks */,
+				0BFC159FEEDB44C0B7682BAE /* TNSWidgets.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -49,46 +48,46 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		13CAAAE8383D44898EFEEFE9 /* Assets.xcassets */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = camels/Resources/Assets.xcassets; sourceTree = "<group>"; };
+		18D5C8FC75A743F2B021CA13 /* TNSWidgets.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = TNSWidgets.framework; path = "$(SRCROOT)/../../node_modules/tns-core-modules-widgets/platforms/ios/TNSWidgets.framework"; sourceTree = "<group>"; };
+		1E5A69A3B7154187A526D044 /* GoogleService-Info.plist */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "camels/Resources/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		2F686E405E634F6C8D695AA3 /* Pods-camels.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-camels.release.xcconfig"; path = "Target Support Files/Pods-camels/Pods-camels.release.xcconfig"; sourceTree = "<group>"; };
 		391174B321F1CBD300BA2583 /* TNSDebugging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TNSDebugging.h; path = internal/TNSDebugging.h; sourceTree = SOURCE_ROOT; };
 		391174B421F1CBD300BA2583 /* TNSExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TNSExceptionHandler.h; path = internal/TNSExceptionHandler.h; sourceTree = SOURCE_ROOT; };
 		391174B521F1D7BF00BA2583 /* nativescript-build.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "nativescript-build.xcconfig"; path = "internal/nativescript-build.xcconfig"; sourceTree = SOURCE_ROOT; };
 		391174B721F1D99900BA2583 /* plugins-release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "plugins-release.xcconfig"; sourceTree = SOURCE_ROOT; };
 		391174B821F1D99900BA2583 /* plugins-debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "plugins-debug.xcconfig"; sourceTree = SOURCE_ROOT; };
-		39FE431CDB3D4E47B9CBD6C4 /* TNSListView.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = TNSListView.framework; path = "$(SRCROOT)/../../node_modules/nativescript-ui-listview/platforms/ios/TNSListView.framework"; sourceTree = "<group>"; };
+		41752CA67D144E2DBF38C6C7 /* NativeScriptEmbedder.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = NativeScriptEmbedder.h; path = "../../node_modules/@nativescript/core/platforms/ios/src/NativeScriptEmbedder.h"; sourceTree = "<group>"; };
+		41DA5F3A03A1A09742976297 /* Pods_camels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_camels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		42C751E2232B769100186695 /* nativescript-pre-link */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "nativescript-pre-link"; path = "internal/nativescript-pre-link"; sourceTree = SOURCE_ROOT; };
 		42C751E3232B769100186695 /* strip-dynamic-framework-architectures.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = "strip-dynamic-framework-architectures.sh"; path = "internal/strip-dynamic-framework-architectures.sh"; sourceTree = SOURCE_ROOT; };
 		42C751E4232B769100186695 /* nsld.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = nsld.sh; path = internal/nsld.sh; sourceTree = SOURCE_ROOT; };
 		42C751E5232B769100186695 /* nativescript-post-build */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "nativescript-post-build"; path = "internal/nativescript-post-build"; sourceTree = SOURCE_ROOT; };
 		42C751E6232B769100186695 /* nativescript-pre-build */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "nativescript-pre-build"; path = "internal/nativescript-pre-build"; sourceTree = SOURCE_ROOT; };
-		42E1713DDE3A4C0B8D0C8684 /* GoogleService-Info.plist */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "camels/Resources/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		49466201BB9C47138827238F /* module.modulemap */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.module-map"; name = module.modulemap; path = "../../node_modules/@nativescript/core/platforms/ios/src/module.modulemap"; sourceTree = "<group>"; };
-		4C69B9311EF54CD8A142993D /* AuthKey_RJ4TT2U2C7.p8 */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AuthKey_RJ4TT2U2C7.p8; path = camels/Resources/AuthKey_RJ4TT2U2C7.p8; sourceTree = "<group>"; };
-		5BC42313DD7E4F168A84AFA2 /* build.xcconfig */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.xcconfig; name = build.xcconfig; path = camels/Resources/build.xcconfig; sourceTree = "<group>"; };
-		69A378F4DF0C4AFDA56C69C2 /* CertificateSigningRequest.certSigningRequest */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = CertificateSigningRequest.certSigningRequest; path = camels/Resources/CertificateSigningRequest.certSigningRequest; sourceTree = "<group>"; };
-		6E98FC9BCFE946E7BF6C0502 /* camels.entitlements */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = text.plist.entitlements; name = camels.entitlements; path = camels/Resources/camels.entitlements; sourceTree = "<group>"; };
-		7F03AB7139194F59A3780977 /* Camels__Dev.mobileprovision */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Camels__Dev.mobileprovision; path = camels/Resources/Camels__Dev.mobileprovision; sourceTree = "<group>"; };
+		4E3F87B7872B44F3B8DF0DCD /* NativeScriptEmbedder.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = NativeScriptEmbedder.m; path = "../../node_modules/@nativescript/core/platforms/ios/src/NativeScriptEmbedder.m"; sourceTree = "<group>"; };
+		4F4CB2B304AD4EC38F56B155 /* TNSCore.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = TNSCore.framework; path = "$(SRCROOT)/../../node_modules/nativescript-ui-core/platforms/ios/TNSCore.framework"; sourceTree = "<group>"; };
+		51CAB7B9D0E94CA2B367C31E /* GoogleService-Info.plist.prod */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "GoogleService-Info.plist.prod"; path = "camels/Resources/GoogleService-Info.plist.prod"; sourceTree = "<group>"; };
+		533E5532F1FD4CE28D7557F0 /* Assets.xcassets */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = camels/Resources/Assets.xcassets; sourceTree = "<group>"; };
+		7A38D6A95DBE4EB4A58EC366 /* aps_development.cer */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = aps_development.cer; path = camels/Resources/aps_development.cer; sourceTree = "<group>"; };
+		835A6D7CD3AE4D9486F558EA /* module.modulemap */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = "sourcecode.module-map"; name = module.modulemap; path = "../../node_modules/@nativescript/core/platforms/ios/src/module.modulemap"; sourceTree = "<group>"; };
 		858B832E18CA111C00AB12DE /* camels.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = camels.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		858B833918CA111C00AB12DE /* camels-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "camels-Info.plist"; sourceTree = "<group>"; };
 		858B833B18CA111C00AB12DE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		858B833F18CA111C00AB12DE /* camels-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "camels-Prefix.pch"; sourceTree = "<group>"; };
 		858B843318CA22B800AB12DE /* camels.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = camels.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		930F05DB22671AE300D269DC /* Swift-ObjC-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Swift-ObjC-Bridging-Header.h"; path = "internal/Swift-ObjC-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
-		973658FC7DEC6027F8138888 /* Pods-camels.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-camels.release.xcconfig"; path = "Target Support Files/Pods-camels/Pods-camels.release.xcconfig"; sourceTree = "<group>"; };
-		9800E43F4001401ABCA91DED /* TNSCrashlyticsLogger.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = TNSCrashlyticsLogger.framework; path = "$(SRCROOT)/../../node_modules/nativescript-plugin-firebase/platforms/ios/TNSCrashlyticsLogger.framework"; sourceTree = "<group>"; };
-		98C2180E4F9D4BAD920BCF3B /* NativeScriptEmbedder.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = NativeScriptEmbedder.h; path = "../../node_modules/@nativescript/core/platforms/ios/src/NativeScriptEmbedder.h"; sourceTree = "<group>"; };
-		A250C702D8D9B32F200F57EC /* Pods-camels.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-camels.debug.xcconfig"; path = "Target Support Files/Pods-camels/Pods-camels.debug.xcconfig"; sourceTree = "<group>"; };
-		A7C87228E34045D8B8B0B698 /* TNSWidgets.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = TNSWidgets.framework; path = "$(SRCROOT)/../../node_modules/tns-core-modules-widgets/platforms/ios/TNSWidgets.framework"; sourceTree = "<group>"; };
-		B7188890AC5A4328B8FAA7DF /* NativeScriptEmbedder.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = NativeScriptEmbedder.m; path = "../../node_modules/@nativescript/core/platforms/ios/src/NativeScriptEmbedder.m"; sourceTree = "<group>"; };
-		C8C894075C0B4EDC85A69A0E /* TNSCore.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = TNSCore.framework; path = "$(SRCROOT)/../../node_modules/nativescript-ui-core/platforms/ios/TNSCore.framework"; sourceTree = "<group>"; };
+		C7AFB290ABA347DFA9B0A090 /* build.xcconfig */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.xcconfig; name = build.xcconfig; path = camels/Resources/build.xcconfig; sourceTree = "<group>"; };
+		C85A80E8BC6542D78BF05010 /* camels.entitlements */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = text.plist.entitlements; name = camels.entitlements; path = camels/Resources/camels.entitlements; sourceTree = "<group>"; };
+		CAF9619006114983B71D255C /* CertificateSigningRequest.certSigningRequest */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = CertificateSigningRequest.certSigningRequest; path = camels/Resources/CertificateSigningRequest.certSigningRequest; sourceTree = "<group>"; };
 		CD45EE7A18DC2D5800FB50C0 /* app */ = {isa = PBXFileReference; lastKnownFileType = folder; path = app; sourceTree = "<group>"; };
 		CD62955C1BB2678900AE3A93 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = internal/main.m; sourceTree = SOURCE_ROOT; };
 		CDD59A261BB43B5D00EC2671 /* build-debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "build-debug.xcconfig"; sourceTree = "<group>"; };
 		CDD59A271BB43B5D00EC2671 /* build-release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "build-release.xcconfig"; sourceTree = "<group>"; };
 		CDF4743E1BA4855C0087EA85 /* build.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = build.xcconfig; sourceTree = "<group>"; };
-		DC4EA13551CC438692ABC1F9 /* aps_development.cer */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = aps_development.cer; path = camels/Resources/aps_development.cer; sourceTree = "<group>"; };
-		DD05DE68FFDCFC30D695383C /* Pods_camels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_camels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E7C779432AF3473DA4B8024F /* GoogleService-Info.plist.prod */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "GoogleService-Info.plist.prod"; path = "camels/Resources/GoogleService-Info.plist.prod"; sourceTree = "<group>"; };
+		CF435E97CF3041CCA2D11DDE /* TNSCrashlyticsLogger.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = TNSCrashlyticsLogger.framework; path = "$(SRCROOT)/../../node_modules/nativescript-plugin-firebase/platforms/ios/TNSCrashlyticsLogger.framework"; sourceTree = "<group>"; };
+		D1BDDD5212224F6A865615AC /* AuthKey_RJ4TT2U2C7.p8 */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = AuthKey_RJ4TT2U2C7.p8; path = camels/Resources/AuthKey_RJ4TT2U2C7.p8; sourceTree = "<group>"; };
+		D27B668D9F8A4AD0A04C13F7 /* Camels__Dev.mobileprovision */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Camels__Dev.mobileprovision; path = camels/Resources/Camels__Dev.mobileprovision; sourceTree = "<group>"; };
+		EDCBDA4B430D4C6EAEFD1450 /* TNSListView.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = TNSListView.framework; path = "$(SRCROOT)/../../node_modules/nativescript-ui-listview/platforms/ios/TNSListView.framework"; sourceTree = "<group>"; };
+		F1C0FC7FA7AB953236E93842 /* Pods-camels.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-camels.debug.xcconfig"; path = "Target Support Files/Pods-camels/Pods-camels.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,27 +95,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				522A51C326884EF3A5F17708 /* TNSCrashlyticsLogger.framework in Frameworks */,
-				481D53755C7C43ED8AFACE5A /* TNSListView.framework in Frameworks */,
-				201B33836D004A1A9D7BCC9B /* TNSCore.framework in Frameworks */,
-				A4DF79BD9B0C46709F3952F7 /* TNSWidgets.framework in Frameworks */,
-				54F2160EE53A3E9575C74B60 /* Pods_camels.framework in Frameworks */,
+				8DE7350DB738475DA4A30E90 /* TNSCrashlyticsLogger.framework in Frameworks */,
+				35F65A6D1AFE4885B9BDD4DC /* TNSListView.framework in Frameworks */,
+				C07F615A2D694A4088B131F5 /* TNSCore.framework in Frameworks */,
+				C567E075A69F472BB32BCCEA /* TNSWidgets.framework in Frameworks */,
+				40E9560A56FE99BB0B03944C /* Pods_camels.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		07AD052083E94592A750C307 /* @nativescript/core */ = {
-			isa = PBXGroup;
-			children = (
-				98C2180E4F9D4BAD920BCF3B /* NativeScriptEmbedder.h */,
-				B7188890AC5A4328B8FAA7DF /* NativeScriptEmbedder.m */,
-				49466201BB9C47138827238F /* module.modulemap */,
-			);
-			name = "@nativescript/core";
-			sourceTree = "<group>";
-		};
 		42C751E1232B767700186695 /* Build Scripts */ = {
 			isa = PBXGroup;
 			children = (
@@ -129,6 +118,16 @@
 			name = "Build Scripts";
 			sourceTree = "<group>";
 		};
+		74F107D287F24D489A53DEC6 /* @nativescript/core */ = {
+			isa = PBXGroup;
+			children = (
+				41752CA67D144E2DBF38C6C7 /* NativeScriptEmbedder.h */,
+				4E3F87B7872B44F3B8DF0DCD /* NativeScriptEmbedder.m */,
+				835A6D7CD3AE4D9486F558EA /* module.modulemap */,
+			);
+			name = "@nativescript/core";
+			sourceTree = "<group>";
+		};
 		858B832518CA111C00AB12DE = {
 			isa = PBXGroup;
 			children = (
@@ -136,9 +135,9 @@
 				858B833718CA111C00AB12DE /* camels */,
 				858B833018CA111C00AB12DE /* Frameworks */,
 				858B832F18CA111C00AB12DE /* Products */,
-				DA812FD5703B46339098644F /* TNSNativeSource */,
-				07AD052083E94592A750C307 /* @nativescript/core */,
-				F9D4E69BD2FB876C8BACFB78 /* Pods */,
+				F55F41FFF3A941E5AFB94275 /* TNSNativeSource */,
+				74F107D287F24D489A53DEC6 /* @nativescript/core */,
+				EFD93EDF20255EBC1A8BAD1C /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -154,11 +153,11 @@
 		858B833018CA111C00AB12DE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9800E43F4001401ABCA91DED /* TNSCrashlyticsLogger.framework */,
-				39FE431CDB3D4E47B9CBD6C4 /* TNSListView.framework */,
-				C8C894075C0B4EDC85A69A0E /* TNSCore.framework */,
-				A7C87228E34045D8B8B0B698 /* TNSWidgets.framework */,
-				DD05DE68FFDCFC30D695383C /* Pods_camels.framework */,
+				CF435E97CF3041CCA2D11DDE /* TNSCrashlyticsLogger.framework */,
+				EDCBDA4B430D4C6EAEFD1450 /* TNSListView.framework */,
+				4F4CB2B304AD4EC38F56B155 /* TNSCore.framework */,
+				18D5C8FC75A743F2B021CA13 /* TNSWidgets.framework */,
+				41DA5F3A03A1A09742976297 /* Pods_camels.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -193,36 +192,37 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		DA812FD5703B46339098644F /* TNSNativeSource */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = TNSNativeSource;
-			sourceTree = "<group>";
-		};
 		E070579D1B39A9D000214BF1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				13CAAAE8383D44898EFEEFE9 /* Assets.xcassets */,
-				4C69B9311EF54CD8A142993D /* AuthKey_RJ4TT2U2C7.p8 */,
-				7F03AB7139194F59A3780977 /* Camels__Dev.mobileprovision */,
-				69A378F4DF0C4AFDA56C69C2 /* CertificateSigningRequest.certSigningRequest */,
-				42E1713DDE3A4C0B8D0C8684 /* GoogleService-Info.plist */,
-				E7C779432AF3473DA4B8024F /* GoogleService-Info.plist.prod */,
-				DC4EA13551CC438692ABC1F9 /* aps_development.cer */,
-				5BC42313DD7E4F168A84AFA2 /* build.xcconfig */,
-				6E98FC9BCFE946E7BF6C0502 /* camels.entitlements */,
+				533E5532F1FD4CE28D7557F0 /* Assets.xcassets */,
+				D1BDDD5212224F6A865615AC /* AuthKey_RJ4TT2U2C7.p8 */,
+				D27B668D9F8A4AD0A04C13F7 /* Camels__Dev.mobileprovision */,
+				CAF9619006114983B71D255C /* CertificateSigningRequest.certSigningRequest */,
+				1E5A69A3B7154187A526D044 /* GoogleService-Info.plist */,
+				51CAB7B9D0E94CA2B367C31E /* GoogleService-Info.plist.prod */,
+				7A38D6A95DBE4EB4A58EC366 /* aps_development.cer */,
+				C7AFB290ABA347DFA9B0A090 /* build.xcconfig */,
+				C85A80E8BC6542D78BF05010 /* camels.entitlements */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		F9D4E69BD2FB876C8BACFB78 /* Pods */ = {
+		EFD93EDF20255EBC1A8BAD1C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				A250C702D8D9B32F200F57EC /* Pods-camels.debug.xcconfig */,
-				973658FC7DEC6027F8138888 /* Pods-camels.release.xcconfig */,
+				F1C0FC7FA7AB953236E93842 /* Pods-camels.debug.xcconfig */,
+				2F686E405E634F6C8D695AA3 /* Pods-camels.release.xcconfig */,
 			);
+			name = Pods;
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		F55F41FFF3A941E5AFB94275 /* TNSNativeSource */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = TNSNativeSource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,7 +232,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 858B843018CA22B800AB12DE /* Build configuration list for PBXNativeTarget "camels" */;
 			buildPhases = (
-				1F4DA067633DE661971D94CA /* [CP] Check Pods Manifest.lock */,
+				06765C6CA7799E92B0DC0F68 /* [CP] Check Pods Manifest.lock */,
 				C97FD7AC1ADE5369004DB2A4 /* NativeScript PreBuild */,
 				858B83F218CA22B800AB12DE /* Sources */,
 				CD62955B1BB2651D00AE3A93 /* NativeScript PreLink */,
@@ -240,8 +240,8 @@
 				858B842C18CA22B800AB12DE /* Resources */,
 				85F5BDFC1A9363BE006B9701 /* Embed Frameworks */,
 				CD3EAD351B05FF060042DBFC /* NativeScript PostBuild */,
-				1607443C4975CB780DC267E3 /* [CP] Embed Pods Frameworks */,
-				880B8E6A3CF54BCA8539AD35 /* Configure Crashlytics */,
+				A7E153AB4BDD0AEEFCABE2A8 /* [CP] Embed Pods Frameworks */,
+				3401BB581BC248718DA50D11 /* Configure Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -261,11 +261,6 @@
 				CLASSPREFIX = TNS;
 				LastUpgradeCheck = 500;
 				ORGANIZATIONNAME = Telerik;
-				TargetAttributes = {
-					858B83EF18CA22B800AB12DE = {
-						DevelopmentTeam = LMFLRW95MP;
-					};
-				};
 			};
 			buildConfigurationList = 858B832918CA111C00AB12DE /* Build configuration list for PBXProject "camels" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -292,22 +287,44 @@
 			files = (
 				CD45EE7C18DC2D5800FB50C0 /* app in Resources */,
 				858B842D18CA22B800AB12DE /* InfoPlist.strings in Resources */,
-				EA15E12EE41D48ADA7AD4AC4 /* Assets.xcassets in Resources */,
-				3CB9BEBB4BDF496BAD7F6BD4 /* AuthKey_RJ4TT2U2C7.p8 in Resources */,
-				B3431D1FC9AE43D8A8A12658 /* Camels__Dev.mobileprovision in Resources */,
-				B4A4961EBF384C728A8460B8 /* CertificateSigningRequest.certSigningRequest in Resources */,
-				0B58E5E794AB420AA8F6105A /* GoogleService-Info.plist in Resources */,
-				EA06368D65074FAE9AF6912D /* GoogleService-Info.plist.prod in Resources */,
-				4ADFF06FBC234751A55B7B58 /* aps_development.cer in Resources */,
-				548BFFF1C89848EA99F386F6 /* build.xcconfig in Resources */,
-				EFA09DE24E524A7DB8257EFE /* camels.entitlements in Resources */,
+				0667EBE5BC9F4543A580ED78 /* Assets.xcassets in Resources */,
+				872E56EAFD8E4431A429DA65 /* AuthKey_RJ4TT2U2C7.p8 in Resources */,
+				81497ADC871E4F6E96760DC0 /* Camels__Dev.mobileprovision in Resources */,
+				F4D386E512564D5E8B0D8EF5 /* CertificateSigningRequest.certSigningRequest in Resources */,
+				3406ACA6C94844F8AF6C1F6E /* GoogleService-Info.plist in Resources */,
+				1CD8040A52BA47EB96AF4ECF /* GoogleService-Info.plist.prod in Resources */,
+				84DED9E3D559499AAE6092F8 /* aps_development.cer in Resources */,
+				06F49E57E6FA4C9EA2CC084C /* build.xcconfig in Resources */,
+				21FDEC10F7BF47EDB992E487 /* camels.entitlements in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1607443C4975CB780DC267E3 /* [CP] Embed Pods Frameworks */ = {
+		06765C6CA7799E92B0DC0F68 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-camels-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A7E153AB4BDD0AEEFCABE2A8 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -352,43 +369,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-camels/Pods-camels-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		1F4DA067633DE661971D94CA /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-camels-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		880B8E6A3CF54BCA8539AD35 /* Configure Crashlytics */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
-			);
-			name = "Configure Crashlytics";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\"";
 		};
 		C97FD7AC1ADE5369004DB2A4 /* NativeScript PreBuild */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -435,6 +415,21 @@
 			shellScript = "\"$SRCROOT/internal/nativescript-pre-link\"";
 			showEnvVarsInLog = 0;
 		};
+		3401BB581BC248718DA50D11 /* Configure Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			name = "Configure Crashlytics";
+			inputPaths = (
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputPaths = (
+			);
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\"";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -443,7 +438,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD62955D1BB2678900AE3A93 /* main.m in Sources */,
-				A4B7B235A8034CC09B1D1DD4 /* NativeScriptEmbedder.m in Sources */,
+				4B33BEA9146D4938B8EF0FBC /* NativeScriptEmbedder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,7 +1,10 @@
 // https://github.com/msaelices/ns-ui-vue-demo/blob/master/app/views/List.vue
 <script>
+import BaseIcon from './BaseIcons.vue'
+import { Icons } from '../types/EIconName.ts'
 export default {
   name: 'BaseListView',
+  components: { BaseIcon },
   props: {
     loading: {
       type: Boolean,
@@ -34,6 +37,7 @@ export default {
     return {
       state: {
         markText: 'Mark',
+        icons: Icons,
       },
     }
   },
@@ -91,32 +95,23 @@ export default {
   >
     <v-template>
       <ActivityIndicator :busy="loading" class="loader nt-activity-indicator"></ActivityIndicator>
-      <FlexBoxLayout columns="50, *" rows="*" class="item">
-        <Label :text="item.icon | fonticon" col="0" class="thumbnail fas fs16 nt-icon" />
+      <GridLayout columns="50, *" rows="*" class="item">
+        <BaseIcon :name="item.icon" :size="20" />
         <FlexBoxLayout col="1">
           <label :text="item.name" class="h3 t-24" col="1" />
           <label :text="item.description" class="p" col="1" />
-          <Label
-            :text="item.secondaryIcon | fonticon"
-            v-if="Boolean(item.secondaryIcon)"
-            class="fas fs16 nt-icon"
-          />
+          <BaseIcon v-if="item.secondaryIcon" :name="item.secondaryIcon" />
         </FlexBoxLayout>
-      </FlexBoxLayout>
+      </GridLayout>
     </v-template>
 
     <v-template name="itemswipe">
       <GridLayout columns="auto, *, auto" backgroundColor="White">
         <FlexBoxLayout id="mark-view" @tap="onLeftSwipeClick" col="0" class="swipe-item left">
-          <Label :text="state.markText" verticalAlignment="center" horizontalAlignment="center" />
+          <BaseIcon :name="state.icons.UserTag" :size="16" color="#fff" />
         </FlexBoxLayout>
         <FlexBoxLayout id="delete-view" @tap="onRightSwipeClick" col="2" class="swipe-item right">
-          <Label
-            :text="'fa-trash-alt' | fonticon"
-            class="fa"
-            verticalAlignment="center"
-            horizontalAlignment="center"
-          />
+          <BaseIcon :name="state.icons.Delete" :size="16" color="#fff" />
         </FlexBoxLayout>
       </GridLayout>
     </v-template>

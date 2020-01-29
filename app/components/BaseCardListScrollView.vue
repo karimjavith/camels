@@ -1,5 +1,7 @@
 // https://github.com/msaelices/ns-ui-vue-demo/blob/master/app/views/List.vue
 <script>
+import icons from '../_shared/icons'
+import { Icons } from '../types/EIconName.ts'
 export default {
   name: 'BaseCardListScrollView',
   components: {},
@@ -23,6 +25,7 @@ export default {
     return {
       state: {
         markText: 'Mark',
+        icons: Icons,
       },
     }
   },
@@ -54,6 +57,9 @@ export default {
     refresh() {
       this.$refs[this.refFromParent].refresh()
     },
+    getIconString: function(name) {
+      return icons(name)
+    },
   },
 }
 </script>
@@ -73,26 +79,20 @@ export default {
             <Label class="nt-label">
               <FormattedString>
                 <Span :text="item.title" class="p-r-15 t-14" />
-                <Span
-                  :text="item.statusIcon | fonticon"
-                  :style="item.statusIconStyle"
-                  v-if="Boolean(item.status)"
-                  class="fa fs16"
-                />
               </FormattedString>
             </Label>
             <StackLayout orientation="horizontal"
               ><Label v-if="item.showEditOption" @tap="onItemEdit(item)" class="nt-label">
                 <FormattedString>
-                  <Span class="fa fs16  nt-icon"> {{ 'fa-edit' | fonticon }}</Span>
-                </FormattedString></Label
-              >
+                  <Span :text="getIconString(state.icons.Edit)" class="ico" /> </FormattedString
+              ></Label>
               <Label v-if="item.showDeleteOption" @tap="onItemDelete(item)" class="nt-label">
                 <FormattedString>
-                  <Span class="fa fs16  nt-icon"> {{ 'fa-trash-alt' | fonticon }}</Span>
-                </FormattedString></Label
-              ></StackLayout
-            >
+                  <Span
+                    :text="getIconString(state.icons.Delete)"
+                    class="ico"
+                  /> </FormattedString></Label
+            ></StackLayout>
           </FlexBoxLayout>
           <FlexBoxLayout flexDirection="column">
             <Image
@@ -116,10 +116,16 @@ export default {
                 :style="[item.cancelTextStyles]"
                 :isEnabled="!item.actionButtonDisabled"
                 v-if="item.showActionItems"
-                >{{ item.cancelText }}
-                {{ item.cancelTextIcon && item.cancelTextIcon | fonticon }}</Button
-              ></StackLayout
-            >
+              >
+                <FormattedString>
+                  <Span :text="item.cancelText" />
+                  <Span
+                    v-if="item.cancelTextIcon"
+                    :text="getIconString(state.icons.No)"
+                    class="ico m-r-15"
+                  />
+                </FormattedString> </Button
+            ></StackLayout>
             <StackLayout>
               <Button
                 @tap="handleOnOk(item)"
@@ -132,9 +138,16 @@ export default {
                 :style="[item.okTextStyles]"
                 :isEnabled="!item.actionButtonDisabled"
                 v-if="item.showActionItems"
-                >{{ item.okText }} {{ item.okTextIcon && item.okTextIcon | fonticon }}</Button
-              ></StackLayout
-            >
+              >
+                <FormattedString>
+                  <Span :text="item.okText" />
+                  <Span
+                    v-if="item.okTextIcon"
+                    :text="getIconString(state.icons.Yes)"
+                    class="ico m-r-15"
+                  />
+                </FormattedString> </Button
+            ></StackLayout>
           </FlexBoxLayout>
         </StackLayout>
       </CardView>

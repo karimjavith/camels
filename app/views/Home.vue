@@ -7,6 +7,8 @@ import BaseButtonWithIcon from '../components/BaseButtonWithIcon.vue'
 import BaseButton from '../components/BaseButton.vue'
 import { MatchAvailabilityStatus } from '../types/EMatchAvailabilityStatus'
 import { HttpStatusCode } from '../_shared/http/http'
+import { Icons } from '../types/EIconName.ts'
+import { IconStatus } from '../types/EIconStatus.ts'
 
 export default {
   name: 'Home',
@@ -17,6 +19,9 @@ export default {
       state: {
         loading: true,
         upcomingMatch: {},
+        icons: Icons,
+        iconStatus: IconStatus,
+        availabilityStatus: MatchAvailabilityStatus,
       },
     }
   },
@@ -202,24 +207,33 @@ export default {
               >--/--/---- --:--</Label
             >
           </FlexBoxLayout>
-          <FlexBoxLayout v-if="matchDetails.id" flex="1" justifyContent="center" flexDirection="column" class="m-t-25">
+          <FlexBoxLayout
+            v-if="matchDetails.id"
+            flex="1"
+            justifyContent="center"
+            flexDirection="column"
+            class="m-t-25"
+          >
             <BaseButtonWithIcon
               :styleObject="{
-                color: matchDetails.myStatus === 1 << 1 ? '#ff4350' : '#888e90',
-                width: '100px'
+                color:
+                  matchDetails.myStatus === state.availabilityStatus.Yes ? '#ff4350' : '#888e90',
+                width: '100px',
               }"
               @handleOnClick="handleOnNoClick"
+              :icon="state.icons.No"
+              :iconState="state.iconStatus.Active"
               text="Not In"
-              icon="fa-times-circle"
             />
             <BaseButtonWithIcon
               :styleObject="{
-                color: matchDetails.myStatus === 1 << 0 ? 'green' : '#888e90',
-                width: '100px'
+                color: matchDetails.myStatus === state.availabilityStatus.No ? 'green' : '#888e90',
+                width: '100px',
               }"
               @handleOnClick="handleOnYesClick"
+              :icon="state.icons.Yes"
+              :iconState="state.iconStatus.Active"
               text="I am In"
-              icon="fa-check-circle"
             />
           </FlexBoxLayout>
         </StackLayout>

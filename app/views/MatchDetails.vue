@@ -5,6 +5,7 @@ import BaseListView from '../components/BaseListView.vue'
 import { getMatchDetailsForAdmin, getMatchDetailsForUser } from '../_shared/firebase/matches'
 import { AppRoles } from '../_shared/enum'
 import { MatchAvailabilityStatus } from '../types/EMatchAvailabilityStatus'
+import { Icons } from '../types/EIconName.ts'
 
 export default {
   name: 'MatchDetails',
@@ -28,6 +29,7 @@ export default {
       state: {
         loading: true,
         items: [],
+        icons: Icons,
       },
     }
   },
@@ -66,10 +68,12 @@ export default {
       if (!result.isError) {
         const userList = Object.values(result.json.data.squad).map(user => {
           user.name = user.displayName || 'Unknown'
-          user.icon = `fa-user`
+          user.icon = this.state.icons.Me
           if (user.status in MatchAvailabilityStatus) {
             user.secondaryIcon =
-              user.status === MatchAvailabilityStatus.YES ? 'fa-check-circle' : 'fa-times-circle'
+              user.status === MatchAvailabilityStatus.YES
+                ? this.state.icons.Yes
+                : this.state.icons.No
           }
           return user
         })
