@@ -1,4 +1,5 @@
 import { IHttpBasicResponse, IHttpResponse, HttpStatusCode } from './http'
+import { remove } from 'tns-core-modules/application-settings'
 import { ToastService } from '../Toasty'
 async function getJson(response: IHttpBasicResponse): Promise<any> {
   try {
@@ -17,7 +18,11 @@ const handleException = (error: any, type: string) => {
 
 async function handleResponse(response: IHttpBasicResponse): Promise<IHttpResponse> {
   if (response.status === HttpStatusCode.Unauthorized) {
-    return await handleException({ status: response.status, message: response.statusText }, 'Error')
+    remove('camels-token')
+    return await handleException(
+      { status: response.status, message: response.statusText },
+      'Invalid session'
+    )
   }
   if (response.status === HttpStatusCode.Forbidden) {
     return await handleException({ status: response.status, message: response.statusText }, 'Error')

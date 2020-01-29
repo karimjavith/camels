@@ -10,7 +10,7 @@ import Login from './Login.vue'
 import { AppRoles } from '../_shared/enum'
 import { getAllMatches, updateMatchStatusForUser, removeMatch } from '../_shared/firebase/matches'
 import { MatchStatus } from '../types/EMatchStatus'
-import { MatchAvailabilityStatus } from '../types/EMatchAvailabilityStatus'
+import { MatchAvailabilityStatus } from '../types/EMatchAvailabilityStatus.ts'
 import { HttpStatusCode } from '../_shared/http/http'
 import DateService from '../_shared/date.ts'
 import { Icons } from '../types/EIconName.ts'
@@ -171,7 +171,18 @@ export default {
       const result = await updateMatchStatusForUser(data.id, this.uid, MatchAvailabilityStatus.NO)
       if (!result.isError) {
         await this.$emit('onMatchEventSetIndexCb', 1)
-        await this.getMatches()
+        const updatedItems = this.state.items.map(x => {
+          if (x.id === data.id) {
+            x.myStatus = MatchAvailabilityStatus.NO
+            x.cancelTextIcon = 'fa-times-circle'
+            x.cancelTextStyles = { color: 'red' }
+            x.okTextIcon = ''
+            x.okTextStyles = {}
+          }
+          return x
+        })
+        this.state = { ...this.state, items: [...updatedItems] }
+        // await this.getMatches()
       }
       this.state = { ...this.state, loading: false }
     },
@@ -180,7 +191,19 @@ export default {
       const result = await updateMatchStatusForUser(data.id, this.uid, MatchAvailabilityStatus.YES)
       if (!result.isError) {
         await this.$emit('onMatchEventSetIndexCb', 1)
-        await this.getMatches()
+
+        const updatedItems = this.state.items.map(x => {
+          if (x.id === data.id) {
+            x.myStatus = MatchAvailabilityStatus.YES
+            x.cancelTextIcon = ''
+            x.cancelTextStyles = {}
+            x.okTextIcon = 'fa-circle'
+            x.okTextStyles = { color: 'green' }
+          }
+          return x
+        })
+        this.state = { ...this.state, items: [...updatedItems] }
+        // await this.getMatches()
       }
       this.state = { ...this.state, loading: false }
     },

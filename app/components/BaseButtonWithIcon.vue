@@ -54,9 +54,9 @@ export default {
   >
     <FormattedString>
       <Span :text="text" />
-      <Span :text="getIconString(icon)" class="ico m-r-15" />
+      <Span :text="getIconString(icon)" class="ico" />
     </FormattedString>
   </Button>
 </template>
 
-<style lang="scss"></style>
+<style scoped lang="scss"></style>
