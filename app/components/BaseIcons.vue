@@ -59,6 +59,7 @@ export default {
 
 .success {
   color: $success;
+  font-weight: 400;
 }
 .icon-base {
   speak: none;

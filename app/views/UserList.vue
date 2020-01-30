@@ -142,11 +142,9 @@ export default {
       <ActivityIndicator
         :visibility="state.loading ? 'visible' : 'collapse'"
         :busy="state.loading"
-        width="20"
-        height="20"
         class="loader nt-activity-indicator"
       ></ActivityIndicator>
-      <StackLayout v-show="!state.loading" orientation="horizontal">
+      <StackLayout v-show="!state.loading" class="m-12">
         <BaseListView
           :items="state.items"
           @itemTap="onItemTap"
@@ -162,10 +160,10 @@ export default {
 
 <style scoped lang="scss">
 .loader {
-  margin-left: 30;
-  margin-right: 30;
-  flex-grow: 2;
+  margin-left: 175;
   vertical-align: middle;
+  align-items: center;
+  flex-direction: column;
 }
 Scrollview {
   height: 100%;

@@ -114,7 +114,7 @@ export default {
         class="loader nt-activity-indicator"
         rowspan="3"
       ></ActivityIndicator>
-      <StackLayout v-show="!state.loading" orientation="vertical" class="nt-form" row="0">
+      <StackLayout v-show="!state.loading" orientation="vertical" class="m-12" row="0">
         <ScrollView orientation="horizontal" scrollBarIndicatorVisible="false">
           <BaseListView :items="state.items" refFromParent="userStatuslist"></BaseListView>
         </ScrollView>

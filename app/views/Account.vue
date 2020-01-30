@@ -77,7 +77,10 @@ export default {
     <StackLayout alignItems="center">
       <Image src="~/assets/images/profile.png" class="accountPic"></Image>
     </StackLayout>
-    <BaseListView @itemTap="onItemTap" :items="items" refFromParent="accountList"></BaseListView>
+
+    <StackLayout class="m-12">
+      <BaseListView @itemTap="onItemTap" :items="items" refFromParent="accountList"></BaseListView>
+    </StackLayout>
   </StackLayout>
 </template>
 
