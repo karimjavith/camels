@@ -20,26 +20,26 @@ export default {
         items: [
           {
             role: AppRoles.Admin,
-            name: 'Invite',
+            primaryText: 'Invite',
             component: Invite,
-            icon: Icons.Invite,
+            primaryIcon: Icons.Invite,
           },
           {
             role: AppRoles.Admin,
-            name: 'Users',
+            primaryText: 'Users',
             component: UserList,
-            icon: Icons.Users,
+            primaryIcon: Icons.Users,
           },
           {
             role: AppRoles.User,
-            name: 'Change Password',
+            primaryText: 'Change Password',
             component: ChangePassword,
-            icon: Icons.ChangePassword,
+            primaryIcon: Icons.ChangePassword,
           },
           {
             role: AppRoles.User,
-            name: 'Sign out',
-            icon: Icons.SignOut,
+            primaryText: 'Sign out',
+            primaryIcon: Icons.SignOut,
           },
         ],
       },
@@ -64,7 +64,7 @@ export default {
       this.$navigateTo(Login, { clearHistory: true })
     },
     async onItemTap(event) {
-      if (event.item.name === 'Sign out') {
+      if (event.item.primaryText === 'Sign out') {
         return await this.onSignOutTap()
       }
       await this.$navigateTo(event.item.component)
@@ -75,9 +75,9 @@ export default {
 <template>
   <StackLayout>
     <StackLayout alignItems="center">
-      <Image src="~/assets/images/profile.png" class="accountPic"> </Image>
+      <Image src="~/assets/images/profile.png" class="accountPic"></Image>
     </StackLayout>
-    <BaseListView @itemTap="onItemTap" :items="items" refFromParent="accountList"> </BaseListView>
+    <BaseListView @itemTap="onItemTap" :items="items" refFromParent="accountList"></BaseListView>
   </StackLayout>
 </template>
 
