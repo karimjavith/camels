@@ -33,7 +33,7 @@ export default {
       this.$emit('handleOnClick', event)
     },
     getIconCode: function(value) {
-      console.log(`name -------------::---------------- ${value}`)
+      console.log(`state -------------::---------------- ${IconClass[this.state]}`)
       return icons(value)
     },
   },
@@ -43,7 +43,8 @@ export default {
   <Label
     :text="getIconCode(name)"
     :style="{ fontSize: size + 'px', color: color }"
-    :class="['ico', 'icon-base', 'nt-icon', 'fs-16', iconClass[state]]"
+    :class="iconClass[state]"
+    class="ico icon-base fs-16"
   />
 </template>
 

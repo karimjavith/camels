@@ -6,6 +6,7 @@ import { getMatchDetailsForAdmin, getMatchDetailsForUser } from '../_shared/fire
 import { AppRoles } from '../_shared/enum'
 import { MatchAvailabilityStatus } from '../types/EMatchAvailabilityStatus'
 import { Icons } from '../types/EIconName.ts'
+import { IconStatus } from '../types/EIconStatus.ts'
 
 export default {
   name: 'MatchDetails',
@@ -67,13 +68,14 @@ export default {
       const result = await matchDetailsPromise
       if (!result.isError) {
         const userList = Object.values(result.json.data.squad).map(user => {
-          user.name = user.displayName || 'Unknown'
-          user.icon = this.state.icons.Me
+          user.primaryText = user.displayName || 'Unknown'
           if (user.status in MatchAvailabilityStatus) {
-            user.secondaryIcon =
+            user.primaryIcon =
               user.status === MatchAvailabilityStatus.YES
                 ? this.state.icons.Yes
                 : this.state.icons.No
+            user.primaryIconState =
+              user.status === MatchAvailabilityStatus.YES ? IconStatus.Success : IconStatus.Error
           }
           return user
         })
@@ -85,26 +87,25 @@ export default {
       this.state = { ...this.state, loading: false }
       return
     },
+
+    onNavigationButtonTap() {
+      this.$navigateBack()
+    },
   },
 }
 </script>
 <template>
-  <ModalStack class="modal-container">
-    <GridLayout rows="auto, auto" class="modal">
-      <StackLayout
-        v-show="!state.loading"
-        orientation="vertical"
-        class="nt-form m-l-15  m-r-15"
-        row="0"
-      >
-        <Label class="h2 p-b-15 nt-label" text="User Status List" />
-        <ScrollView orientation="horizontal" scrollBarIndicatorVisible="false"
-          ><BaseListView :items="state.items" refFromParent="userStatuslist"> </BaseListView
-        ></ScrollView>
-      </StackLayout>
-      <StackLayout row="1">
-        <Button @tap="$modal.close" text="close" class="-primary nt-button -rounded-lg" />
-      </StackLayout>
+  <Page class="nt-page">
+    <ActionBar class="nt-action-bar" title="Squad status">
+      <NavigationButton
+        @tap="onNavigationButtonTap"
+        ios.systemIcon="9"
+        ios.position="left"
+        text="Back"
+        android.systemIcon="ic_menu_back"
+      ></NavigationButton>
+    </ActionBar>
+    <StackLayout>
       <ActivityIndicator
         :visibility="state.loading ? 'visible' : 'collapse'"
         :busy="state.loading"
@@ -113,8 +114,13 @@ export default {
         class="loader nt-activity-indicator"
         rowspan="3"
       ></ActivityIndicator>
-    </GridLayout>
-  </ModalStack>
+      <StackLayout v-show="!state.loading" orientation="vertical" class="nt-form" row="0">
+        <ScrollView orientation="horizontal" scrollBarIndicatorVisible="false">
+          <BaseListView :items="state.items" refFromParent="userStatuslist"></BaseListView>
+        </ScrollView>
+      </StackLayout>
+    </StackLayout>
+  </Page>
 </template>
 
 <style scoped lang="scss">

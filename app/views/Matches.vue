@@ -132,16 +132,12 @@ export default {
     },
     async handleOnItemClick(item) {
       if (this.role === AppRoles.Admin) {
-        this.$showModal(MatchDetails, {
+        this.$navigateTo(MatchDetails, {
           props: {
             role: this.role,
             matchId: item.id,
             uid: this.uid,
           },
-          fullscreen: false,
-          animated: true,
-          stretched: true,
-          dimAmount: 0.5, // Sets the alpha of the background dim,
         })
       }
     },

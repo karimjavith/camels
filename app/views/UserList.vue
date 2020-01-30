@@ -5,6 +5,7 @@ import { mapState, mapActions } from 'vuex'
 import BaseListView from '../components/BaseListView.vue'
 import { getAllUsers, updateUser, removeUser } from '../_shared/firebase/users.ts'
 import { AppRoles } from '../_shared/enum'
+import { Icons } from '../types/EIconName.ts'
 
 export default {
   name: 'UserList',
@@ -48,10 +49,10 @@ export default {
       const result = await getAllUsers()
       if (!result.isError) {
         const userList = result.json.users.map(user => {
-          user.name = user.displayName
-          user.icon = `fa-user`
+          user.primaryText = user.displayName
+          user.primaryIcon = Icons.Me
           if (user.role === AppRoles.Admin) {
-            user.secondaryIcon = 'fa-universal-access'
+            user.primaryTag = Icons.Admin
           }
           return user
         })
@@ -153,8 +154,7 @@ export default {
           @itemMarked="onItemMarked"
           :swipeActions="true"
           refFromParent="userList"
-        >
-        </BaseListView>
+        ></BaseListView>
       </StackLayout>
     </StackLayout>
   </Page>

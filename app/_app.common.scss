@@ -33,6 +33,9 @@ Page {
   font-size: 18;
   padding: 0;
 }
+* {
+  font-family: 'Montserrat', 'Montserrat-Light', sans-serif;
+}
 .ico {
   font-family: 'icomoon', 'icomoon-set-1';
 }
@@ -81,15 +84,17 @@ Page {
 
 .swipe-item {
   color: $text-color;
-  padding: 16;
+  padding: 10;
 }
 
 .swipe-item.left {
-  background-color: $info;
+  background-color: $series-c;
+  color: $bg-color;
 }
 
 .swipe-item.right {
-  background-color: $error;
+  background-color: $series-a;
+  color: $bg-color;
 }
 
 .sideLogo {

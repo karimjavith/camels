@@ -96,11 +96,23 @@ export default {
     <v-template>
       <ActivityIndicator :busy="loading" class="loader nt-activity-indicator"></ActivityIndicator>
       <GridLayout columns="50, *" rows="*" class="item">
-        <BaseIcon :name="item.icon" :size="20" />
-        <FlexBoxLayout col="1">
-          <label :text="item.name" class="h3 t-24" col="1" />
-          <label :text="item.description" class="p" col="1" />
-          <BaseIcon v-if="item.secondaryIcon" :name="item.secondaryIcon" />
+        <BaseIcon
+          :name="item.primaryIcon"
+          :state="item.primaryIconState"
+          :size="20"
+          col="0"
+          class="primaryIcon"
+        />
+        <FlexBoxLayout rowspan="2" col="1">
+          <label :text="item.primaryText" class="primaryText" />
+          <BaseIcon v-if="item.primaryTag" :name="item.primaryTag" class="primaryTag" />
+          <label :text="item.secondaryText" class="secondaryText p" />
+          <BaseIcon
+            v-if="item.secondaryIcon"
+            :name="item.secondaryIcon"
+            :state="item.secondaryIconState"
+            class="secondaryIcon"
+          />
         </FlexBoxLayout>
       </GridLayout>
     </v-template>
@@ -121,5 +133,17 @@ export default {
 <style lang="scss">
 .t-24 {
   font-size: 24;
+}
+.primaryIcon,
+.primaryText,
+.primaryTag,
+.secondaryText {
+  display: inline-block;
+  vertical-align: middle;
+}
+.secondaryIcon {
+  float: right;
+  margin: 0 0 0 1em;
+  vertical-align: middle;
 }
 </style>
