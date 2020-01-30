@@ -139,7 +139,7 @@ export default {
 <template>
   <StackLayout class="image">
     <ScrollView ref="scrollView" @scroll="onScroll">
-      <GridLayout ref="topView" rows="auto, auto, auto, auto" height="550">
+      <GridLayout ref="topView" rows="auto, auto, auto, auto" height="520">
         <FlexBoxLayout row="0" flexDirection="column">
           <Label
             text="Camels"
@@ -176,9 +176,13 @@ export default {
           justifyContent="center"
           class="m-t-10"
         >
-          <Label color="white" fontWeight="bold" textAlignment="center" fontSize="16" marginTop="50"
-            >{{ matchDetails.venue }} , {{ matchDetails.postCode }}</Label
-          >
+          <Label
+            color="white"
+            fontWeight="bold"
+            textAlignment="center"
+            fontSize="16"
+            marginTop="50"
+          >{{ matchDetails.venue }} , {{ matchDetails.postCode }}</Label>
         </FlexBoxLayout>
         <FlexBoxLayout
           v-if="!matchDetails.venue"
@@ -187,19 +191,31 @@ export default {
           justifyContent="center"
           class="m-t-10"
         >
-          <Label color="white" fontWeight="bold" textAlignment="center" fontSize="16" marginTop="50"
-            >------, -----</Label
-          >
+          <Label
+            color="white"
+            fontWeight="bold"
+            textAlignment="center"
+            fontSize="16"
+            marginTop="50"
+          >------, -----</Label>
         </FlexBoxLayout>
         <FlexBoxLayout v-if="matchDetails.venue" row="2" flex="1" justifyContent="center">
-          <Label color="white" fontWeight="bold" textAlignment="center" fontSize="16" marginTop="10"
-            >{{ matchDetails.date }} @ {{ matchDetails.time }}</Label
-          >
+          <Label
+            color="white"
+            fontWeight="bold"
+            textAlignment="center"
+            fontSize="16"
+            marginTop="10"
+          >{{ matchDetails.date }} @ {{ matchDetails.time }}</Label>
         </FlexBoxLayout>
         <FlexBoxLayout v-if="!matchDetails.date" row="2" flex="1" justifyContent="center">
-          <Label color="white" fontWeight="bold" textAlignment="center" fontSize="16" marginTop="10"
-            >--/--/---- --:--</Label
-          >
+          <Label
+            color="white"
+            fontWeight="bold"
+            textAlignment="center"
+            fontSize="16"
+            marginTop="10"
+          >--/--/---- --:--</Label>
         </FlexBoxLayout>
         <FlexBoxLayout
           v-if="matchDetails.id"
@@ -247,8 +263,9 @@ export default {
         :loading="false"
         refFromParent="viewallmatches"
         text="View All Matches"
-      /> </StackLayout
-  ></StackLayout>
+      />
+    </StackLayout>
+  </StackLayout>
 </template>
 
 <style scoped lang="scss">

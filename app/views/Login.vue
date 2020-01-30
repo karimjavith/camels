@@ -144,8 +144,8 @@ export default {
 </script>
 
 <template>
-  <Page actionBarHidden="true" class="nt-page">
-    <FlexboxLayout class="page">
+  <Page actionBarHidden="true" class="nt-page page">
+    <FlexboxLayout>
       <StackLayout class="nt-form form">
         <Image class="logo nt-image" src="~/assets/images/logo.png" stretch="aspectFill" />
         <Label class="header" text="Camels CC"></Label>
@@ -183,7 +183,7 @@ Page {
     horizontal-align: center;
     font-size: 25;
     font-weight: 600;
-    margin-bottom: 56;
+    margin-bottom: 36;
     text-align: center;
     color: $text-color;
   }

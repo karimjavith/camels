@@ -2,6 +2,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import { topmost } from 'tns-core-modules/ui/frame'
 import MatchDetails from './MatchDetails.vue'
 import BaseCardListScrollView from '../components/BaseCardListScrollView.vue'
 import BaseButtonWithIcon from '../components/BaseButtonWithIcon.vue'
@@ -45,6 +46,14 @@ export default {
     })
   },
   updated: function() {
+    if (topmost().ios) {
+      let navigationBar = topmost().ios.controller.navigationBar
+      navigationBar.translucent = false
+      // eslint-disable-next-line no-undef
+      navigationBar.setBackgroundImageForBarMetrics(UIImage.new(), UIBarMetrics.Default)
+      // eslint-disable-next-line no-undef
+      navigationBar.shadowImage = UIImage.new()
+    }
     console.log(`Matches :: updated`)
     this.$nextTick(function() {
       console.log(`loading :: ${this.state.loading}`)
@@ -177,8 +186,7 @@ export default {
           }
           return x
         })
-        this.state = { ...this.state, items: [...updatedItems] }
-        // await this.getMatches()
+        this.state = { ...this.state, ...this.state.items, ...updatedItems }
       }
       this.state = { ...this.state, loading: false }
     },
@@ -187,7 +195,6 @@ export default {
       const result = await updateMatchStatusForUser(data.id, this.uid, MatchAvailabilityStatus.YES)
       if (!result.isError) {
         await this.$emit('onMatchEventSetIndexCb', 1)
-
         const updatedItems = this.state.items.map(x => {
           if (x.id === data.id) {
             x.myStatus = MatchAvailabilityStatus.YES
@@ -198,8 +205,8 @@ export default {
           }
           return x
         })
-        this.state = { ...this.state, items: [...updatedItems] }
-        // await this.getMatches()
+
+        this.state = { ...this.state, ...this.state.items, ...updatedItems }
       }
       this.state = { ...this.state, loading: false }
     },
@@ -216,7 +223,7 @@ export default {
       class="loader nt-activity-indicator"
     ></ActivityIndicator>
     <BaseButtonWithIcon
-      :primary="true"
+      :primary="false"
       @handleOnClick="handleOnCreateMatchClick"
       :icon="state.icons.Cricket"
       text="New Match"
