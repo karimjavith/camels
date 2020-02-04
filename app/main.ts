@@ -1,3 +1,4 @@
+// @ts-ignore
 import VueDevtools from 'nativescript-vue-devtools'
 import Vue from 'nativescript-vue'
 import RadListView from 'nativescript-ui-listview/vue'

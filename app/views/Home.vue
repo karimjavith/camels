@@ -145,17 +145,17 @@ export default {
             text="Camels"
             color="white"
             textAlignment="center"
-            fontSize="36"
+            fontSize="24"
             marginTop="100"
             textTransform="uppercase"
           />
-          <Label text="VS" color="white" textAlignment="center" fontSize="20" marginTop="10" />
+          <Label text="VS" color="white" textAlignment="center" fontSize="16" marginTop="10" />
           <Label
             v-if="!matchDetails.opponent"
             text="-----"
             color="white"
             textAlignment="center"
-            fontSize="36"
+            fontSize="24"
             marginTop="10"
             textTransform="uppercase"
           />
@@ -164,7 +164,7 @@ export default {
             :text="matchDetails.opponent"
             color="white"
             textAlignment="center"
-            fontSize="36"
+            fontSize="24"
             marginTop="10"
             textTransform="uppercase"
           />
@@ -176,13 +176,9 @@ export default {
           justifyContent="center"
           class="m-t-10"
         >
-          <Label
-            color="white"
-            fontWeight="bold"
-            textAlignment="center"
-            fontSize="16"
-            marginTop="50"
-          >{{ matchDetails.venue }} , {{ matchDetails.postCode }}</Label>
+          <Label color="white" fontWeight="bold" textAlignment="center" fontSize="16" marginTop="50"
+            >{{ matchDetails.venue }} , {{ matchDetails.postCode }}</Label
+          >
         </FlexBoxLayout>
         <FlexBoxLayout
           v-if="!matchDetails.venue"
@@ -191,31 +187,19 @@ export default {
           justifyContent="center"
           class="m-t-10"
         >
-          <Label
-            color="white"
-            fontWeight="bold"
-            textAlignment="center"
-            fontSize="16"
-            marginTop="50"
-          >------, -----</Label>
+          <Label color="white" fontWeight="bold" textAlignment="center" fontSize="16" marginTop="50"
+            >------, -----</Label
+          >
         </FlexBoxLayout>
         <FlexBoxLayout v-if="matchDetails.venue" row="2" flex="1" justifyContent="center">
-          <Label
-            color="white"
-            fontWeight="bold"
-            textAlignment="center"
-            fontSize="16"
-            marginTop="10"
-          >{{ matchDetails.date }} @ {{ matchDetails.time }}</Label>
+          <Label color="white" fontWeight="bold" textAlignment="center" fontSize="16" marginTop="10"
+            >{{ matchDetails.date }} @ {{ matchDetails.time }}</Label
+          >
         </FlexBoxLayout>
         <FlexBoxLayout v-if="!matchDetails.date" row="2" flex="1" justifyContent="center">
-          <Label
-            color="white"
-            fontWeight="bold"
-            textAlignment="center"
-            fontSize="16"
-            marginTop="10"
-          >--/--/---- --:--</Label>
+          <Label color="white" fontWeight="bold" textAlignment="center" fontSize="16" marginTop="10"
+            >--/--/---- --:--</Label
+          >
         </FlexBoxLayout>
         <FlexBoxLayout
           v-if="matchDetails.id"
@@ -228,7 +212,6 @@ export default {
           <BaseButtonWithIcon
             :styleObject="{
               color: matchDetails.myStatus === state.availabilityStatus.NO ? '#ff4350' : '#888e90',
-              width: '100px',
             }"
             @handleOnClick="handleOnNoClick"
             :icon="state.icons.No"
@@ -238,7 +221,6 @@ export default {
           <BaseButtonWithIcon
             :styleObject="{
               color: matchDetails.myStatus === state.availabilityStatus.YES ? 'green' : '#888e90',
-              width: '100px',
             }"
             @handleOnClick="handleOnYesClick"
             :icon="state.icons.Yes"
