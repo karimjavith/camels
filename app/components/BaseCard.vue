@@ -48,15 +48,15 @@ export default {
 }
 </script>
 <template>
-  <CardView :key="item.id" ripple="true" padding="5" margin="5" height="auto">
+  <CardView :key="item.key" ripple="true" height="auto">
     <StackLayout>
-      <DockLayout stretchLastChild="false">
+      <DockLayout v-if="item.showEditOption" stretchLastChild="false">
         <StackLayout dock="right" orientation="horizontal">
-          <Label v-if="item.showEditOption" @tap="onItemEdit(item)" class="nt-label">
+          <Label @tap="onItemEdit(item)" class="nt-label">
             <FormattedString>
               <Span :text="getIconString(state.icons.Edit)" class="ico" /> </FormattedString
           ></Label>
-          <Label v-if="item.showDeleteOption" @tap="onItemDelete(item)" class="nt-label">
+          <Label @tap="onItemDelete(item)" class="nt-label">
             <FormattedString>
               <Span :text="getIconString(state.icons.Delete)" class="ico" /> </FormattedString
           ></Label>
@@ -72,14 +72,15 @@ export default {
         justifyContent="space-between"
         class="card-actions"
       >
-        <Label :text="item.actionItemText" dock="left" class="action-item-text" />
+        <Label :text="item.actionItemText" dock="left" class="t-14" />
 
         <StackLayout dock="right" orientation="horizontal">
           <AbsoluteLayout
             :style="[item.cancelStyles]"
             :class="['action-button', ' m-r-10', { active: item.cancelIsActive }]"
-            ><Label
+
               @tap="handleOnCancel(item)"
+            ><Label
               :text="getIconString(item.cancelIcon)"
               :class="['ico', 'm-r-15', { active: item.cancelIsActive }]"
               left="5"
@@ -88,9 +89,9 @@ export default {
           <AbsoluteLayout
             :style="[item.okStyles]"
             :class="['action-button', { active: item.okIsActive }]"
+              @tap="handleOnOk(item)"
             ><Label
               :text="getIconString(item.okIcon)"
-              @tap="handleOnOk(item)"
               :class="['ico', 'm-r-15', { active: item.okIsActive }]"
               left="5"
               top="4"
@@ -107,13 +108,17 @@ export default {
   font-size: 14;
 }
 .card-details {
-  height: 300px;
+  padding: 50px;
+  height: 250px;
   border-radius: 8px;
+  box-shadow: 0;
+  background-image: url('~/assets/images/ground.jpg');
   .info {
     text-align: center;
   }
 }
 .card-actions {
+  padding-top: 15px;
   .active {
     border-color: $accent;
     color: $accent;
@@ -125,9 +130,6 @@ export default {
     height: 40;
     width: 40;
     text-align: center;
-  }
-  .action-item-text {
-    font-size: 12px;
   }
 }
 </style>

@@ -113,7 +113,7 @@ export default {
       class="nt-activity-indicator"
     />
     <DockLayout v-if="!loading">
-      <StackLayout dock="top" height="94%" width="100%">
+      <StackLayout dock="top" height="92%" width="100%">
         <Home
           v-if="state.item.index === 0 && !state.loading"
           @onHomeEventSetIndexCb="onHomeEventSetIndexCb"
@@ -125,7 +125,7 @@ export default {
         />
         <Account v-if="state.item.index === 2 && !state.loading" />
       </StackLayout>
-      <StackLayout dock="bottom" height="6%" class="bottomNavBar">
+      <StackLayout dock="bottom" height="8%" class="bottomNavBar">
         <StackLayout orientation="horizontal">
           <StackLayout @tap="handleOnMenuTap(0)" class="navItem">
             <Label text android:class="notificationAndroid" ios:class="notification" opacity="0" />
