@@ -206,25 +206,18 @@ export default {
           row="3"
           flex="1"
           justifyContent="center"
-          flexDirection="column"
-          class="m-t-25"
+          class="m-t-25 p-l-15 p-r-15"
         >
           <BaseButtonWithIcon
-            :styleObject="{
-              color: matchDetails.myStatus === state.availabilityStatus.NO ? '#ff4350' : '#888e90',
-            }"
             @handleOnClick="handleOnNoClick"
             :icon="state.icons.No"
-            :iconState="state.iconStatus.Active"
+            :isActive="matchDetails.myStatus === state.availabilityStatus.NO"
             text="Not In"
           />
           <BaseButtonWithIcon
-            :styleObject="{
-              color: matchDetails.myStatus === state.availabilityStatus.YES ? 'green' : '#888e90',
-            }"
             @handleOnClick="handleOnYesClick"
             :icon="state.icons.Yes"
-            :iconState="state.iconStatus.Active"
+            :isActive="matchDetails.myStatus === state.availabilityStatus.YES"
             text="I am In"
           />
         </FlexBoxLayout>
@@ -232,7 +225,7 @@ export default {
           :visibility="loading ? 'visible' : 'collapse'"
           :busy="loading"
           rowspan="4"
-          class="nt-activity-indicator loader"
+          class="nt-activity-indicator"
           left="100"
           top="100"
         ></ActivityIndicator>
@@ -261,12 +254,6 @@ ScrollView {
   background-position: center;
   background-size: cover;
   height: 100%;
-  /* Add the blur effect */
-  -webkit-filter: blur(5px);
-  -moz-filter: blur(5px);
-  -o-filter: blur(5px);
-  -ms-filter: blur(5px);
-  filter: blur(5px);
   .loader {
     position: absolute;
     left: 50%;

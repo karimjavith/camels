@@ -70,12 +70,12 @@ export default {
           const { data, count } = result.json
           if (count > 0) {
             const matches = Object.values(data).map(match => {
+              match.key = `${match.id} - ${match.opponent}`
               match.title = match.opponent
               match.body = `${match.venue} - ${new Date(match.date).toLocaleDateString()} @ ${
                 match.time
               }`
               match.showEditOption = this.role === AppRoles.Admin
-              match.showDeleteOption = this.role === AppRoles.Admin
               if (match.status === MatchStatus.ON) {
                 match.showActionItems = true
                 match.actionItemText = 'Are you game?'
@@ -96,7 +96,7 @@ export default {
             })
             this.state = {
               ...this.state,
-              items: matches,
+              items: [...matches],
             }
           } else {
             this.state = {
@@ -108,6 +108,22 @@ export default {
         this.state = { ...this.state, loading: false }
       } catch (e) {
         this.state = { ...this.state, loading: false }
+      }
+    },
+    async updateStateForStatus(cancelIsActive, okIsActive, myStatus, id) {
+      const objectIndex = this.state.items.findIndex(x => x.id === id)
+      let cloneItems = [...this.state.items]
+      const cloneItem = {
+        ...cloneItems[objectIndex],
+        myStatus,
+        cancelIsActive,
+        okIsActive,
+      }
+
+      cloneItems[objectIndex] = cloneItem
+      this.state = {
+        ...this.state,
+        items: cloneItems,
       }
     },
     async handleOnCreateMatchClick(item) {
@@ -129,13 +145,14 @@ export default {
         },
         fullscreen: false,
         animated: true,
-        stretched: true,
+        stretched: false,
         dimAmount: 0.5, // Sets the alpha of the background dim,
       })
     },
     async handleModalCb() {
       this.state = { ...this.state, loading: true }
       await this.getMatches()
+      this.$refs.matchList.nativeView.refresh()
       this.$emit('onMatchEventSetIndexCb', 1)
     },
     async handleOnItemClick(item) {
@@ -171,37 +188,24 @@ export default {
       }
     },
     async handlOnCancel(data) {
+      this.updateStateForStatus(true, false, MatchAvailabilityStatus.NO, data.id)
       this.state = { ...this.state, loading: true }
       const result = await updateMatchStatusForUser(data.id, this.uid, MatchAvailabilityStatus.NO)
       if (!result.isError) {
         await this.$emit('onMatchEventSetIndexCb', 1)
-        const updatedItems = this.state.items.map(x => {
-          if (x.id === data.id) {
-            x.myStatus = MatchAvailabilityStatus.NO
-            x.cancelIsActive = true
-            x.okIsActive = false
-          }
-          return x
-        })
-        this.state = { ...this.state, ...this.state.items, ...updatedItems }
+      } else {
+        this.updateStateForStatus(false, true, MatchAvailabilityStatus.YES, data.id)
       }
       this.state = { ...this.state, loading: false }
     },
     async handleOnOk(data) {
+      this.updateStateForStatus(false, true, MatchAvailabilityStatus.YES, data.id)
       this.state = { ...this.state, loading: true }
       const result = await updateMatchStatusForUser(data.id, this.uid, MatchAvailabilityStatus.YES)
       if (!result.isError) {
         await this.$emit('onMatchEventSetIndexCb', 1)
-        const updatedItems = this.state.items.map(x => {
-          if (x.id === data.id) {
-            x.myStatus = MatchAvailabilityStatus.YES
-            x.cancelIsActive = false
-            x.okIsActive = true
-          }
-          return x
-        })
-
-        this.state = { ...this.state, ...this.state.items, ...updatedItems }
+      } else {
+        this.updateStateForStatus(true, false, MatchAvailabilityStatus.NO, data.id)
       }
       this.state = { ...this.state, loading: false }
     },
@@ -221,7 +225,7 @@ export default {
       :primary="false"
       @handleOnClick="handleOnCreateMatchClick"
       :icon="state.icons.Cricket"
-      text="New Match"
+      text="Add New Match"
     />
     <StackLayout>
       <FlexBoxLayout
@@ -233,7 +237,7 @@ export default {
         <Label class="nt-label h3" text="No schedule yet.." />
       </FlexBoxLayout>
       <ScrollView v-if="state.items.length > 0">
-        <ListView for="item in state.items">
+        <ListView ref="matchList" for="item in state.items">
           <v-template>
             <BaseCard
               @handleOnItemClick="handleOnItemClick"

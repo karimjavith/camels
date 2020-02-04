@@ -26,6 +26,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    isActive: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {}
@@ -42,21 +46,50 @@ export default {
 }
 </script>
 <template>
-  <Button
-    @tap="handleOnClick"
+  <FlexBoxLayout
     :style="[styleObject]"
-    :class="{
-      'nt-button': 'true',
-      '-outline': 'true',
-      '-primary': primary,
-      '-rounded-lg': true,
-    }"
-  >
-    <FormattedString>
-      <Span :text="text" />
-      <Span :text="getIconString(icon)" class="ico" />
-    </FormattedString>
-  </Button>
+    :class="['button-icon', 'm-12', 'rounded', { primary: primary }, { active: isActive }]"
+    @tap="handleOnClick"
+    justifyContent="center"
+    ><Label :text="text" :class="['m-r-15', 'm-l-10', 'fs16', 'text']"/><Label
+      :text="getIconString(icon)"
+      :class="['ico', 'm-r-15', 'fs16']"
+      left="5"
+      top="4"
+  /></FlexBoxLayout>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+@import '~/_app.common.scss';
+.text {
+  vertical-align: middle;
+  line-height: 2;
+}
+.active {
+  border-width: 0;
+  background-color: $accent;
+  color: $white;
+  font-weight: 500;
+}
+.button-icon {
+  text-align: center;
+  padding: 10;
+  border-width: 1px;
+  border-style: solid;
+  border-color: $border-color;
+  background-color: $bg-color;
+  .ico {
+    vertical-align: middle;
+  }
+}
+
+.outline {
+  background-color: transparent;
+}
+.primary {
+  background-color: $accent;
+}
+.rounded {
+  border-radius: 25%;
+}
+</style>
