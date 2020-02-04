@@ -4,7 +4,7 @@
 import { mapState } from 'vuex'
 import { topmost } from 'tns-core-modules/ui/frame'
 import MatchDetails from './MatchDetails.vue'
-import BaseCardListScrollView from '../components/BaseCardListScrollView.vue'
+import BaseCard from '../components/BaseCard.vue'
 import BaseButtonWithIcon from '../components/BaseButtonWithIcon.vue'
 import MatchForm from './MatchForm.vue'
 import Login from './Login.vue'
@@ -18,7 +18,7 @@ import { Icons } from '../types/EIconName.ts'
 
 export default {
   name: 'Matches',
-  components: { BaseCardListScrollView, BaseButtonWithIcon },
+  components: { BaseButtonWithIcon, BaseCard },
   data() {
     return {
       state: {
@@ -70,7 +70,7 @@ export default {
           const { data, count } = result.json
           if (count > 0) {
             const matches = Object.values(data).map(match => {
-              match.title = `Camels vs ${match.opponent}`
+              match.title = match.opponent
               match.body = `${match.venue} - ${new Date(match.date).toLocaleDateString()} @ ${
                 match.time
               }`
@@ -78,19 +78,18 @@ export default {
               match.showDeleteOption = this.role === AppRoles.Admin
               if (match.status === MatchStatus.ON) {
                 match.showActionItems = true
+                match.actionItemText = 'Are you game?'
                 const matchDateTime = `${match.date
                   .split('/')
                   .reverse()
                   .join('-')} ${match.time}`
                 match.actionButtonDisabled = new Date(matchDateTime) < new Date()
-                match.cancelText = match.actionButtonDisabled ? `Not Played` : `Not in`
-                match.okText = match.actionButtonDisabled ? `Played` : `I am in`
+                match.okIcon = Icons.Yes
+                match.cancelIcon = Icons.No
                 if (match.myStatus === MatchAvailabilityStatus.YES) {
-                  match.okTextIcon = 'fa-check-circle'
-                  match.okTextStyles = { color: 'green' }
+                  match.okIsActive = true
                 } else if (match.myStatus === MatchAvailabilityStatus.NO) {
-                  match.cancelTextIcon = 'fa-times-circle'
-                  match.cancelTextStyles = { color: 'red' }
+                  match.cancelIsActive = true
                 }
               }
               return match
@@ -179,10 +178,8 @@ export default {
         const updatedItems = this.state.items.map(x => {
           if (x.id === data.id) {
             x.myStatus = MatchAvailabilityStatus.NO
-            x.cancelTextIcon = 'fa-times-circle'
-            x.cancelTextStyles = { color: 'red' }
-            x.okTextIcon = ''
-            x.okTextStyles = {}
+            x.cancelIsActive = true
+            x.okIsActive = false
           }
           return x
         })
@@ -198,10 +195,8 @@ export default {
         const updatedItems = this.state.items.map(x => {
           if (x.id === data.id) {
             x.myStatus = MatchAvailabilityStatus.YES
-            x.cancelTextIcon = ''
-            x.cancelTextStyles = {}
-            x.okTextIcon = 'fa-circle'
-            x.okTextStyles = { color: 'green' }
+            x.cancelIsActive = false
+            x.okIsActive = true
           }
           return x
         })
@@ -237,18 +232,27 @@ export default {
       >
         <Label class="nt-label h3" text="No schedule yet.." />
       </FlexBoxLayout>
-      <BaseCardListScrollView
-        v-if="state.items.length > 0"
-        :items="state.items"
-        @handleOnItemClick="handleOnItemClick"
-        @handleOnItemEdit="handleOnItemEdit"
-        @handleOnItemDelete="handleOnItemDelete"
-        @handleOnCancel="handlOnCancel"
-        @handleOnOk="handleOnOk"
-        refFromParent="matchesCardList"
-      ></BaseCardListScrollView>
+      <ScrollView v-if="state.items.length > 0">
+        <ListView for="item in state.items">
+          <v-template>
+            <BaseCard
+              @handleOnItemClick="handleOnItemClick"
+              @handleOnItemEdit="handleOnItemEdit"
+              @handleOnItemDelete="handleOnItemDelete"
+              @handleOnCancel="handlOnCancel"
+              @handleOnOk="handleOnOk"
+              :item="item"
+              refFromParent="matchesCardList"
+            />
+          </v-template>
+        </ListView>
+      </ScrollView>
     </StackLayout>
   </StackLayout>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+ScrollView {
+  height: 100%;
+}
+</style>
