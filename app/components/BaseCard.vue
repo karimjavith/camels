@@ -51,6 +51,9 @@ export default {
   <CardView :key="item.key" ripple="true" height="auto">
     <StackLayout>
       <DockLayout v-if="item.showEditOption" stretchLastChild="false">
+        <StackLayout dock="left" orientation="horizontal">
+          <Label :text="item.editActionText" dock="left" class="t-14" />
+        </StackLayout>
         <StackLayout dock="right" orientation="horizontal">
           <Label @tap="onItemEdit(item)" class="nt-label">
             <FormattedString>
@@ -67,19 +70,15 @@ export default {
 
         <label :text="item.body" class="info nt-label t-14" textWrap="true" />
       </StackLayout>
-      <FlexBoxLayout
-        v-if="item.showActionItems"
-        justifyContent="space-between"
-        class="card-actions"
-      >
-        <Label :text="item.actionItemText" dock="left" class="t-14" />
-
+      <DockLayout v-if="item.showActionItems" class="card-actions" stretchLastChild="false">
+        <StackLayout dock="left" orientation="horizontal"
+          ><Label :text="item.actionItemText" dock="left" class="t-14" />
+        </StackLayout>
         <StackLayout dock="right" orientation="horizontal">
           <AbsoluteLayout
             :style="[item.cancelStyles]"
             :class="['action-button', ' m-r-10', { active: item.cancelIsActive }]"
-
-              @tap="handleOnCancel(item)"
+            @tap="handleOnCancel(item)"
             ><Label
               :text="getIconString(item.cancelIcon)"
               :class="['ico', 'm-r-15', { active: item.cancelIsActive }]"
@@ -89,7 +88,7 @@ export default {
           <AbsoluteLayout
             :style="[item.okStyles]"
             :class="['action-button', { active: item.okIsActive }]"
-              @tap="handleOnOk(item)"
+            @tap="handleOnOk(item)"
             ><Label
               :text="getIconString(item.okIcon)"
               :class="['ico', 'm-r-15', { active: item.okIsActive }]"
@@ -97,7 +96,7 @@ export default {
               top="4"
           /></AbsoluteLayout>
         </StackLayout>
-      </FlexBoxLayout>
+      </DockLayout>
     </StackLayout>
   </CardView>
 </template>

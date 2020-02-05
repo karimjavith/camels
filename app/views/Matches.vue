@@ -5,7 +5,6 @@ import { mapState } from 'vuex'
 import { topmost } from 'tns-core-modules/ui/frame'
 import MatchDetails from './MatchDetails.vue'
 import BaseCard from '../components/BaseCard.vue'
-import BaseButtonWithIcon from '../components/BaseButtonWithIcon.vue'
 import MatchForm from './MatchForm.vue'
 import Login from './Login.vue'
 import { AppRoles } from '../_shared/enum'
@@ -18,7 +17,7 @@ import { Icons } from '../types/EIconName.ts'
 
 export default {
   name: 'Matches',
-  components: { BaseButtonWithIcon, BaseCard },
+  components: { BaseCard },
   data() {
     return {
       state: {
@@ -126,13 +125,15 @@ export default {
         items: cloneItems,
       }
     },
-    async handleOnCreateMatchClick(item) {
-      const matchDate = item.date
-        ? DateService.toLocalDateFormat(item.date)
-        : DateService.toLocalDateFormat(new Date())
-      const matchTime = item.time
-        ? DateService.toLocalTimeFormat(item.time)
-        : DateService.toLocalTimeFormat(new Date())
+    async handleOnAddClick(item) {
+      const matchDate =
+        item && item.date
+          ? DateService.toLocalDateFormat(item.date)
+          : DateService.toLocalDateFormat(new Date())
+      const matchTime =
+        item && item.time
+          ? DateService.toLocalTimeFormat(item.time)
+          : DateService.toLocalTimeFormat('00:00')
       this.$showModal(MatchForm, {
         props: {
           cb: this.handleModalCb,
@@ -168,7 +169,7 @@ export default {
     },
     async handleOnItemEdit(item) {
       if (this.role === AppRoles.Admin) {
-        this.handleOnCreateMatchClick(item)
+        this.handleOnAddClick(item)
       }
     },
     async handleOnItemDelete(item) {
@@ -184,6 +185,8 @@ export default {
         console.log(result)
         if (result && !result.isError) {
           await this.getMatches()
+          this.$refs.matchList.nativeView.refresh()
+          await this.$emit('onMatchEventSetIndexCb', 1)
         }
       }
     },
@@ -221,12 +224,6 @@ export default {
       height="20"
       class="loader nt-activity-indicator"
     ></ActivityIndicator>
-    <BaseButtonWithIcon
-      :primary="false"
-      @handleOnClick="handleOnCreateMatchClick"
-      :icon="state.icons.Cricket"
-      text="Add New Match"
-    />
     <StackLayout>
       <FlexBoxLayout
         v-if="state.items.length === 0 && !loading"
@@ -240,6 +237,7 @@ export default {
         <ListView ref="matchList" for="item in state.items">
           <v-template>
             <BaseCard
+              :key="item.key"
               @handleOnItemClick="handleOnItemClick"
               @handleOnItemEdit="handleOnItemEdit"
               @handleOnItemDelete="handleOnItemDelete"
