@@ -8,6 +8,7 @@
 	<key>com.apple.developer.associated-domains</key>
 	<array>
 		<string>applinks:zXbp.app.goo.gl</string>
+		<string>applinks:camels.page.link</string>
 	</array>
 </dict>
 </plist>
