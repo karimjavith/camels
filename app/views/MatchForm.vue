@@ -35,7 +35,7 @@ export default {
     },
     time: {
       type: String,
-      default: '',
+      default: '00:00',
     },
     opponent: {
       type: String,
@@ -126,7 +126,7 @@ export default {
     },
     handleFormValidation() {
       const { venue, postCode, date, time, opponent } = this.state.match
-      if (!venue || !postCode || !date || !time || !opponent) {
+      if (!venue || !postCode || !opponent) {
         return { isValid: false, message: 'Please fill up the fields.' }
       }
 
@@ -165,7 +165,7 @@ export default {
 <template>
   <ModalStack class="modal-container">
     <StackLayout class="modal">
-      <StackLayout margin-bottom="25">
+      <StackLayout class="m-12">
         <Label
           :text="itemId ? 'Edit Match' : 'Create Match'"
           class="h2 nt-label m-10 font-weight-bold"
@@ -180,23 +180,24 @@ export default {
               @handleFinalReturnCb="focusSubmitButton"
               @handleOnTextChange="handleOnTextChange"
             />
-          </GridLayout>
-          <BaseButton
-            ref="submitButton"
-            :focusButton="state.focusSubmitButton"
-            :loading="state.loading"
-            @handleOnClick="handleOnSubmit"
-            :text="itemId ? 'Update Match' : 'Create Match'"
-            :class="{ 'm-t-20': true, '-primary': true, '-rounded-lg': true }"
-            refFromParent="matchSubmitButton"
-          ></BaseButton>
-          <Button
-            ref="closeButton"
-            @tap="$modal.close"
-            text="Close"
-            class="btn m-t-20 -rounded-lg -secondary -outline"
-          /> </StackLayout
-      ></ScrollView>
+          </GridLayout> </StackLayout></ScrollView
+      ><StackLayout class="m-12">
+        <BaseButton
+          ref="submitButton"
+          :focusButton="state.focusSubmitButton"
+          :loading="state.loading"
+          @handleOnClick="handleOnSubmit"
+          :text="itemId ? 'Update Match' : 'Create Match'"
+          :class="{ 'm-t-20': true, '-primary': true, '-rounded-lg': true }"
+          refFromParent="matchSubmitButton"
+        ></BaseButton>
+        <Button
+          ref="closeButton"
+          @tap="$modal.close"
+          text="Close"
+          class="btn m-t-20 -rounded-lg -secondary -outline"
+        />
+      </StackLayout>
     </StackLayout>
   </ModalStack>
 </template>
@@ -204,20 +205,16 @@ export default {
 <style scoped lang="scss">
 @import '~/_app.common';
 Scrollview {
-  height: 100%;
+  height: 60%;
 }
 
 .modal-container {
-  padding: 25;
-  padding-bottom: 10;
+  padding: 12;
   .modal {
-    margin: 20;
-    margin-top: 35;
     border-radius: 8;
     horizontal-align: center;
     vertical-align: middle;
     background-color: $bg-color;
-    width: 80%;
   }
 }
 </style>

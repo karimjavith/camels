@@ -99,13 +99,28 @@ export default {
     async onMatchEventSetIndexCb() {
       await this.getUnreadMatchCount()
     },
+    async handleOnAddNewItem() {
+      await this.$refs.matchComponent.handleOnAddClick()
+    },
   },
 }
 </script>
 
 <template>
   <Page :actionBarHidden="state.item.index === 0" class="nt-page">
-    <ActionBar :title="state.title[state.item.index]" class="nt-action-bar actionBar"></ActionBar>
+    <ActionBar :title="state.title[state.item.index]" class="nt-action-bar actionBar" flat="true">
+      <ActionItem
+        v-show="state.item.index === 1 && userContext.role === 1"
+        @tap="handleOnAddNewItem"
+        ios.systemIcon="4"
+        android.systemIcon="ic_menu_add"
+        ios:style="font-size:16"
+        android:style="font-size:16"
+        ios.position="right"
+        android.position="right"
+      >
+      </ActionItem>
+    </ActionBar>
     <ActivityIndicator
       :visibility="loading ? 'visible' : 'collapse'"
       :busy="loading"
@@ -120,6 +135,7 @@ export default {
           @onMatchEventSetIndexCb="onMatchEventSetIndexCb"
         />
         <Matches
+          ref="matchComponent"
           v-if="state.item.index === 1 && !state.loading"
           @onMatchEventSetIndexCb="onMatchEventSetIndexCb"
         />

@@ -48,38 +48,38 @@ export default {
 <template>
   <FlexBoxLayout
     :style="[styleObject]"
-    :class="['button-icon', 'm-12', 'rounded', { primary: primary }, { active: isActive }]"
+    :class="['button-icon', { primary: primary }, { '-active': isActive }, 'm-12', 'rounded']"
     @tap="handleOnClick"
     justifyContent="center"
-    ><Label :text="text" :class="['m-r-15', 'm-l-10', 'fs16', 'text']"/><Label
+  >
+    <Label :text="text" :class="['m-r-10', 'm-l-10', 'fs14', '-text']"/><Label
       :text="getIconString(icon)"
-      :class="['ico', 'm-r-15', 'fs16']"
-      left="5"
-      top="4"
+      :class="['ico', 'm-r-15', 'fs14', '-icon']"
   /></FlexBoxLayout>
 </template>
 
 <style scoped lang="scss">
-@import '~/_app.common.scss';
-.text {
-  vertical-align: middle;
-  line-height: 2;
-}
-.active {
-  border-width: 0;
-  background-color: $accent;
-  color: $white;
-  font-weight: 500;
-}
+@import '~/_app.common';
 .button-icon {
   text-align: center;
-  padding: 10;
+  padding: 12;
   border-width: 1px;
   border-style: solid;
   border-color: $border-color;
   background-color: $bg-color;
-  .ico {
+  color: $text-color;
+  &.-active {
+    border-width: 0;
+    background-color: $accent;
+    color: $white;
+    font-weight: 500;
+  }
+  .-text {
     vertical-align: middle;
+  }
+  .-icon {
+    vertical-align: middle;
+    margin-top: -2;
   }
 }
 
