@@ -33,7 +33,7 @@ export default {
         selectedValue = DateService.toLocalDateFormat(value)
       }
       if (name === 'time') {
-        selectedValue = DateService.toLocalTimeFormat(value)
+        selectedValue = DateService.toLocalTimeFormatFromDateTime(value)
       }
       this.$emit('handleOnTextChange', { key: name, value: selectedValue })
     },
