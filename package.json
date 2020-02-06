@@ -9,6 +9,7 @@
   "dependencies": {
     "@nativescript/theme": "^2.2.1",
     "@nstudio/nativescript-cardview": "^1.0.0",
+    "@nstudio/nativescript-loading-indicator": "^3.0.1",
     "nativescript-datetimepicker": "^1.2.2",
     "nativescript-plugin-firebase": "^10.3.3",
     "nativescript-socketio": "^3.3.1",
