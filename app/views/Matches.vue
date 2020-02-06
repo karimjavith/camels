@@ -13,6 +13,7 @@ import { MatchStatus } from '../types/EMatchStatus'
 import { MatchAvailabilityStatus } from '../types/EMatchAvailabilityStatus.ts'
 import { HttpStatusCode } from '../_shared/http/http'
 import DateService from '../_shared/date.ts'
+import { loader as Loader, options } from '../_shared/loader.ts'
 import { Icons } from '../types/EIconName.ts'
 
 export default {
@@ -21,21 +22,18 @@ export default {
   data() {
     return {
       state: {
-        loading: true,
         icons: Icons,
         items: [],
+        itemsLoaded: false,
       },
     }
   },
   computed: mapState({
     role: state => state.authenticationModule.userContext.role,
     uid: state => state.authenticationModule.userContext.uid,
-    loading() {
-      return this.state.loading
-    },
   }),
   created: function() {
-    this.state.loading = true
+    Loader.show(options)
     console.log(`Matches :: created`)
   },
   mounted: function() {
@@ -54,9 +52,7 @@ export default {
       navigationBar.shadowImage = UIImage.new()
     }
     console.log(`Matches :: updated`)
-    this.$nextTick(function() {
-      console.log(`loading :: ${this.state.loading}`)
-    })
+    this.$nextTick(function() {})
   },
   methods: {
     async getMatches() {
@@ -104,10 +100,11 @@ export default {
             }
           }
         }
-        this.state = { ...this.state, loading: false }
+        Loader.hide()
       } catch (e) {
-        this.state = { ...this.state, loading: false }
+        Loader.hide()
       }
+      this.state = { ...this.state, itemsLoaded: true }
     },
     async updateStateForStatus(cancelIsActive, okIsActive, myStatus, id) {
       const objectIndex = this.state.items.findIndex(x => x.id === id)
@@ -151,7 +148,6 @@ export default {
       })
     },
     async handleModalCb() {
-      this.state = { ...this.state, loading: true }
       await this.getMatches()
       this.$refs.matchList.nativeView.refresh()
       this.$emit('onMatchEventSetIndexCb', 1)
@@ -180,9 +176,7 @@ export default {
         cancelButtonText: 'No, ignore',
       })
       if (acknowledge) {
-        this.state = { ...this.state, loading: true }
         const result = await removeMatch(item.id)
-        console.log(result)
         if (result && !result.isError) {
           await this.getMatches()
           this.$refs.matchList.nativeView.refresh()
@@ -192,41 +186,30 @@ export default {
     },
     async handlOnCancel(data) {
       this.updateStateForStatus(true, false, MatchAvailabilityStatus.NO, data.id)
-      this.state = { ...this.state, loading: true }
       const result = await updateMatchStatusForUser(data.id, this.uid, MatchAvailabilityStatus.NO)
       if (!result.isError) {
         await this.$emit('onMatchEventSetIndexCb', 1)
       } else {
         this.updateStateForStatus(false, true, MatchAvailabilityStatus.YES, data.id)
       }
-      this.state = { ...this.state, loading: false }
     },
     async handleOnOk(data) {
       this.updateStateForStatus(false, true, MatchAvailabilityStatus.YES, data.id)
-      this.state = { ...this.state, loading: true }
       const result = await updateMatchStatusForUser(data.id, this.uid, MatchAvailabilityStatus.YES)
       if (!result.isError) {
         await this.$emit('onMatchEventSetIndexCb', 1)
       } else {
         this.updateStateForStatus(true, false, MatchAvailabilityStatus.NO, data.id)
       }
-      this.state = { ...this.state, loading: false }
     },
   },
 }
 </script>
 <template>
   <StackLayout orientation="horizonatal">
-    <ActivityIndicator
-      :visibility="loading ? 'visible' : 'collapse'"
-      :busy="loading"
-      width="20"
-      height="20"
-      class="loader nt-activity-indicator"
-    ></ActivityIndicator>
     <StackLayout>
       <FlexBoxLayout
-        v-if="state.items.length === 0 && !loading"
+        v-if="state.items.length === 0 && state.itemsLoaded"
         flex="1"
         justifyContent="center"
         class="m-t-10"

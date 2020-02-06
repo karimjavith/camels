@@ -9,6 +9,7 @@ import { MatchAvailabilityStatus } from '../types/EMatchAvailabilityStatus.ts'
 import { HttpStatusCode } from '../_shared/http/http'
 import { Icons } from '../types/EIconName.ts'
 import { IconStatus } from '../types/EIconStatus.ts'
+import { loader as Loader, options } from '../_shared/loader.ts'
 
 export default {
   name: 'Home',
@@ -17,7 +18,6 @@ export default {
   data() {
     return {
       state: {
-        loading: true,
         upcomingMatch: {},
         icons: Icons,
         iconStatus: IconStatus,
@@ -27,14 +27,12 @@ export default {
   },
   computed: mapState({
     userContext: state => state.authenticationModule.userContext,
-    loading() {
-      return this.state.loading
-    },
     matchDetails() {
       return this.state.upcomingMatch
     },
   }),
   created: function() {
+    Loader.show(options)
     console.log(`Home :: Created`)
   },
   mounted: function() {
@@ -69,10 +67,10 @@ export default {
         }
       }
 
-      this.state = { ...this.state, loading: false }
+      Loader.hide()
     },
     async handleOnNoClick() {
-      this.state = { ...this.state, loading: true }
+      Loader.show(options)
       const result = await patchUserMatchStatus(this.matchDetails.id, {
         uid: this.userContext.uid,
         status: MatchAvailabilityStatus.NO,
@@ -88,10 +86,10 @@ export default {
         }
         ToastService('All done', '#a5d6a7').show()
       }
-      this.state = { ...this.state, loading: false }
+      Loader.hide()
     },
     async handleOnYesClick() {
-      this.state = { ...this.state, loading: true }
+      Loader.show(options)
       const result = await patchUserMatchStatus(this.matchDetails.id, {
         uid: this.userContext.uid,
         status: MatchAvailabilityStatus.YES,
@@ -107,7 +105,7 @@ export default {
         }
         ToastService('All done', '#a5d6a7').show()
       }
-      this.state = { ...this.state, loading: false }
+      Loader.hide()
     },
     handleOnViewAllMatchesClick() {
       this.$emit('onHomeEventSetIndexCb', 1)
@@ -221,21 +219,12 @@ export default {
             text="I am In"
           />
         </FlexBoxLayout>
-        <ActivityIndicator
-          :visibility="loading ? 'visible' : 'collapse'"
-          :busy="loading"
-          rowspan="4"
-          class="nt-activity-indicator"
-          left="100"
-          top="100"
-        ></ActivityIndicator>
       </GridLayout>
     </ScrollView>
     <StackLayout flex="1" justifyContent="center" class="m-t-10">
       <BaseButton
         :class="{ 'm-t-20': true, '-primary': true }"
         @handleOnClick="handleOnViewAllMatchesClick"
-        :loading="false"
         refFromParent="viewallmatches"
         text="View All Matches"
       />
