@@ -57,44 +57,50 @@ export default {
         <StackLayout dock="right" orientation="horizontal">
           <Label @tap="onItemEdit(item)" class="nt-label">
             <FormattedString>
-              <Span :text="getIconString(state.icons.Edit)" class="ico" /> </FormattedString
-          ></Label>
+              <Span :text="getIconString(state.icons.Edit)" class="ico" />
+            </FormattedString>
+          </Label>
           <Label @tap="onItemDelete(item)" class="nt-label">
             <FormattedString>
-              <Span :text="getIconString(state.icons.Delete)" class="ico" /> </FormattedString
-          ></Label>
+              <Span :text="getIconString(state.icons.Delete)" class="ico" />
+            </FormattedString>
+          </Label>
         </StackLayout>
       </DockLayout>
       <StackLayout @tap="handleOnItemClick(item)" dock="center" class="card-details">
-        <label :text="item.title" class="info nt-label"> </label>
+        <label :text="item.title" class="info nt-label"></label>
 
         <label :text="item.body" class="info nt-label t-14" textWrap="true" />
       </StackLayout>
       <DockLayout v-if="item.showActionItems" class="card-actions" stretchLastChild="false">
-        <StackLayout dock="left" orientation="horizontal"
-          ><Label :text="item.actionItemText" dock="left" class="t-14" />
+        <StackLayout dock="left" orientation="horizontal">
+          <Label :text="item.actionItemText" dock="left" class="t-14" />
         </StackLayout>
         <StackLayout dock="right" orientation="horizontal">
           <AbsoluteLayout
             :style="[item.cancelStyles]"
             :class="['action-button', ' m-r-10', { active: item.cancelIsActive }]"
             @tap="handleOnCancel(item)"
-            ><Label
+          >
+            <Label
               :text="getIconString(item.cancelIcon)"
               :class="['ico', 'm-r-15', { active: item.cancelIsActive }]"
               left="5"
               top="5"
-          /></AbsoluteLayout>
+            />
+          </AbsoluteLayout>
           <AbsoluteLayout
             :style="[item.okStyles]"
             :class="['action-button', { active: item.okIsActive }]"
             @tap="handleOnOk(item)"
-            ><Label
+          >
+            <Label
               :text="getIconString(item.okIcon)"
               :class="['ico', 'm-r-15', { active: item.okIsActive }]"
               left="5"
               top="4"
-          /></AbsoluteLayout>
+            />
+          </AbsoluteLayout>
         </StackLayout>
       </DockLayout>
     </StackLayout>

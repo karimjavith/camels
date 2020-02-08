@@ -7,16 +7,19 @@ import UserList from './UserList.vue'
 import ChangePassword from './ChangePassword.vue'
 import Login from './Login.vue'
 import BaseListView from '../components/BaseListView.vue'
+import BaseIcon from '../components/BaseIcons.vue'
 import { logout } from '../_shared/firebase/users.ts'
 import { AppRoles } from '../_shared/enum'
 import { Icons } from '../types/EIconName.ts'
 
 export default {
   name: 'Account',
-  components: { BaseListView },
+  components: { BaseListView, BaseIcon },
   data() {
     return {
       state: {
+        loading: true,
+        defaultMeIcon: Icons.Me,
         items: [
           {
             role: AppRoles.Admin,
@@ -47,17 +50,26 @@ export default {
   },
   computed: mapState({
     role: state => state.authenticationModule.userContext.role,
-    items() {
-      return this.state.items.filter(x => {
-        if (x.role === AppRoles.User) return true
-        return x.role === this.role
-      })
-    },
   }),
+  mounted: function() {
+    this.$nextTick(async function() {
+      await this.loadItems()
+      this.state.loading = false
+    })
+  },
   methods: {
     ...mapActions('authenticationModule', {
       clearGlobalLoginState: 'signedOut',
     }),
+    async loadItems() {
+      this.state = {
+        ...this.state,
+        items: this.state.items.filter(x => {
+          if (x.role === AppRoles.User) return true
+          return x.role === this.role
+        }),
+      }
+    },
     async onSignOutTap() {
       await logout()
       this.clearGlobalLoginState()
@@ -73,27 +85,48 @@ export default {
 }
 </script>
 <template>
-  <StackLayout>
-    <StackLayout alignItems="center">
-      <Image src="~/assets/images/profile.png" class="accountPic"></Image>
-    </StackLayout>
+  <GridLayout rows="150, *">
+    <FlexBoxLayout justifyContent="center" class="m-24" row="0">
+      <BaseIcon :name="state.defaultMeIcon" :size="64" />
+    </FlexBoxLayout>
 
-    <StackLayout class="m-12">
-      <BaseListView @itemTap="onItemTap" :items="items" refFromParent="accountList"></BaseListView>
+    <StackLayout class="m-24" row="1">
+      <ListView
+        v-if="!state.loading"
+        @itemTap="onItemTap"
+        for="item in state.items"
+        separatorColor="transparent"
+        height="100%"
+      >
+        <v-template>
+          <GridLayout columns="50, *" rows="*" class="item">
+            <BaseIcon
+              :name="item.primaryIcon"
+              :state="item.primaryIconState"
+              :size="20"
+              col="0"
+              class="primaryIcon"
+            />
+            <FlexBoxLayout rowspan="2" col="1">
+              <label :text="item.primaryText" class="primaryText" />
+              <BaseIcon v-if="item.primaryTag" :name="item.primaryTag" class="primaryTag" />
+              <label :text="item.secondaryText" class="secondaryText p" />
+              <BaseIcon
+                v-if="item.secondaryIcon"
+                :name="item.secondaryIcon"
+                :state="item.secondaryIconState"
+                class="secondaryIcon"
+              />
+            </FlexBoxLayout>
+          </GridLayout>
+        </v-template>
+      </ListView>
     </StackLayout>
-  </StackLayout>
+  </GridLayout>
 </template>
 
 <style scoped lang="scss">
-scrollview {
-  height: 100%;
-  .accountPic {
-    width: 150;
-    height: 150;
-    border-radius: 100;
-    margin: 20;
-    border-color: #4db8ff;
-    border-width: 1;
-  }
+.item {
+  height: 60;
 }
 </style>

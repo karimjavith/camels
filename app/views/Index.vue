@@ -118,8 +118,7 @@ export default {
         android:style="font-size:16"
         ios.position="right"
         android.position="right"
-      >
-      </ActionItem>
+      ></ActionItem>
     </ActionBar>
     <ActivityIndicator
       :visibility="loading ? 'visible' : 'collapse'"
