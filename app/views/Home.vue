@@ -135,8 +135,8 @@ export default {
 </script>
 
 <template>
-  <StackLayout class="image">
-    <ScrollView ref="scrollView" @scroll="onScroll">
+  <DockLayout class="image">
+    <ScrollView ref="scrollView" @scroll="onScroll" dock="top">
       <GridLayout ref="topView" rows="auto, auto, auto, auto, auto, auto" height="auto">
         <FlexBoxLayout row="0" flexDirection="column">
           <Label
@@ -145,8 +145,8 @@ export default {
             text="Upcoming match!"
             color="white"
             textAlignment="center"
-            fontSize="24"
             textTransform="uppercase"
+            class="h2"
           />
         </FlexBoxLayout>
         <FlexBoxLayout row="1" flexDirection="column">
@@ -155,7 +155,7 @@ export default {
             text="Camels"
             color="white"
             textAlignment="center"
-            fontSize="24"
+            class="h2"
             textTransform="uppercase"
           />
           <Label text="VS" color="white" textAlignment="center" fontSize="16" marginTop="10" />
@@ -164,7 +164,7 @@ export default {
             text="-----"
             color="white"
             textAlignment="center"
-            fontSize="24"
+            class="h2"
             marginTop="10"
             textTransform="uppercase"
           />
@@ -173,7 +173,7 @@ export default {
             :text="matchDetails.opponent"
             color="white"
             textAlignment="center"
-            fontSize="24"
+            class="h2"
             marginTop="10"
             textTransform="uppercase"
           />
@@ -189,7 +189,7 @@ export default {
             color="white"
             fontWeight="bold"
             textAlignment="center"
-            fontSize="16"
+            class="h4"
             marginTop="50"
           >{{ matchDetails.venue }} , {{ matchDetails.postCode }}</Label>
         </FlexBoxLayout>
@@ -204,7 +204,7 @@ export default {
             color="white"
             fontWeight="bold"
             textAlignment="center"
-            fontSize="16"
+            class="h4"
             marginTop="50"
           >------, -----</Label>
         </FlexBoxLayout>
@@ -213,7 +213,7 @@ export default {
             color="white"
             fontWeight="bold"
             textAlignment="center"
-            fontSize="16"
+            class="h4"
             marginTop="10"
           >{{ matchDetails.date }} @ {{ matchDetails.time }}</Label>
         </FlexBoxLayout>
@@ -222,7 +222,7 @@ export default {
             color="white"
             fontWeight="bold"
             textAlignment="center"
-            fontSize="16"
+            class="h4"
             marginTop="10"
           >--/--/---- --:--</Label>
         </FlexBoxLayout>
@@ -236,7 +236,7 @@ export default {
             color="white"
             fontWeight="bold"
             textAlignment="center"
-            fontSize="18"
+            class="h2"
             marginTop="25"
           >Are you game?</Label>
         </FlexBoxLayout>
@@ -262,7 +262,7 @@ export default {
         </FlexBoxLayout>
       </GridLayout>
     </ScrollView>
-    <StackLayout flex="1" justifyContent="center" class="m-t-10">
+    <StackLayout flex="1" justifyContent="center" class="m-t-10" dock="bottom">
       <BaseButton
         :class="{ 'm-t-20': true, '-primary': true }"
         @handleOnClick="handleOnViewAllMatchesClick"
@@ -270,7 +270,7 @@ export default {
         text="View All Matches"
       />
     </StackLayout>
-  </StackLayout>
+  </DockLayout>
 </template>
 
 <style scoped lang="scss">

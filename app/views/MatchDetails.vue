@@ -134,18 +134,4 @@ export default {
 ScrollView {
   height: 70%;
 }
-.modal {
-  margin: 20;
-  margin-top: 35;
-  border-radius: 8;
-  horizontal-align: center;
-  vertical-align: middle;
-  background-color: $bg-color;
-  width: 80%;
-}
-
-.modal-container {
-  padding: 25;
-  padding-bottom: 10;
-}
 </style>

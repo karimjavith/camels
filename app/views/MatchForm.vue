@@ -153,25 +153,32 @@ export default {
         : createMatch(matchDetails)
       const result = await action
       if (result && !result.isError) {
-        this.$modal.close()
         this.cb()
+        this.$navigateBack()
       }
       this.state = { ...this.state, loading: false }
+    },
+
+    onNavigationButtonTap() {
+      this.$navigateBack()
     },
   },
 }
 </script>
 
 <template>
-  <ModalStack class="modal-container">
-    <StackLayout class="modal">
-      <StackLayout class="m-12">
-        <Label
-          :text="itemId ? 'Edit Match' : 'Create Match'"
-          class="h2 nt-label m-10 font-weight-bold"
-        />
-      </StackLayout>
-      <ScrollView orientation="vertical" scrollBarIndicatorVisible="false">
+  <Page class="nt-page">
+    <ActionBar :title="itemId ? 'Edit Match' : 'Create Match'" class="nt-action-bar">
+      <NavigationButton
+        @tap="onNavigationButtonTap"
+        ios.systemIcon="9"
+        ios.position="left"
+        text="Back"
+        android.systemIcon="ic_menu_back"
+      ></NavigationButton>
+    </ActionBar>
+    <DockLayout>
+      <ScrollView orientation="vertical" scrollBarIndicatorVisible="false" dock="top">
         <StackLayout class="nt-form">
           <GridLayout rows="auto, auto, auto, auto, auto">
             <BaseFormFields
@@ -180,8 +187,10 @@ export default {
               @handleFinalReturnCb="focusSubmitButton"
               @handleOnTextChange="handleOnTextChange"
             />
-          </GridLayout> </StackLayout></ScrollView
-      ><StackLayout class="m-12">
+          </GridLayout>
+        </StackLayout>
+      </ScrollView>
+      <StackLayout class="m-12" dock="bottom">
         <BaseButton
           ref="submitButton"
           :focusButton="state.focusSubmitButton"
@@ -191,30 +200,14 @@ export default {
           :class="{ 'm-t-20': true, '-primary': true, '-rounded-lg': true }"
           refFromParent="matchSubmitButton"
         ></BaseButton>
-        <Button
-          ref="closeButton"
-          @tap="$modal.close"
-          text="Close"
-          class="btn m-t-20 -rounded-lg -secondary -outline"
-        />
       </StackLayout>
-    </StackLayout>
-  </ModalStack>
+    </DockLayout>
+  </Page>
 </template>
 
 <style scoped lang="scss">
 @import '~/_app.common';
 Scrollview {
-  height: 60%;
-}
-
-.modal-container {
-  padding: 12;
-  .modal {
-    border-radius: 8;
-    horizontal-align: center;
-    vertical-align: middle;
-    background-color: $bg-color;
-  }
+  height: 80%;
 }
 </style>

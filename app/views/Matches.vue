@@ -131,7 +131,8 @@ export default {
         item && item.time
           ? DateService.toLocalTimeFormat(item.time)
           : DateService.toLocalTimeFormat('00:00')
-      this.$showModal(MatchForm, {
+
+      this.$navigateTo(MatchForm, {
         props: {
           cb: this.handleModalCb,
           itemId: item && item.id,
@@ -141,10 +142,6 @@ export default {
           time: item && matchTime,
           opponent: item && item.opponent,
         },
-        fullscreen: false,
-        animated: true,
-        stretched: false,
-        dimAmount: 0.5, // Sets the alpha of the background dim,
       })
     },
     async handleModalCb() {
@@ -218,20 +215,28 @@ export default {
     >
       <Label class="nt-label h3" text="No schedule yet.." />
     </FlexBoxLayout>
-    <ListView ref="matchList" v-if="state.items.length > 0" for="item in state.items" row="1">
+    <RadListView
+      ref="matchList"
+      v-if="state.items.length > 0"
+      for="item in state.items"
+      row="1"
+      itemHeight="275"
+    >
       <v-template>
-        <BaseCard
-          :key="item.key"
-          @handleOnItemClick="handleOnItemClick"
-          @handleOnItemEdit="handleOnItemEdit"
-          @handleOnItemDelete="handleOnItemDelete"
-          @handleOnCancel="handlOnCancel"
-          @handleOnOk="handleOnOk"
-          :item="item"
-          refFromParent="matchesCardList"
-        />
+        <StackLayout class="item" orientation="vertical">
+          <BaseCard
+            :key="item.key"
+            @handleOnItemClick="handleOnItemClick"
+            @handleOnItemEdit="handleOnItemEdit"
+            @handleOnItemDelete="handleOnItemDelete"
+            @handleOnCancel="handlOnCancel"
+            @handleOnOk="handleOnOk"
+            :item="item"
+            refFromParent="matchesCardList"
+          />
+        </StackLayout>
       </v-template>
-    </ListView>
+    </RadListView>
   </GridLayout>
 </template>
 
