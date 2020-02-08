@@ -175,6 +175,7 @@ export default {
         okButtonText: 'Yes, I confirm',
         cancelButtonText: 'No, ignore',
       })
+      Loader.show(options)
       if (acknowledge) {
         const result = await removeMatch(item.id)
         if (result && !result.isError) {
@@ -183,6 +184,7 @@ export default {
           await this.$emit('onMatchEventSetIndexCb', 1)
         }
       }
+      Loader.hide()
     },
     async handlOnCancel(data) {
       this.updateStateForStatus(true, false, MatchAvailabilityStatus.NO, data.id)
@@ -206,38 +208,32 @@ export default {
 }
 </script>
 <template>
-  <StackLayout orientation="horizonatal">
-    <StackLayout>
-      <FlexBoxLayout
-        v-if="state.items.length === 0 && state.itemsLoaded"
-        flex="1"
-        justifyContent="center"
-        class="m-t-10"
-      >
-        <Label class="nt-label h3" text="No schedule yet.." />
-      </FlexBoxLayout>
-      <ScrollView v-if="state.items.length > 0">
-        <ListView ref="matchList" for="item in state.items">
-          <v-template>
-            <BaseCard
-              :key="item.key"
-              @handleOnItemClick="handleOnItemClick"
-              @handleOnItemEdit="handleOnItemEdit"
-              @handleOnItemDelete="handleOnItemDelete"
-              @handleOnCancel="handlOnCancel"
-              @handleOnOk="handleOnOk"
-              :item="item"
-              refFromParent="matchesCardList"
-            />
-          </v-template>
-        </ListView>
-      </ScrollView>
-    </StackLayout>
-  </StackLayout>
+  <GridLayout rows="auto, *">
+    <FlexBoxLayout
+      v-if="state.items.length === 0 && state.itemsLoaded"
+      flex="1"
+      row="0"
+      justifyContent="center"
+      class="m-t-10"
+    >
+      <Label class="nt-label h3" text="No schedule yet.." />
+    </FlexBoxLayout>
+    <ListView ref="matchList" v-if="state.items.length > 0" for="item in state.items" row="1">
+      <v-template>
+        <BaseCard
+          :key="item.key"
+          @handleOnItemClick="handleOnItemClick"
+          @handleOnItemEdit="handleOnItemEdit"
+          @handleOnItemDelete="handleOnItemDelete"
+          @handleOnCancel="handlOnCancel"
+          @handleOnOk="handleOnOk"
+          :item="item"
+          refFromParent="matchesCardList"
+        />
+      </v-template>
+    </ListView>
+  </GridLayout>
 </template>
 
 <style scoped lang="scss">
-ScrollView {
-  height: 100%;
-}
 </style>
