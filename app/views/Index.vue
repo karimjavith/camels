@@ -84,7 +84,6 @@ export default {
       const result = await getUnreadMatchCount(this.userContext.uid)
       if (result && !result.isError) {
         this.state = { ...this.state, count: result.json.count }
-        this.$nextTick(function() {})
       }
     },
     onTabItemTap(event) {
