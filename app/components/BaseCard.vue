@@ -12,6 +12,10 @@ export default {
         return {}
       },
     },
+    shouldUpdateLocalState: {
+      type: Boolean,
+      default: false,
+    },
     refFromParent: {
       type: String,
       default: 'cardRadListView',
@@ -21,6 +25,7 @@ export default {
     return {
       state: {
         icons: Icons,
+        item: this.item,
       },
     }
   },
@@ -36,10 +41,19 @@ export default {
       this.$emit('handleOnItemClick', item)
     },
     handleOnCancel(item) {
-      this.$emit('handleOnCancel', { status: true, ...item })
+      if (this.shouldUpdateLocalState) {
+        this.state.item = { ...this.state.item, okIsActive: false, cancelIsActive: true }
+      }
+      this.$emit('handleOnCancel', { status: true, ...item, cb: this.handleOnResetState })
     },
     handleOnOk(item) {
-      this.$emit('handleOnOk', { status: true, ...item })
+      if (this.shouldUpdateLocalState) {
+        this.state.item = { ...this.state.item, okIsActive: true, cancelIsActive: false }
+      }
+      this.$emit('handleOnOk', { status: true, ...item, cb: this.handleOnResetState })
+    },
+    handleOnResetState(cancelIsActive, okIsActive) {
+      this.state.item = { ...this.state.item, cancelIsActive, okIsActive }
     },
     getIconString: function(name) {
       return icons(name)
@@ -48,55 +62,55 @@ export default {
 }
 </script>
 <template>
-  <CardView :key="item.key" ripple="true" height="auto">
+  <CardView :key="state.item.key">
     <StackLayout>
-      <DockLayout v-if="item.showEditOption" stretchLastChild="false">
+      <DockLayout v-if="state.item.showEditOption" stretchLastChild="false">
         <StackLayout dock="left" orientation="horizontal">
-          <Label :text="item.editActionText" dock="left" class="t-14" />
+          <Label :text="state.item.editActionText" dock="left" class="t-14" />
         </StackLayout>
         <StackLayout dock="right" orientation="horizontal">
-          <Label @tap="onItemEdit(item)" class="nt-label">
+          <Label @tap="onItemEdit(state.item)" class="nt-label">
             <FormattedString>
               <Span :text="getIconString(state.icons.Edit)" class="ico" />
             </FormattedString>
           </Label>
-          <Label @tap="onItemDelete(item)" class="nt-label">
+          <Label @tap="onItemDelete(state.item)" class="nt-label">
             <FormattedString>
               <Span :text="getIconString(state.icons.Delete)" class="ico" />
             </FormattedString>
           </Label>
         </StackLayout>
       </DockLayout>
-      <StackLayout @tap="handleOnItemClick(item)" dock="center" class="card-details">
-        <label :text="item.title" class="info nt-label"></label>
+      <StackLayout @tap="handleOnItemClick(state.item)" dock="center" class="card-details">
+        <label :text="state.item.title" class="info nt-label"></label>
 
-        <label :text="item.body" class="info nt-label t-14" textWrap="true" />
+        <label :text="state.item.body" class="info nt-label t-14" textWrap="true" />
       </StackLayout>
-      <DockLayout v-if="item.showActionItems" class="card-actions" stretchLastChild="false">
+      <DockLayout v-if="state.item.showActionItems" class="card-actions" stretchLastChild="false">
         <StackLayout dock="left" orientation="horizontal">
-          <Label :text="item.actionItemText" dock="left" class="t-14" />
+          <Label :text="state.item.actionItemText" dock="left" class="t-14" />
         </StackLayout>
         <StackLayout dock="right" orientation="horizontal">
           <AbsoluteLayout
-            :style="[item.cancelStyles]"
-            :class="['action-button', ' m-r-10', { active: item.cancelIsActive }]"
-            @tap="handleOnCancel(item)"
+            :style="[state.item.cancelStyles]"
+            :class="['action-button', ' m-r-10', { active: state.item.cancelIsActive }]"
+            @tap="handleOnCancel(state.item)"
           >
             <Label
-              :text="getIconString(item.cancelIcon)"
-              :class="['ico', 'm-r-15', { active: item.cancelIsActive }]"
+              :text="getIconString(state.item.cancelIcon)"
+              :class="['ico', 'm-r-15', { active: state.item.cancelIsActive }]"
               left="5"
               top="5"
             />
           </AbsoluteLayout>
           <AbsoluteLayout
-            :style="[item.okStyles]"
-            :class="['action-button', { active: item.okIsActive }]"
-            @tap="handleOnOk(item)"
+            :style="[state.item.okStyles]"
+            :class="['action-button', { active: state.item.okIsActive }]"
+            @tap="handleOnOk(state.item)"
           >
             <Label
-              :text="getIconString(item.okIcon)"
-              :class="['ico', 'm-r-15', { active: item.okIsActive }]"
+              :text="getIconString(state.item.okIcon)"
+              :class="['ico', 'm-r-15', { active: state.item.okIsActive }]"
               left="5"
               top="4"
             />

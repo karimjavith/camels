@@ -110,34 +110,14 @@ export default {
     handleOnViewAllMatchesClick() {
       this.$emit('onHomeEventSetIndexCb', 1)
     },
-    onScroll: function() {
-      //access to the native event
-      const scrollView = this.$refs.scrollView.nativeView
-      const topView = this.$refs.topView.nativeView
-
-      // if the offset is less than the height of the header.
-      if (scrollView.verticalOffset < 250) {
-        const offset = scrollView.verticalOffset / 1.65 // you can adjust this number to make the parallax more subtle or dramatic
-        if (scrollView.ios) {
-          // iOS adjust the position with an animation to create a smother scrolling effect.
-          topView.animate({ translate: { x: 0, y: offset } }).then(
-            () => {},
-            () => {}
-          )
-        } else {
-          // Android, animations are jerky so instead just adjust the position without animation.
-          topView.translateY = Math.floor(offset)
-        }
-      }
-    },
   },
 }
 </script>
 
 <template>
   <DockLayout class="image">
-    <ScrollView ref="scrollView" @scroll="onScroll" dock="top">
-      <GridLayout ref="topView" rows="auto, auto, auto, auto, auto, auto" height="auto">
+    <ScrollView dock="top" height="80%">
+      <GridLayout rows="auto, auto, auto, auto, auto, auto" height="auto">
         <FlexBoxLayout row="0" flexDirection="column">
           <Label
             v-if="Boolean(matchDetails.opponent)"
@@ -189,7 +169,7 @@ export default {
             color="white"
             fontWeight="bold"
             textAlignment="center"
-            class="h4"
+            class="h3"
             marginTop="50"
           >{{ matchDetails.venue }} , {{ matchDetails.postCode }}</Label>
         </FlexBoxLayout>
@@ -213,7 +193,7 @@ export default {
             color="white"
             fontWeight="bold"
             textAlignment="center"
-            class="h4"
+            class="h3"
             marginTop="10"
           >{{ matchDetails.date }} @ {{ matchDetails.time }}</Label>
         </FlexBoxLayout>
@@ -262,7 +242,7 @@ export default {
         </FlexBoxLayout>
       </GridLayout>
     </ScrollView>
-    <StackLayout flex="1" justifyContent="center" class="m-t-10" dock="bottom">
+    <StackLayout width="250" height="20%" dock="bottom">
       <BaseButton
         :class="{ 'm-t-20': true, '-primary': true }"
         @handleOnClick="handleOnViewAllMatchesClick"
@@ -274,20 +254,10 @@ export default {
 </template>
 
 <style scoped lang="scss">
-ScrollView {
-  height: 80%;
-}
 .image {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url('~/assets/images/home.jpg');
+  background-image: url('~/assets/images/home.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  height: 100%;
-  .loader {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-  }
 }
 </style>
