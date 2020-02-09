@@ -4,7 +4,11 @@
   "description": "An app to manage camels cricket activities",
   "author": "karimjavith@gmail.com",
   "scripts": {
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "run-android": "tns run android --env.uglify --env.aot --env.snapshot",
+    "run-ios": "tns run ios --env.uglify --env.aot",
+    "build-android": "tns build android --env.uglify --env.aot --env.snapshot",
+    "build-ios": "tns build ios --env.uglify --env.aot"
   },
   "dependencies": {
     "@nativescript/theme": "^2.2.1",

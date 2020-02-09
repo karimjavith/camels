@@ -2,7 +2,6 @@
 import VueDevtools from 'nativescript-vue-devtools'
 import Vue from 'nativescript-vue'
 import RadListView from 'nativescript-ui-listview/vue'
-import { ModalStack, overrideModalViewMethod, VueWindowedModal } from 'nativescript-windowed-modal'
 import DateTimePicker from 'nativescript-datetimepicker/vue'
 var firebase = require('nativescript-plugin-firebase')
 Vue.use(VueDevtools)
@@ -102,11 +101,7 @@ if (isAndroid) {
 // Prints Vue logs when --env.production is *NOT* set while building
 Vue.config.silent = TNS_ENV === 'production'
 
-overrideModalViewMethod()
 Vue.registerElement('CardView', () => require('@nstudio/nativescript-cardview').CardView)
-Vue.registerElement('ModalStack', () => ModalStack)
-Vue.use(VueWindowedModal)
-
 let app = Login
 
 if (getString('camels-token')) {

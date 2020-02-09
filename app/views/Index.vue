@@ -107,7 +107,7 @@ export default {
 
 <template>
   <Page :actionBarHidden="state.item.index === 0" class="nt-page">
-    <ActionBar :title="state.title[state.item.index]" class="nt-action-bar actionBar" flat="true">
+    <ActionBar :title="state.title[state.item.index]" class="nt-action-bar" flat="true">
       <ActionItem
         v-show="state.item.index === 1 && userContext.role === 1"
         @tap="handleOnAddNewItem"
@@ -122,11 +122,11 @@ export default {
     <ActivityIndicator
       :visibility="loading ? 'visible' : 'collapse'"
       :busy="loading"
-      rowspan="4"
+      rowspan="3"
       class="nt-activity-indicator"
     />
-    <DockLayout v-if="!loading">
-      <StackLayout dock="top" height="92%" width="100%">
+    <StackLayout v-if="!loading">
+      <StackLayout height="92%" width="100%">
         <Home
           v-if="state.item.index === 0 && !state.loading"
           @onHomeEventSetIndexCb="onHomeEventSetIndexCb"
@@ -139,7 +139,11 @@ export default {
         />
         <Account v-if="state.item.index === 2 && !state.loading" />
       </StackLayout>
-      <StackLayout dock="bottom" height="8%" class="bottomNavBar">
+      <StackLayout
+        :class="[{'transparent-bg': state.item.index === 0}]"
+        height="8%"
+        class="bottomNavBar"
+      >
         <StackLayout orientation="horizontal">
           <StackLayout @tap="handleOnMenuTap(0)" class="navItem">
             <Label text android:class="notificationAndroid" ios:class="notification" opacity="0" />
@@ -185,22 +189,29 @@ export default {
           </StackLayout>
         </StackLayout>
       </StackLayout>
-    </DockLayout>
+    </StackLayout>
   </Page>
 </template>
 
 <style scoped lang="scss">
 @import '~/_app.common';
-.actionBar {
-  height: 70;
-  font-size: 24;
-  z-index: 0;
+
+.image {
+  background-image: url('~/assets/images/home.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 /* bottom nav bar */
 .bottomNavBar {
   background: $bg-color;
 }
-
+.transparent-bg {
+  background-image: url('~/assets/images/home.jpg');
+  background-repeat: no-repeat;
+  background-position: bottom;
+  color: $bg-color;
+}
 .notification {
   background: red;
   width: 25;

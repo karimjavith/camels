@@ -3,6 +3,7 @@
 <script>
 import { mapState } from 'vuex'
 import { topmost } from 'tns-core-modules/ui/frame'
+import { ToastService } from '../_shared/Toasty'
 import MatchDetails from './MatchDetails.vue'
 import BaseCard from '../components/BaseCard.vue'
 import MatchForm from './MatchForm.vue'
@@ -91,7 +92,7 @@ export default {
             })
             this.state = {
               ...this.state,
-              items: [...matches],
+              items: matches,
             }
           } else {
             this.state = {
@@ -105,22 +106,6 @@ export default {
         Loader.hide()
       }
       this.state = { ...this.state, itemsLoaded: true }
-    },
-    async updateStateForStatus(cancelIsActive, okIsActive, myStatus, id) {
-      const objectIndex = this.state.items.findIndex(x => x.id === id)
-      let cloneItems = [...this.state.items]
-      const cloneItem = {
-        ...cloneItems[objectIndex],
-        myStatus,
-        cancelIsActive,
-        okIsActive,
-      }
-
-      cloneItems[objectIndex] = cloneItem
-      this.state = {
-        ...this.state,
-        items: cloneItems,
-      }
     },
     async handleOnAddClick(item) {
       const matchDate =
@@ -184,28 +169,30 @@ export default {
       Loader.hide()
     },
     async handlOnCancel(data) {
-      this.updateStateForStatus(true, false, MatchAvailabilityStatus.NO, data.id)
       const result = await updateMatchStatusForUser(data.id, this.uid, MatchAvailabilityStatus.NO)
       if (!result.isError) {
+        ToastService('All done. Try to make it for next match', '#a5d6a7').show()
         await this.$emit('onMatchEventSetIndexCb', 1)
       } else {
-        this.updateStateForStatus(false, true, MatchAvailabilityStatus.YES, data.id)
+        data.cb(data.cancelIsActive, data.okIsActive)
+        ToastService('Oops! Try again later', '#ffbfc4').show()
       }
     },
     async handleOnOk(data) {
-      this.updateStateForStatus(false, true, MatchAvailabilityStatus.YES, data.id)
       const result = await updateMatchStatusForUser(data.id, this.uid, MatchAvailabilityStatus.YES)
       if (!result.isError) {
+        ToastService('Cool! See you on the field', '#a5d6a7').show()
         await this.$emit('onMatchEventSetIndexCb', 1)
       } else {
-        this.updateStateForStatus(true, false, MatchAvailabilityStatus.NO, data.id)
+        data.cb(data.cancelIsActive, data.okIsActive)
+        ToastService('Oops! Try again later', '#ffbfc4').show()
       }
     },
   },
 }
 </script>
 <template>
-  <GridLayout rows="auto, *">
+  <GridLayout rows="*">
     <FlexBoxLayout
       v-if="state.items.length === 0 && state.itemsLoaded"
       flex="1"
@@ -215,12 +202,12 @@ export default {
     >
       <Label class="nt-label h3" text="No schedule yet.." />
     </FlexBoxLayout>
-    <RadListView
+    <ListView
       ref="matchList"
       v-if="state.items.length > 0"
       for="item in state.items"
+      height="100%"
       row="1"
-      itemHeight="275"
     >
       <v-template>
         <StackLayout class="item" orientation="vertical">
@@ -232,11 +219,12 @@ export default {
             @handleOnCancel="handlOnCancel"
             @handleOnOk="handleOnOk"
             :item="item"
+            :shouldUpdateLocalState="true"
             refFromParent="matchesCardList"
           />
         </StackLayout>
       </v-template>
-    </RadListView>
+    </ListView>
   </GridLayout>
 </template>
 
