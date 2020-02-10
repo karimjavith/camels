@@ -18,7 +18,6 @@ export default {
   computed: {},
   mounted: function() {
     console.log(`BaseFormField :: Mounted`)
-    console.log(JSON.stringify(this.items))
   },
   methods: {
     isDateAndTimeField(value) {
@@ -58,6 +57,7 @@ export default {
         autocapitalizationType="none"
       ></TextField>
       <DatePickerField
+        :ref="item.name"
         v-if="item.name === 'date'"
         :hint="item.hint"
         :date="item.model"
@@ -67,6 +67,7 @@ export default {
         class="input"
       ></DatePickerField>
       <TimePickerField
+        :ref="item.name"
         v-if="item.name === 'time'"
         :hint="item.hint"
         :time="item.model"

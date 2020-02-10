@@ -1,9 +1,13 @@
 <script>
 import { sendSignInLink, addInvitesToCollection } from '../_shared/firebase/users.ts'
+import ValidationService from '../_shared/validation.ts'
+import { ToastService } from '../_shared/Toasty.ts'
+import BaseButton from '../components/BaseButton.vue'
 export default {
+  components: { BaseButton },
   data() {
     return {
-      email: '',
+      state: { email: '', loading: false, focusSubmitButton: false },
     }
   },
   methods: {
@@ -14,21 +18,38 @@ export default {
         return v.toString(16)
       })
     },
-    focusSubmitButton() {
-      this.$refs.submitButton.nativeView.focus()
+    focusButton() {
+      this.state = { ...this.state, focusSubmitButton: true }
+    },
+    handleFormValidation() {
+      if (!this.state.email) {
+        return { isValid: false, message: 'Please provide email address.' }
+      }
+
+      if (!ValidationService.isEmailValid(this.state.email)) {
+        return { isValid: false, message: 'Please provide valid email.' }
+      }
+      return { isValid: true }
     },
     async sendInvite() {
-      const result = await sendSignInLink(this.email)
+      this.state = { ...this.state, focusSubmitButton: false }
+      const { isValid, message } = this.handleFormValidation()
+      if (!isValid) {
+        ToastService(message, '#ffbfc4', '#32364c').show()
+        return
+      }
+      this.state = { ...this.state, loading: true }
+      const result = await sendSignInLink(this.state.email)
       if (!result.isError) {
-        const createUserResult = await addInvitesToCollection(this.email)
-        console.log(createUserResult)
+        const createUserResult = await addInvitesToCollection(this.state.email)
         if (createUserResult && !createUserResult.isError) {
-          this.email = ''
+          this.state.email = ''
         }
       } else {
         const { message } = result
-        alert(message)
+        ToastService(message).show()
       }
+      this.state = { ...this.state, loading: false, focusSubmitButton: false }
     },
 
     onNavigationButtonTap() {
@@ -53,27 +74,29 @@ export default {
       <Label class="header h2 m-30" text="Invite the camel" />
       <StackLayout class="input-field" margin-bottom="25">
         <TextField
-          v-model="email"
-          @returnPress="focusSubmitButton"
+          v-model="state.email"
+          @returnPress="focusButton"
           class="input"
           hint="name@gmail.com"
           keyboard-type="email"
           autocorrect="false"
           autocapitalization-type="none"
-          return-key-type="next"
+          returnKeyType="next"
           font-size="18"
         />
         <StackLayout class="hr-light" />
       </StackLayout>
 
-      <Button
+      <BaseButton
         ref="submitButton"
-        @tap="sendInvite"
+        :loading="state.loading"
+        @handleOnClick="sendInvite"
+        :class="{ 'm-t-20': true, '-primary': true }"
+        :focusButton="state.focusSubmitButton"
+        refFromParent="submitButton"
         text="Send Invite"
-        class="btn -primary -rounded-lg m-t-20"
-      />
+      ></BaseButton>
     </StackLayout>
-    <!-- </FlexboxLayout> -->
   </Page>
 </template>
 
