@@ -58,7 +58,7 @@ export default {
       const message = `Are you sure you want to remove the camel ?`
       const okButtonText = `Yes, I confirm`
       const cancelButtonText = `Keep the camel`
-      const promptPromise = await prompt({
+      const promptPromise = await confirm({
         title: 'Remove camel',
         message,
         okButtonText,
@@ -86,7 +86,7 @@ export default {
           : `Remove admin access ?`
       const okButtonText = item.role !== AppRoles.Admin ? `Assign` : `Remove access`
       const cancelButtonText = item.role !== AppRoles.Admin ? `Don't assign` : `Keep the role`
-      const promptPromise = await prompt({
+      const promptPromise = await confirm({
         title: 'Admin role',
         message,
         okButtonText,

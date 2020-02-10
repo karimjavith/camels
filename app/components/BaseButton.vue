@@ -37,8 +37,8 @@ export default {
 
     focusButton(newValue) {
       if (newValue) {
-        const buttonElm = this.$refs.baseButton.nativeView
-        buttonElm.notify('tap') //TODO
+        const btnElm = this.$refs.baseButton.nativeView
+        btnElm.notify({ eventName: 'tap', object: btnElm })
       }
     },
   },
