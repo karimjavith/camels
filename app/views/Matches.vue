@@ -35,14 +35,11 @@ export default {
   }),
   created: function() {
     Loader.show(options)
-    console.log(`Matches :: created`)
-  },
-  mounted: function() {
-    console.log(`Matches :: mounted`)
-    this.$nextTick(function() {
-      this.getMatches()
+    this.$nextTick(async function() {
+      await this.getMatches()
     })
   },
+  mounted: function() {},
   updated: function() {
     if (topmost().ios) {
       let navigationBar = topmost().ios.controller.navigationBar
@@ -52,8 +49,6 @@ export default {
       // eslint-disable-next-line no-undef
       navigationBar.shadowImage = UIImage.new()
     }
-    console.log(`Matches :: updated`)
-    this.$nextTick(function() {})
   },
   methods: {
     async getMatches() {
@@ -228,5 +223,4 @@ export default {
   </GridLayout>
 </template>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>
