@@ -6,7 +6,6 @@ import Invite from './Invite.vue'
 import UserList from './UserList.vue'
 import ChangePassword from './ChangePassword.vue'
 import Login from './Login.vue'
-import BaseListView from '../components/BaseListView.vue'
 import BaseIcon from '../components/BaseIcons.vue'
 import { logout } from '../_shared/firebase/users.ts'
 import { AppRoles } from '../_shared/enum'
@@ -14,7 +13,7 @@ import { Icons } from '../types/EIconName.ts'
 
 export default {
   name: 'Account',
-  components: { BaseListView, BaseIcon },
+  components: { BaseIcon },
   data() {
     return {
       state: {
@@ -51,7 +50,7 @@ export default {
   computed: mapState({
     role: state => state.authenticationModule.userContext.role,
   }),
-  mounted: function() {
+  created: function() {
     this.$nextTick(async function() {
       await this.loadItems()
       this.state.loading = false

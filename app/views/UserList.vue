@@ -29,19 +29,8 @@ export default {
   }),
   created: function() {
     this.state.loading = true
-    console.log(`UserList :: created`)
-  },
-  mounted: function() {
-    console.log(`UserList :: mounted`)
     this.$nextTick(function() {
       this.getUserList()
-    })
-  },
-  updated: function() {
-    console.log(`UserList :: updated`)
-    this.$nextTick(function() {
-      console.log(`loading :: ${this.state.loading}`)
-      console.log(`items :: ${JSON.stringify(this.state.items)}`)
     })
   },
   methods: {

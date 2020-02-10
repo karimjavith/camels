@@ -18,6 +18,7 @@ export default {
     return {
       state: {
         loading: true,
+        isUnreadCountFetched: false,
         icons: Icons,
         iconStatus: IconStatus,
         item: {
@@ -42,24 +43,19 @@ export default {
     }),
   },
   created: function() {
-    console.log(`Index :: Created`)
+    this.checkAuthentication()
   },
   mounted: function() {
-    this.$nextTick(function() {
-      console.log(`Index :: mounted`)
-      this.checkAuthentication().then(async result => {
-        if (result.status === 1) {
-          await this.getUnreadMatchCount()
-        }
-
-        this.state = { ...this.state, loading: false }
-      })
+    this.$nextTick(async function() {
+      this.state = { ...this.state, loading: false }
     })
   },
   updated: function() {
-    this.$nextTick(function() {
-      console.log(`count ---- ${this.state.count}`)
-      console.log(`Index :: updated`)
+    this.$nextTick(async function() {
+      if (!this.state.isUnreadCountFetched) {
+        await this.getUnreadMatchCount()
+        this.state = { ...this.state, isUnreadCountFetched: true }
+      }
     })
   },
 

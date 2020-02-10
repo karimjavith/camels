@@ -44,19 +44,8 @@ export default {
   },
   created: function() {
     this.state.loading = true
-    console.log(`MatchDetails :: created`)
-  },
-  mounted: function() {
-    console.log(`MatchDetails :: mounted`)
-    this.$nextTick(function() {
-      this.getMatchDetails()
-    })
-  },
-  updated: function() {
-    console.log(`MatchDetails :: updated`)
-    this.$nextTick(function() {
-      console.log(`loading :: ${this.state.loading}`)
-      console.log(`items :: ${JSON.stringify(this.state.items)}`)
+    this.$nextTick(async function() {
+      await this.getMatchDetails()
     })
   },
   methods: {

@@ -33,17 +33,9 @@ export default {
   }),
   created: function() {
     Loader.show(options)
-    console.log(`Home :: Created`)
-  },
-  mounted: function() {
     this.$nextTick(function() {
       console.log(`Home :: mounted`)
       this.getUpcomingMatchDetails()
-    })
-  },
-  updated: function() {
-    this.$nextTick(function() {
-      console.log(`Home :: updated`)
     })
   },
 
@@ -165,13 +157,9 @@ export default {
           justifyContent="center"
           class="m-t-10"
         >
-          <Label
-            color="white"
-            fontWeight="bold"
-            textAlignment="center"
-            class="h3"
-            marginTop="50"
-          >{{ matchDetails.venue }} , {{ matchDetails.postCode }}</Label>
+          <Label color="white" fontWeight="bold" textAlignment="center" class="h3" marginTop="50"
+            >{{ matchDetails.venue }} , {{ matchDetails.postCode }}</Label
+          >
         </FlexBoxLayout>
         <FlexBoxLayout
           v-if="!matchDetails.venue"
@@ -180,31 +168,19 @@ export default {
           justifyContent="center"
           class="m-t-10"
         >
-          <Label
-            color="white"
-            fontWeight="bold"
-            textAlignment="center"
-            class="h4"
-            marginTop="50"
-          >------, -----</Label>
+          <Label color="white" fontWeight="bold" textAlignment="center" class="h4" marginTop="50"
+            >------, -----</Label
+          >
         </FlexBoxLayout>
         <FlexBoxLayout v-if="matchDetails.venue" row="3" flex="1" justifyContent="center">
-          <Label
-            color="white"
-            fontWeight="bold"
-            textAlignment="center"
-            class="h3"
-            marginTop="10"
-          >{{ matchDetails.date }} @ {{ matchDetails.time }}</Label>
+          <Label color="white" fontWeight="bold" textAlignment="center" class="h3" marginTop="10"
+            >{{ matchDetails.date }} @ {{ matchDetails.time }}</Label
+          >
         </FlexBoxLayout>
         <FlexBoxLayout v-if="!matchDetails.date" row="3" flex="1" justifyContent="center">
-          <Label
-            color="white"
-            fontWeight="bold"
-            textAlignment="center"
-            class="h4"
-            marginTop="10"
-          >--/--/---- --:--</Label>
+          <Label color="white" fontWeight="bold" textAlignment="center" class="h4" marginTop="10"
+            >--/--/---- --:--</Label
+          >
         </FlexBoxLayout>
         <FlexBoxLayout
           v-if="matchDetails.myStatus === state.availabilityStatus.NOTRESPONDED"
@@ -212,13 +188,9 @@ export default {
           flex="1"
           justifyContent="center"
         >
-          <Label
-            color="white"
-            fontWeight="bold"
-            textAlignment="center"
-            class="h2"
-            marginTop="25"
-          >Are you game?</Label>
+          <Label color="white" fontWeight="bold" textAlignment="center" class="h2" marginTop="25"
+            >Are you game?</Label
+          >
         </FlexBoxLayout>
         <FlexBoxLayout
           v-if="matchDetails.myStatus === state.availabilityStatus.NOTRESPONDED"
