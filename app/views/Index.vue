@@ -42,15 +42,11 @@ export default {
       userContext: state => state.authenticationModule.userContext,
     }),
   },
-  created: function() {
-    this.checkAuthentication()
+  created: async function() {
+    this.state = { ...this.state, loading: false }
+    await this.checkAuthentication()
   },
-  mounted: function() {
-    this.$nextTick(async function() {
-      this.state = { ...this.state, loading: false }
-    })
-  },
-  updated: function() {
+  updated: async function() {
     this.$nextTick(async function() {
       if (!this.state.isUnreadCountFetched) {
         await this.getUnreadMatchCount()
@@ -68,7 +64,6 @@ export default {
     },
     async checkAuthentication() {
       const result = await checkIfTokenIsValid()
-      console.log(result)
       if (result && result.isError) {
         this.redirectToLogin()
       }
@@ -136,7 +131,7 @@ export default {
         <Account v-if="state.item.index === 2 && !state.loading" />
       </StackLayout>
       <StackLayout
-        :class="[{'transparent-bg': state.item.index === 0}]"
+        :class="[{ 'transparent-bg': state.item.index === 0 }]"
         height="8%"
         class="bottomNavBar"
       >

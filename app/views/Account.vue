@@ -50,11 +50,9 @@ export default {
   computed: mapState({
     role: state => state.authenticationModule.userContext.role,
   }),
-  created: function() {
-    this.$nextTick(async function() {
-      await this.loadItems()
-      this.state.loading = false
-    })
+  created: async function() {
+    await this.loadItems()
+    this.state.loading = false
   },
   methods: {
     ...mapActions('authenticationModule', {

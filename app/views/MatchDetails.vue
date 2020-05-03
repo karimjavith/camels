@@ -42,11 +42,9 @@ export default {
       return this.state.items
     },
   },
-  created: function() {
+  created: async function() {
     this.state.loading = true
-    this.$nextTick(async function() {
-      await this.getMatchDetails()
-    })
+    await this.getMatchDetails()
   },
   methods: {
     async getMatchDetails() {
@@ -64,7 +62,7 @@ export default {
                 ? this.state.icons.Yes
                 : this.state.icons.No
             user.primaryIconState =
-              user.status === MatchAvailabilityStatus.YES ? IconStatus.Success : IconStatus.Error
+              user.status === MatchAvailabilityStatus.YES ? IconStatus.Active : IconStatus.Default
           }
           return user
         })

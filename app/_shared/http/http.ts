@@ -91,7 +91,6 @@ export function httpDelete(url: string): Promise<IHttpBasicResponse> {
 }
 
 export function httpPost(url: string, data: object): Promise<IHttpBasicResponse> {
-  console.log('post obj - ' + JSON.stringify(data))
   return fetch(url, {
     ...postOptions,
     headers: { ...standardHeaders, Authorization: `Bearer ${getString('camels-token')}` },
@@ -99,7 +98,6 @@ export function httpPost(url: string, data: object): Promise<IHttpBasicResponse>
   })
 }
 export function httpPatch(url: string, data: object): Promise<IHttpBasicResponse> {
-  console.log('post obj - ' + JSON.stringify(data))
   return fetch(url, {
     ...patchOptions,
     headers: { ...standardHeaders, Authorization: `Bearer ${getString('camels-token')}` },

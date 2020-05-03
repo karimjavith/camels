@@ -46,14 +46,10 @@ export default {
       this.$emit('itemTap', event)
     },
     onPullToRefreshInitiated({ object }) {
-      console.log('Pulling...')
       this.$emit('pulling', object)
     },
-    onItemReordered({ index, data, object }) {
-      console.log(`Item reordered from index ${index} to ${data.targetIndex}`)
-    },
+    onItemReordered({ index, data, object }) {},
     onSwipeStarted({ data, object }) {
-      console.log(`Swipe started`)
       const swipeLimits = data.swipeLimits
       const swipeView = object
       const leftItem = swipeView.getViewById('mark-view')
@@ -63,15 +59,12 @@ export default {
       swipeLimits.threshold = leftItem.getMeasuredWidth() / 2
     },
     onLeftSwipeClick({ object }) {
-      console.log('left action tapped')
       this.$emit('itemMarked', object.bindingContext)
       this.$refs[this.refFromParent].notifySwipeToExecuteFinished()
     },
     onRightSwipeClick({ object }) {
-      console.log('right action tapped')
       // remove item
       this.$emit('itemDeleted', object.bindingContext)
-      console.log(this.refFromParent)
       this.$refs[this.refFromParent].notifySwipeToExecuteFinished()
     },
     refresh() {

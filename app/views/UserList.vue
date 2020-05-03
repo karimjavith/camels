@@ -27,11 +27,9 @@ export default {
       return this.state.items
     },
   }),
-  created: function() {
+  created: async function() {
     this.state.loading = true
-    this.$nextTick(function() {
-      this.getUserList()
-    })
+    await this.getUserList()
   },
   methods: {
     async getUserList() {

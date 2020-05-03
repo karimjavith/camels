@@ -42,7 +42,6 @@ export default {
       this.$emit('handleOnItemDelete', item)
     },
     onPullToRefreshInitiated({ object }) {
-      console.log('Pulling...')
       this.$emit('pulling', object)
     },
     handleOnItemClick(item) {

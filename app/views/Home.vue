@@ -31,12 +31,9 @@ export default {
       return this.state.upcomingMatch
     },
   }),
-  created: function() {
+  created: async function() {
     Loader.show(options)
-    this.$nextTick(function() {
-      console.log(`Home :: mounted`)
-      this.getUpcomingMatchDetails()
-    })
+    await this.getUpcomingMatchDetails()
   },
 
   methods: {
@@ -46,12 +43,8 @@ export default {
         this.$navigateTo(Login, { clearHistory: true })
       }
       if (result && !result.isError) {
-        console.log(`-------------`)
-        console.log(`Upcoming match details`)
         if (result.json.count > 0) {
           const matchDetails = Object.values(result.json.match)[0]
-          console.log(matchDetails)
-          console.log(`----------------`)
           this.state = {
             ...this.state,
             upcomingMatch: { ...matchDetails, date: new Date(matchDetails.date).toDateString() },
@@ -189,7 +182,7 @@ export default {
           justifyContent="center"
         >
           <Label color="white" fontWeight="bold" textAlignment="center" class="h2" marginTop="25"
-            >Are you game?</Label
+            >Can you play?</Label
           >
         </FlexBoxLayout>
         <FlexBoxLayout

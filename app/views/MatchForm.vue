@@ -114,9 +114,6 @@ export default {
       },
     }
   },
-  mounted: function() {
-    this.$nextTick(function() {})
-  },
   methods: {
     focusSubmitButton() {
       this.state = { ...this.state, focusSubmitButton: true }

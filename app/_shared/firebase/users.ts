@@ -12,15 +12,12 @@ const baseUrl = 'https://us-central1-camels-dev.cloudfunctions.net/api/users'
 const login = async (email: string, password: string) => {
   try {
     const { user } = await firebaseApi.auth().signInWithEmailAndPassword(email, password)
-    console.log('Firebase login success')
     return user.getIdTokenResult(true).then((result: IdTokenResult) => {
       const userData = { uid: user.uid, token: result.token, role: result.claims['role'] }
-      console.log(userData)
       setString('camels-token', userData.token)
       return userData
     })
   } catch (e) {
-    console.log(e)
     const errorObj = { ...e, message: 'Invalid login' }
     return handleException(errorObj, 'Login failed')
   }
@@ -29,7 +26,6 @@ const logout = async () => {
   try {
     const data = await firebaseApi.auth().signOut()
     remove('camels-token')
-    console.log('Firebase logout success')
     return data
   } catch (e) {
     return handleException(e, 'Logout failed')
@@ -73,7 +69,6 @@ const sendSignInLink = async (email: string) => {
       link: 'https://camels.page.link/zXbp',
       token: getString('camels-token'),
     })
-    console.log(result)
     return result
   } catch (e) {
     return handleException(e, 'Sending link failed')
@@ -102,7 +97,6 @@ const signup = async (email: string, password: string, displayName: string) => {
       role: AppRoles.User,
       pushToken,
     })
-    console.log(response)
     if (response.status === HttpStatusCode.InternalServerError) {
       throw new Error('Invalid entries')
     }

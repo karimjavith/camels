@@ -33,7 +33,6 @@ export default {
       this.$emit('handleOnClick', event)
     },
     getIconCode: function(value) {
-      console.log(`state -------------::---------------- ${IconClass[this.state]}`)
       return icons(value)
     },
   },

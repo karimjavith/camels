@@ -16,9 +16,7 @@ export default {
     }
   },
   computed: {},
-  mounted: function() {
-    console.log(`BaseFormField :: Mounted`)
-  },
+  mounted: function() {},
   methods: {
     isDateAndTimeField(value) {
       return value === 'date' || value === 'time'

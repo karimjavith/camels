@@ -33,11 +33,9 @@ export default {
     role: state => state.authenticationModule.userContext.role,
     uid: state => state.authenticationModule.userContext.uid,
   }),
-  created: function() {
+  created: async function() {
     Loader.show(options)
-    this.$nextTick(async function() {
-      await this.getMatches()
-    })
+    await this.getMatches()
   },
   mounted: function() {},
   updated: function() {
@@ -69,7 +67,7 @@ export default {
               match.showEditOption = this.role === AppRoles.Admin
               if (match.status === MatchStatus.ON) {
                 match.showActionItems = true
-                match.actionItemText = 'Are you game?'
+                match.actionItemText = 'Can you play?'
                 const matchDateTime = `${match.date
                   .split('/')
                   .reverse()

@@ -27,18 +27,12 @@ firebase
     // see their respective docs.
     crashlyticsCollectionEnabled: true,
     onDynamicLinkCallback: function(result: any) {
-      console.log('Dynamic link :: ' + result.url)
       store.dispatch('authenticationModule/setCreatePasswordPage')
     },
     showNotificationsWhenInForeground: true,
     // @ts-ignore
-    onMessageReceivedCallback: (message: firebase.Message) => {
-      console.log(`Title :: ${message.title}`)
-      console.log(`Body :: ${message.body}`)
-    },
-    onPushTokenReceivedCallback: function(token: string) {
-      console.log('Firebase push token :: ' + token)
-    },
+    onMessageReceivedCallback: (message: firebase.Message) => {},
+    onPushTokenReceivedCallback: function(token: string) {},
   })
   .then(
     () => {
@@ -66,37 +60,6 @@ if (isAndroid) {
     })
   )
 }
-// setTimeout(() => {
-//   firebase.admob
-//     .showBanner({
-//       size: firebase.admob.AD_SIZE.SMART_BANNER, // see firebase.admob.AD_SIZE for all options
-//       margins: {
-//         // optional nr of device independent pixels from the top or bottom (don't set both)
-//         bottom: 10,
-//         top: -1,
-//       },
-//       androidBannerId: 'ca-app-pub-9791179910775561/7459626733',
-//       iosBannerId: 'ca-app-pub-9791179910775561/7459626733',
-//       testing: true, // when not running in production set this to true, Google doesn't like it any other way
-//       iosTestDeviceIds: [
-//         //Android automatically adds the connected device as test device with testing:true, iOS does not
-//         '45d77bf513dfabc2949ba053da83c0c7b7e87715', // Eddy's iPhone 6s
-//         'fee4cf319a242eab4701543e4c16db89c722731f', // Eddy's iPad Pro
-//       ],
-//       keywords: ['cricket', 'london'], // add keywords for ad targeting
-//       onOpened: () => console.log('Ad opened'),
-//       onClicked: () => console.log('Ad clicked'),
-//       onLeftApplication: () => console.log('Ad left application'),
-//     })
-//     .then(
-//       function() {
-//         console.log('AdMob banner status :: Showing')
-//       },
-//       function(errorMessage: any) {
-//         console.log(errorMessage)
-//       }
-//     )
-// }, 5000)
 
 // Prints Vue logs when --env.production is *NOT* set while building
 Vue.config.silent = TNS_ENV === 'production'
@@ -105,7 +68,6 @@ Vue.registerElement('CardView', () => require('@nstudio/nativescript-cardview').
 let app = Login
 
 if (getString('camels-token')) {
-  console.log(`----------------------------------token exists :: ---------------------------------`)
   store.dispatch('authenticationModule/setAuthToken', {
     token: getString('camels-token'),
   })

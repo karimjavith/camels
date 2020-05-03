@@ -16,13 +16,7 @@ const options: OptionsCommon = {
   // hideBezel: true, // default false, can hide the surrounding bezel
   mode: Mode.Indeterminate, // see options below
   // @ts-ignore
-  android: {
-    // view: view, // someStackLayout.android, // Target view to show on top of (Defaults to entire window)
-    // cancelable: true,
-    // cancelListener: function(dialog) {
-    //   console.log('Loading cancelled')
-    // },
-  },
+  android: {},
   ios: {
     // view: view, //someButton.ios, // Target view to show on top of (Defaults to entire window)
     square: false,

@@ -53,29 +53,18 @@ export default {
   }),
   watch: {
     userContext(newValue) {
-      console.log(`invited -  :: ${newValue.invited}`)
       if (newValue && newValue.invited && !newValue.loggedIn) {
-        console.log(`invited - watched :: ${newValue.invited}`)
         if (newValue.invited) {
           this.navigateToPasswordCreationPage()
         }
       }
     },
   },
-  mounted: function() {
-    this.$nextTick(function() {
-      console.log('LOGIN :: mounted')
-    })
-  },
-  updated: function() {
-    console.log('LOGIN :: updated')
-  },
   methods: {
     ...mapActions('authenticationModule', {
       setGlobalLoginState: 'signedIn',
     }),
     focusPassword() {
-      console.log(`focus password`)
       this.$refs.password.nativeView.focus()
     },
     focusSubmitButton() {
@@ -134,7 +123,6 @@ export default {
         cancelButtonText: 'Cancel',
       }).then(async data => {
         if (data.result) {
-          console.log(`Email for password reset :: ${JSON.stringify(data)}`)
           await sendPasswordResetEmail(data.text)
         }
       })
