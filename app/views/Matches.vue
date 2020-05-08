@@ -185,40 +185,51 @@ export default {
 }
 </script>
 <template>
-  <GridLayout rows="*">
-    <FlexBoxLayout
-      v-if="state.items.length === 0 && state.itemsLoaded"
-      flex="1"
-      row="0"
-      justifyContent="center"
-      class="m-t-10"
-    >
-      <Label class="nt-label h3" text="No schedule yet.." />
-    </FlexBoxLayout>
-    <ListView
-      ref="matchList"
-      v-if="state.items.length > 0"
-      for="item in state.items"
-      height="100%"
-      row="1"
-    >
-      <v-template>
-        <StackLayout class="item" orientation="vertical">
-          <BaseCard
-            :key="item.key"
-            @handleOnItemClick="handleOnItemClick"
-            @handleOnItemEdit="handleOnItemEdit"
-            @handleOnItemDelete="handleOnItemDelete"
-            @handleOnCancel="handlOnCancel"
-            @handleOnOk="handleOnOk"
-            :item="item"
-            :shouldUpdateLocalState="true"
-            refFromParent="matchesCardList"
-          />
-        </StackLayout>
-      </v-template>
-    </ListView>
-  </GridLayout>
+  <StackLayout class="container">
+    <GridLayout rows="*">
+      <FlexBoxLayout
+        v-if="state.items.length === 0 && state.itemsLoaded"
+        flex="1"
+        row="0"
+        justifyContent="center"
+        class="m-t-10"
+      >
+        <Label class="nt-label h3" text="No schedule yet.." />
+      </FlexBoxLayout>
+      <ListView
+        ref="matchList"
+        v-if="state.items.length > 0"
+        for="item in state.items"
+        height="100%"
+        row="1"
+        separatorColor="transparent"
+      >
+        <v-template>
+          <StackLayout class="item" orientation="vertical">
+            <BaseCard
+              :key="item.key"
+              @handleOnItemClick="handleOnItemClick"
+              @handleOnItemEdit="handleOnItemEdit"
+              @handleOnItemDelete="handleOnItemDelete"
+              @handleOnCancel="handlOnCancel"
+              @handleOnOk="handleOnOk"
+              :item="item"
+              :shouldUpdateLocalState="true"
+              refFromParent="matchesCardList"
+            />
+          </StackLayout>
+        </v-template>
+      </ListView>
+    </GridLayout>
+  </StackLayout>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+@import '~/_app.common';
+.container {
+  background-color: $base-bg;
+}
+.item {
+  @extend .container;
+}
+</style>

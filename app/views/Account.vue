@@ -82,48 +82,55 @@ export default {
 }
 </script>
 <template>
-  <GridLayout rows="150, *">
-    <FlexBoxLayout justifyContent="center" class="m-24" row="0">
-      <BaseIcon :name="state.defaultMeIcon" :size="64" />
-    </FlexBoxLayout>
+  <StackLayout class="container">
+    <GridLayout rows="150, *">
+      <FlexBoxLayout justifyContent="center" class="m-24" row="0">
+        <BaseIcon :name="state.defaultMeIcon" :size="64" />
+      </FlexBoxLayout>
 
-    <StackLayout class="m-24" row="1">
-      <ListView
-        v-if="!state.loading"
-        @itemTap="onItemTap"
-        for="item in state.items"
-        separatorColor="transparent"
-        height="100%"
-      >
-        <v-template>
-          <GridLayout columns="50, *" rows="*" class="item">
-            <BaseIcon
-              :name="item.primaryIcon"
-              :state="item.primaryIconState"
-              :size="20"
-              col="0"
-              class="primaryIcon"
-            />
-            <FlexBoxLayout rowspan="2" col="1">
-              <label :text="item.primaryText" class="primaryText" />
-              <BaseIcon v-if="item.primaryTag" :name="item.primaryTag" class="primaryTag" />
-              <label :text="item.secondaryText" class="secondaryText p" />
+      <StackLayout class="m-24" row="1">
+        <ListView
+          v-if="!state.loading"
+          @itemTap="onItemTap"
+          for="item in state.items"
+          separatorColor="transparent"
+          height="100%"
+        >
+          <v-template>
+            <GridLayout columns="50, *" rows="*" class="item">
               <BaseIcon
-                v-if="item.secondaryIcon"
-                :name="item.secondaryIcon"
-                :state="item.secondaryIconState"
-                class="secondaryIcon"
+                :name="item.primaryIcon"
+                :state="item.primaryIconState"
+                :size="20"
+                col="0"
+                class="primaryIcon"
               />
-            </FlexBoxLayout>
-          </GridLayout>
-        </v-template>
-      </ListView>
-    </StackLayout>
-  </GridLayout>
+              <FlexBoxLayout rowspan="2" col="1">
+                <label :text="item.primaryText" class="primaryText" />
+                <BaseIcon v-if="item.primaryTag" :name="item.primaryTag" class="primaryTag" />
+                <label :text="item.secondaryText" class="secondaryText p" />
+                <BaseIcon
+                  v-if="item.secondaryIcon"
+                  :name="item.secondaryIcon"
+                  :state="item.secondaryIconState"
+                  class="secondaryIcon"
+                />
+              </FlexBoxLayout>
+            </GridLayout>
+          </v-template>
+        </ListView>
+      </StackLayout>
+    </GridLayout>
+  </StackLayout>
 </template>
 
 <style scoped lang="scss">
+@import '~/_app.common';
+.container {
+  background-color: $base-bg;
+}
 .item {
   height: 60;
+  @extend .container;
 }
 </style>

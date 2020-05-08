@@ -5,13 +5,13 @@ const loader = new LoadingIndicator()
 const options: OptionsCommon = {
   // message: 'Loading...',
   // details: 'Additional detail note!',
-  progress: 0.9,
-  margin: 5,
-  // dimBackground: true,
+  progress: 0.1,
+  margin: 1,
+  //   dimBackground: true,
   color: '#ff4350', // color of indicator and labels
   // background box around indicator
   // hideBezel will override this if true
-  backgroundColor: '#fff',
+  backgroundColor: 'transparent',
   userInteractionEnabled: false, // default true. Set false so that the touches will fall through it.
   // hideBezel: true, // default false, can hide the surrounding bezel
   mode: Mode.Indeterminate, // see options below

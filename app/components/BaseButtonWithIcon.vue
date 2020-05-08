@@ -63,10 +63,10 @@ export default {
 .button-icon {
   text-align: center;
   padding: 12;
-  border-width: 1px;
+  border-width: 0.3px;
   border-style: solid;
   border-color: $border-color;
-  background-color: $bg-color;
+  background-color: $base-bg;
   color: $text-color;
   &.-active {
     border-width: 0;

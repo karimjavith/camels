@@ -43,7 +43,7 @@ export default {
     },
   },
   methods: {
-    handleOnClick: function(event) {
+    handleOnTap: function(event) {
       if (!this.state.showLoading) {
         this.$emit('handleOnClick', event)
       }
@@ -52,20 +52,13 @@ export default {
 }
 </script>
 <template>
-  <StackLayout>
-    <Button
-      ref="baseButtonLoading"
-      v-if="state.showLoading"
-      class="nt-btn btn-base -primary -rounded-lg"
-      text="One moment..."/>
-    <Button
-      ref="baseButton"
-      v-if="!state.showLoading"
-      :text="text"
-      @tap="handleOnClick"
-      :key="refFromParent"
-      class="nt-btn btn-base -primary -rounded-lg"
-  /></StackLayout>
+  <Button
+    ref="baseButton"
+    :text="!state.showLoading ? text : 'One moment...'"
+    @tap="handleOnTap"
+    disabled="state.showLoading"
+    class="nt-btn btn-base -primary -rounded-lg"
+  />
 </template>
 
 <style lang="scss">

@@ -6,4 +6,6 @@ export enum IconClass {
   1 = 'error',
   // @ts-ignore
   2 = 'success',
+  // @ts-ignore
+  3 = 'default',
 }

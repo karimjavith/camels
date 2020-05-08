@@ -18,7 +18,6 @@ export default {
     return {
       state: {
         loading: true,
-        isUnreadCountFetched: false,
         icons: Icons,
         iconStatus: IconStatus,
         item: {
@@ -43,16 +42,10 @@ export default {
     }),
   },
   created: async function() {
-    this.state = { ...this.state, loading: false }
+    this.state.loading = true
     await this.checkAuthentication()
-  },
-  updated: async function() {
-    this.$nextTick(async function() {
-      if (!this.state.isUnreadCountFetched) {
-        await this.getUnreadMatchCount()
-        this.state = { ...this.state, isUnreadCountFetched: true }
-      }
-    })
+    await this.getUnreadMatchCount()
+    this.state.loading = false
   },
 
   methods: {
@@ -74,17 +67,17 @@ export default {
     async getUnreadMatchCount() {
       const result = await getUnreadMatchCount(this.userContext.uid)
       if (result && !result.isError) {
-        this.state = { ...this.state, count: result.json.count }
+        this.state.count = result.json.count
       }
     },
     onTabItemTap(event) {
-      this.state = { ...this.state, item: { index: event.index } }
+      this.state.item.index = event.index
     },
     handleOnMenuTap(index) {
-      this.state = { ...this.state, item: { index } }
+      this.state.item.index = index
     },
     onHomeEventSetIndexCb(index) {
-      this.state = { ...this.state, item: { index } }
+      this.state.item.index = index
     },
     async onMatchEventSetIndexCb() {
       await this.getUnreadMatchCount()
@@ -97,7 +90,7 @@ export default {
 </script>
 
 <template>
-  <Page :actionBarHidden="state.item.index === 0" class="nt-page">
+  <Page class="nt-page">
     <ActionBar :title="state.title[state.item.index]" class="nt-action-bar" flat="true">
       <ActionItem
         v-show="state.item.index === 1 && userContext.role === 1"
@@ -117,7 +110,7 @@ export default {
       class="nt-activity-indicator"
     />
     <StackLayout v-if="!loading">
-      <StackLayout height="92%" width="100%">
+      <StackLayout height="90%" width="100%">
         <Home
           v-if="state.item.index === 0 && !state.loading"
           @onHomeEventSetIndexCb="onHomeEventSetIndexCb"
@@ -130,11 +123,7 @@ export default {
         />
         <Account v-if="state.item.index === 2 && !state.loading" />
       </StackLayout>
-      <StackLayout
-        :class="[{ 'transparent-bg': state.item.index === 0 }]"
-        height="8%"
-        class="bottomNavBar"
-      >
+      <StackLayout height="10%" class="bottomNavBar">
         <StackLayout orientation="horizontal">
           <StackLayout @tap="handleOnMenuTap(0)" class="navItem">
             <Label text android:class="notificationAndroid" ios:class="notification" opacity="0" />
@@ -186,44 +175,32 @@ export default {
 
 <style scoped lang="scss">
 @import '~/_app.common';
-
-.image {
-  background-image: url('~/assets/images/home.jpg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-}
 /* bottom nav bar */
 .bottomNavBar {
-  background: $bg-color;
-}
-.transparent-bg {
-  background-image: url('~/assets/images/home.jpg');
-  background-repeat: no-repeat;
-  background-position: bottom;
-  color: $bg-color;
+  background: $base-bg;
+  padding: 1rem 0;
 }
 .notification {
-  background: red;
+  background: $accent;
   width: 25;
   height: 25;
   margin-top: 8%;
   margin-left: 42;
   border-radius: 30;
   z-index: 100;
-  color: #fff;
+  color: $base-bg;
   font-size: 13;
 }
 
 .notificationAndroid {
-  background: red;
+  background: $accent;
   width: 22;
   height: 22;
   margin-top: 12%;
   margin-left: 25;
   border-radius: 30;
   z-index: 100;
-  color: #fff;
+  color: $base-bg;
   font-size: 13;
   padding-top: 1;
 }
