@@ -2,13 +2,14 @@
 import VueDevtools from 'nativescript-vue-devtools'
 import Vue from 'nativescript-vue'
 import RadListView from 'nativescript-ui-listview/vue'
+import NSVueShadow from 'nativescript-vue-shadow'
 import DateTimePicker from 'nativescript-datetimepicker/vue'
 var firebase = require('nativescript-plugin-firebase')
 Vue.use(VueDevtools)
+Vue.use(NSVueShadow)
 Vue.use(RadListView)
 // @ts-ignore
 Vue.use(DateTimePicker)
-
 import { crashlytics } from 'nativescript-plugin-firebase'
 import { isAndroid, isIOS } from 'tns-core-modules/platform'
 import { getString } from 'tns-core-modules/application-settings'

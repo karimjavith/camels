@@ -100,129 +100,71 @@ export default {
 </script>
 
 <template>
-  <DockLayout class="image">
-    <ScrollView dock="top" height="80%">
-      <GridLayout rows="auto, auto, auto, auto, auto, auto" height="auto">
-        <FlexBoxLayout row="0" flexDirection="column">
-          <Label
-            v-if="Boolean(matchDetails.opponent)"
-            :marginTop="matchDetails.myStatus !== state.availabilityStatus.NOTRESPONDED ? 150 : 50"
-            text="Upcoming match!"
-            color="white"
-            textAlignment="center"
-            textTransform="uppercase"
-            class="h2"
-          />
-        </FlexBoxLayout>
-        <FlexBoxLayout row="1" flexDirection="column">
-          <Label
-            :marginTop="Boolean(matchDetails.opponent) ? 25 : 150"
-            text="Camels"
-            color="white"
-            textAlignment="center"
-            class="h2"
-            textTransform="uppercase"
-          />
-          <Label text="VS" color="white" textAlignment="center" fontSize="16" marginTop="10" />
-          <Label
-            v-if="!matchDetails.opponent"
-            text="-----"
-            color="white"
-            textAlignment="center"
-            class="h2"
-            marginTop="10"
-            textTransform="uppercase"
-          />
-          <Label
-            v-if="matchDetails.opponent"
-            :text="matchDetails.opponent"
-            color="white"
-            textAlignment="center"
-            class="h2"
-            marginTop="10"
-            textTransform="uppercase"
-          />
-        </FlexBoxLayout>
-        <FlexBoxLayout
-          v-if="matchDetails.venue"
-          row="2"
-          flex="1"
-          justifyContent="center"
-          class="m-t-10"
-        >
-          <Label color="white" fontWeight="bold" textAlignment="center" class="h3" marginTop="50"
-            >{{ matchDetails.venue }} , {{ matchDetails.postCode }}</Label
-          >
-        </FlexBoxLayout>
-        <FlexBoxLayout
-          v-if="!matchDetails.venue"
-          row="2"
-          flex="1"
-          justifyContent="center"
-          class="m-t-10"
-        >
-          <Label color="white" fontWeight="bold" textAlignment="center" class="h4" marginTop="50"
-            >------, -----</Label
-          >
-        </FlexBoxLayout>
-        <FlexBoxLayout v-if="matchDetails.venue" row="3" flex="1" justifyContent="center">
-          <Label color="white" fontWeight="bold" textAlignment="center" class="h3" marginTop="10"
-            >{{ matchDetails.date }} @ {{ matchDetails.time }}</Label
-          >
-        </FlexBoxLayout>
-        <FlexBoxLayout v-if="!matchDetails.date" row="3" flex="1" justifyContent="center">
-          <Label color="white" fontWeight="bold" textAlignment="center" class="h4" marginTop="10"
-            >--/--/---- --:--</Label
-          >
-        </FlexBoxLayout>
-        <FlexBoxLayout
-          v-if="matchDetails.myStatus === state.availabilityStatus.NOTRESPONDED"
-          row="4"
-          flex="1"
-          justifyContent="center"
-        >
-          <Label color="white" fontWeight="bold" textAlignment="center" class="h2" marginTop="25"
-            >Can you play?</Label
-          >
-        </FlexBoxLayout>
-        <FlexBoxLayout
-          v-if="matchDetails.myStatus === state.availabilityStatus.NOTRESPONDED"
-          row="5"
-          flex="1"
-          justifyContent="center"
-          class="m-t-5 p-l-15 p-r-15"
-        >
-          <BaseButtonWithIcon
-            @handleOnClick="handleOnNoClick"
-            :icon="state.icons.No"
-            :isActive="matchDetails.myStatus === state.availabilityStatus.NO"
-            text="Not In"
-          />
-          <BaseButtonWithIcon
-            @handleOnClick="handleOnYesClick"
-            :icon="state.icons.Yes"
-            :isActive="matchDetails.myStatus === state.availabilityStatus.YES"
-            text="I am In"
-          />
-        </FlexBoxLayout>
-      </GridLayout>
-    </ScrollView>
-    <StackLayout width="250" height="20%" dock="bottom">
+  <StackLayout class="container">
+    <FlexBoxLayout flexDirection="column" justifyContent="center" alignItems="center" height="100%">
+      <Label
+        text="Upcoming match"
+        textAlignment="center"
+        textTransform="uppercase"
+        class="h2"
+        marginTop="10"
+      />
+
+      <FlexBoxLayout flexDirection="column" marginTop="15">
+        <Label text="Camels" textAlignment="center" class="h2" />
+        <Label text="VS" textAlignment="center" fontSize="16" marginTop="10" />
+
+        <Label
+          v-if="matchDetails.opponent"
+          :text="matchDetails.opponent"
+          textAlignment="center"
+          class="h2"
+          marginTop="10"
+        />
+      </FlexBoxLayout>
+      <Label textAlignment="center" class="h3" marginTop="50"
+        >{{ matchDetails.venue }} , {{ matchDetails.postCode }}</Label
+      >
+      <Label textAlignment="center" class="h3" marginTop="10"
+        >{{ matchDetails.date }} @ {{ matchDetails.time }}</Label
+      >
+      <Label textAlignment="center" class="h3" marginTop="25">Can you play?</Label>
+      <FlexBoxLayout
+        v-if="matchDetails.myStatus === state.availabilityStatus.NOTRESPONDED"
+        flex="1"
+        justifyContent="center"
+        class="m-t-5 p-l-15 p-r-15"
+      >
+        <BaseButtonWithIcon
+          @handleOnClick="handleOnNoClick"
+          :icon="state.icons.No"
+          :isActive="matchDetails.myStatus === state.availabilityStatus.NO"
+          text="Not In"
+        />
+        <BaseButtonWithIcon
+          @handleOnClick="handleOnYesClick"
+          :icon="state.icons.Yes"
+          :isActive="matchDetails.myStatus === state.availabilityStatus.YES"
+          text="I am In"
+        />
+      </FlexBoxLayout>
       <BaseButton
-        :class="{ 'm-t-20': true, '-primary': true }"
+        :class="{ 'm-t-15': true, '-primary': true }"
         @handleOnClick="handleOnViewAllMatchesClick"
+        class="actionbutton"
         refFromParent="viewallmatches"
         text="View All Matches"
       />
-    </StackLayout>
-  </DockLayout>
+    </FlexBoxLayout>
+  </StackLayout>
 </template>
 
 <style scoped lang="scss">
-.image {
-  background-image: url('~/assets/images/home.jpg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
+@import '~/_app.common';
+.container {
+  background-color: $base-bg;
+}
+.actionbutton {
+  width: 227;
 }
 </style>

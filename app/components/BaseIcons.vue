@@ -52,6 +52,9 @@ export default {
 .active {
   color: $accent;
 }
+.default {
+  color: $border-color;
+}
 .error {
   color: $error;
 }

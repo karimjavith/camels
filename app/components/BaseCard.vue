@@ -128,10 +128,9 @@ export default {
 }
 .card-details {
   padding: 50px;
-  height: 250px;
+  height: 220px;
   border-radius: 8px;
   box-shadow: 0;
-  background-image: url('~/assets/images/ground.jpg');
   .info {
     text-align: center;
   }
@@ -143,7 +142,7 @@ export default {
     color: $accent;
   }
   .action-button {
-    border-width: 1;
+    border-width: 0.2;
     border-style: solid;
     border-radius: 50%;
     height: 40;

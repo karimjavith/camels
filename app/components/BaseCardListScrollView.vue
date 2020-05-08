@@ -95,12 +95,7 @@ export default {
               ></StackLayout>
             </FlexBoxLayout>
             <FlexBoxLayout flexDirection="column">
-              <Image
-                @tap="handleOnItemClick(item)"
-                src="~/assets/images/ground.jpg"
-                stretch="aspectFit"
-                class="nt-image"
-              />
+              <Image @tap="handleOnItemClick(item)" stretch="aspectFit" class="nt-image" />
               <label :text="item.body" class="info nt-label t-14" textWrap="true" />
             </FlexBoxLayout>
             <FlexBoxLayout justifyContent="space-between">
