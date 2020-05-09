@@ -54,6 +54,7 @@ export default {
 <template>
   <Button
     ref="baseButton"
+    v-shadow="3"
     :text="!state.showLoading ? text : 'One moment...'"
     @tap="handleOnTap"
     disabled="state.showLoading"

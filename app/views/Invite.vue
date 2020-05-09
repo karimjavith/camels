@@ -71,7 +71,6 @@ export default {
       ></NavigationButton>
     </ActionBar>
     <StackLayout class="nt-form form">
-      <Label class="header h2 m-30" text="Invite the camel" />
       <StackLayout class="input-field" margin-bottom="25">
         <TextField
           v-model="state.email"
@@ -104,13 +103,12 @@ export default {
 @import '~/_app.common';
 .form {
   padding: 10;
+  width: 300;
   flex-grow: 2;
   vertical-align: middle;
 
   .header {
-    horizontal-align: center;
     font-weight: 400;
-    text-align: center;
     color: $text-color;
   }
   .input {

@@ -14,7 +14,6 @@ import { MatchStatus } from '../types/EMatchStatus'
 import { MatchAvailabilityStatus } from '../types/EMatchAvailabilityStatus.ts'
 import { HttpStatusCode } from '../_shared/http/http'
 import DateService from '../_shared/date.ts'
-import { loader as Loader, options } from '../_shared/loader.ts'
 import { Icons } from '../types/EIconName.ts'
 
 export default {
@@ -26,6 +25,7 @@ export default {
         icons: Icons,
         items: [],
         itemsLoaded: false,
+        loading: false,
       },
     }
   },
@@ -34,8 +34,9 @@ export default {
     uid: state => state.authenticationModule.userContext.uid,
   }),
   created: async function() {
-    Loader.show(options)
+    this.state.loading = true
     await this.getMatches()
+    this.state.loading = false
   },
   mounted: function() {},
   updated: function() {
@@ -94,9 +95,8 @@ export default {
             }
           }
         }
-        Loader.hide()
       } catch (e) {
-        Loader.hide()
+        console.log(e)
       }
       this.state = { ...this.state, itemsLoaded: true }
     },
@@ -150,7 +150,7 @@ export default {
         okButtonText: 'Yes, I confirm',
         cancelButtonText: 'No, ignore',
       })
-      Loader.show(options)
+      this.state.loading = true
       if (acknowledge) {
         const result = await removeMatch(item.id)
         if (result && !result.isError) {
@@ -159,7 +159,7 @@ export default {
           await this.$emit('onMatchEventSetIndexCb', 1)
         }
       }
-      Loader.hide()
+      this.state.loading = false
     },
     async handlOnCancel(data) {
       const result = await updateMatchStatusForUser(data.id, this.uid, MatchAvailabilityStatus.NO)
@@ -186,7 +186,12 @@ export default {
 </script>
 <template>
   <StackLayout class="container">
-    <GridLayout rows="*">
+    <ActivityIndicator
+      :visibility="state.loading ? 'visible' : 'collapse'"
+      :busy="state.loading"
+      class="nt-activity-indicator"
+    />
+    <GridLayout v-if="!state.loading" rows="*">
       <FlexBoxLayout
         v-if="state.items.length === 0 && state.itemsLoaded"
         flex="1"
@@ -231,5 +236,8 @@ export default {
 }
 .item {
   @extend .container;
+}
+.nt-activity-indicator {
+  height: 100%;
 }
 </style>

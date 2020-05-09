@@ -101,7 +101,7 @@ export default {
         class="loader nt-activity-indicator"
         rowspan="3"
       ></ActivityIndicator>
-      <StackLayout v-show="!state.loading" orientation="vertical" class="m-12" row="0">
+      <StackLayout v-if="!state.loading" orientation="vertical" class="m-12" row="0">
         <ScrollView orientation="horizontal" scrollBarIndicatorVisible="false">
           <BaseListView :items="state.items" refFromParent="userStatuslist"></BaseListView>
         </ScrollView>
@@ -117,6 +117,7 @@ export default {
   margin-right: 30;
   flex-grow: 2;
   vertical-align: middle;
+  height: 100%;
 }
 ScrollView {
   height: 70%;
