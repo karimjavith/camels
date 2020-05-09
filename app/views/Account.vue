@@ -83,7 +83,12 @@ export default {
 </script>
 <template>
   <StackLayout class="container">
-    <GridLayout rows="150, *">
+    <ActivityIndicator
+      :visibility="state.loading ? 'visible' : 'collapse'"
+      :busy="state.loading"
+      class="nt-activity-indicator"
+    />
+    <GridLayout v-if="!state.loading" rows="150, *">
       <FlexBoxLayout justifyContent="center" class="m-24" row="0">
         <BaseIcon :name="state.defaultMeIcon" :size="64" />
       </FlexBoxLayout>
@@ -132,5 +137,8 @@ export default {
 .item {
   height: 60;
   @extend .container;
+}
+.nt-activity-indicator {
+  height: 100%;
 }
 </style>

@@ -48,13 +48,14 @@ export default {
 <template>
   <FlexBoxLayout
     :style="[styleObject]"
-    :class="['button-icon', { primary: primary }, { '-active': isActive }, 'm-12', 'rounded']"
+    :class="[{ primary: primary }, { active: isActive }]"
     @tap="handleOnClick"
+    class="button-icon m-12 rounded"
     justifyContent="center"
   >
-    <Label :text="text" :class="['m-r-10', 'm-l-10', 'fs14', '-text']"/><Label
+    <Label :text="text" :class="['m-r-10', 'm-l-10', 'fs14', 'text']"/><Label
       :text="getIconString(icon)"
-      :class="['ico', 'm-r-15', 'fs14', '-icon']"
+      :class="['ico', 'm-r-15', 'fs14', 'icon']"
   /></FlexBoxLayout>
 </template>
 
@@ -68,16 +69,16 @@ export default {
   border-color: $border-color;
   background-color: $base-bg;
   color: $text-color;
-  &.-active {
+  &.active {
     border-width: 0;
     background-color: $accent;
     color: $white;
     font-weight: 500;
   }
-  .-text {
+  .text {
     vertical-align: middle;
   }
-  .-icon {
+  .icon {
     vertical-align: middle;
     margin-top: -2;
   }

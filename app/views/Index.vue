@@ -206,6 +206,7 @@ export default {
 }
 
 .navItem {
+  padding: 10;
   width: 33.33%;
   text-align: center;
 }
