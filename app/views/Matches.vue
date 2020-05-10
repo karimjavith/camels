@@ -5,7 +5,7 @@ import { mapState } from 'vuex'
 import { topmost } from 'tns-core-modules/ui/frame'
 import { ToastService } from '../_shared/Toasty'
 import MatchDetails from './MatchDetails.vue'
-import BaseCard from '../components/BaseCard.vue'
+import BaseMatchCard from '../components/BaseMatchCard.vue'
 import MatchForm from './MatchForm.vue'
 import Login from './Login.vue'
 import { AppRoles } from '../_shared/enum'
@@ -18,7 +18,7 @@ import { Icons } from '../types/EIconName.ts'
 
 export default {
   name: 'Matches',
-  components: { BaseCard },
+  components: { BaseMatchCard },
   data() {
     return {
       state: {
@@ -60,45 +60,67 @@ export default {
           const { data, count } = result.json
           if (count > 0) {
             const matches = Object.values(data).map(match => {
-              match.key = `${match.id} - ${match.opponent}`
-              match.title = match.opponent
-              match.body = `${match.venue} - ${new Date(match.date).toLocaleDateString()} @ ${
+              const totalSquad = Object.values(match.totalSquad).filter(x => x.status === 1).length
+              const key = `${match.id} - ${match.opponent}`
+              const title = match.opponent
+              const body = `${match.venue} - ${new Date(match.date).toLocaleDateString()} @ ${
                 match.time
               }`
-              match.showEditOption = this.role === AppRoles.Admin
+              const showEditOption = this.role === AppRoles.Admin
+              let showActionItems = false
+              let actionItemText = ''
+              let matchDateTime = ''
+              let actionButtonDisabled = false
+              let okIcon = ''
+              let cancelIcon = ''
+              let okIsActive = false
+              let cancelIsActive = false
               if (match.status === MatchStatus.ON) {
-                match.showActionItems = true
-                match.actionItemText = 'Can you play?'
-                const matchDateTime = `${match.date
+                showActionItems = true
+                actionItemText = 'Can you play?'
+                matchDateTime = `${match.date
                   .split('/')
                   .reverse()
                   .join('-')} ${match.time}`
-                match.actionButtonDisabled = new Date(matchDateTime) < new Date()
-                match.okIcon = Icons.Yes
-                match.cancelIcon = Icons.No
+                actionButtonDisabled = new Date(matchDateTime) < new Date()
+                okIcon = Icons.Yes
+                cancelIcon = Icons.No
                 if (match.myStatus === MatchAvailabilityStatus.YES) {
-                  match.okIsActive = true
+                  okIsActive = true
                 } else if (match.myStatus === MatchAvailabilityStatus.NO) {
-                  match.cancelIsActive = true
+                  cancelIsActive = true
                 }
               }
-              return match
+              return {
+                id: match.id,
+                venue: match.venue,
+                postCode: match.postCode,
+                date: match.date,
+                time: match.time,
+                opponent: match.opponent,
+                totalSquad,
+                key,
+                title,
+                body,
+                showEditOption,
+                showActionItems,
+                actionItemText,
+                actionButtonDisabled,
+                okIcon,
+                cancelIcon,
+                cancelIsActive,
+                okIsActive,
+              }
             })
-            this.state = {
-              ...this.state,
-              items: matches,
-            }
+            this.state.items = matches
           } else {
-            this.state = {
-              ...this.state,
-              items: [],
-            }
+            this.state.items = []
           }
         }
       } catch (e) {
         console.log(e)
       }
-      this.state = { ...this.state, itemsLoaded: true }
+      this.state.itemsLoaded = true
     },
     async handleOnAddClick(item) {
       const matchDate =
@@ -192,37 +214,27 @@ export default {
       class="nt-activity-indicator"
     />
     <GridLayout v-if="!state.loading" rows="*">
-      <FlexBoxLayout
-        v-if="state.items.length === 0 && state.itemsLoaded"
-        flex="1"
-        row="0"
-        justifyContent="center"
-        class="m-t-10"
-      >
-        <Label class="nt-label h3" text="No schedule yet.." />
-      </FlexBoxLayout>
+      <Label v-if="!state.items.length" class="nt-label h3" text="No schedule yet.." />
+
       <ListView
         ref="matchList"
         v-if="state.items.length > 0"
         for="item in state.items"
         height="100%"
         row="1"
-        separatorColor="transparent"
       >
         <v-template>
-          <StackLayout class="item" orientation="vertical">
-            <BaseCard
-              :key="item.key"
-              @handleOnItemClick="handleOnItemClick"
-              @handleOnItemEdit="handleOnItemEdit"
-              @handleOnItemDelete="handleOnItemDelete"
-              @handleOnCancel="handlOnCancel"
-              @handleOnOk="handleOnOk"
-              :item="item"
-              :shouldUpdateLocalState="true"
-              refFromParent="matchesCardList"
-            />
-          </StackLayout>
+          <BaseMatchCard
+            :key="item.key"
+            @handleOnItemClick="handleOnItemClick"
+            @handleOnItemEdit="handleOnItemEdit"
+            @handleOnItemDelete="handleOnItemDelete"
+            @handleOnCancel="handlOnCancel"
+            @handleOnOk="handleOnOk"
+            :item="item"
+            :shouldUpdateLocalState="true"
+            refFromParent="matchesCardList"
+          />
         </v-template>
       </ListView>
     </GridLayout>
@@ -239,5 +251,8 @@ export default {
 }
 .nt-activity-indicator {
   height: 100%;
+}
+.nt-label {
+  text-align: center;
 }
 </style>

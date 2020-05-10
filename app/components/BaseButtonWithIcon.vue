@@ -53,9 +53,9 @@ export default {
     class="button-icon m-12 rounded"
     justifyContent="center"
   >
-    <Label :text="text" :class="['m-r-10', 'm-l-10', 'fs14', 'text']"/><Label
+    <Label :text="text" class="m-r-10  m-l-10 fs14 text"/><Label
       :text="getIconString(icon)"
-      :class="['ico', 'm-r-15', 'fs14', 'icon']"
+      class="ico m-r-15 fs14 icon"
   /></FlexBoxLayout>
 </template>
 
@@ -64,11 +64,8 @@ export default {
 .button-icon {
   text-align: center;
   padding: 12;
-  border-width: 0.3px;
-  border-style: solid;
-  border-color: $border-color;
-  background-color: $base-bg;
   color: $text-color;
+  border: 1px solid $border-color;
   &.active {
     border-width: 0;
     background-color: $accent;

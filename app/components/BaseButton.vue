@@ -52,14 +52,15 @@ export default {
 }
 </script>
 <template>
-  <Button
-    ref="baseButton"
-    v-shadow="3"
-    :text="!state.showLoading ? text : 'One moment...'"
-    @tap="handleOnTap"
-    disabled="state.showLoading"
-    class="nt-btn btn-base -primary -rounded-lg"
-  />
+  <StackLayout v-shadow="3">
+    <Button
+      ref="baseButton"
+      :text="!state.showLoading ? text : 'One moment...'"
+      @tap="handleOnTap"
+      disabled="state.showLoading"
+      class="nt-btn btn-base -primary -rounded-lg"
+    />
+  </StackLayout>
 </template>
 
 <style lang="scss">

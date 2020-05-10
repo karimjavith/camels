@@ -47,15 +47,17 @@ export default {
         this.state.totalUpcomingMatchesCount = result.json.count
         if (result.json.count > 0) {
           const matchDetails = Object.values(result.json.match)[0]
+          const totalSquad = Object.values(matchDetails.totalSquad).filter(x => x.status === 1)
+            .length
           this.state.upcomingMatch = {
             ...matchDetails,
             date: new Date(matchDetails.date).toDateString(),
-            totalSquad: Object.keys(matchDetails.totalSquad).length,
+            totalSquad,
           }
           this.state.columns =
-            Object.keys(matchDetails.totalSquad).length * 10 +
+            Object.keys(totalSquad).length * 10 +
             '*,' +
-            (110 - Object.keys(matchDetails.totalSquad).length * 10) +
+            (150 - Object.keys(totalSquad).length * 10) +
             '*'
         }
       }
@@ -114,7 +116,7 @@ export default {
       class="nt-activity-indicator"
     />
     <FlexBoxLayout
-      v-if="!state.loading && state.totalUpcomingMatchesCount > 0"
+      v-show="!state.loading && state.totalUpcomingMatchesCount > 0"
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
@@ -185,27 +187,12 @@ export default {
         alignContent="center"
         class="squadstatus-holder"
       >
-        <Label class="h3">Squad - {{ matchDetails.totalSquad }} / 11</Label>
+        <Label class="h3">Squad - {{ matchDetails.totalSquad }} / 15</Label>
         <GridLayout :columns="state.columns" class="progressbar">
           <StackLayout col="0" class="progressbar-value"></StackLayout>
         </GridLayout>
       </FlexBoxLayout>
       <BaseButton
-        :class="{ 'm-t-15': true, '-primary': true }"
-        @handleOnClick="handleOnViewAllMatchesClick"
-        class="actionbutton"
-        refFromParent="viewallmatches"
-        text="View All Matches"
-      />
-    </FlexBoxLayout>
-    <FlexBoxLayout
-      v-if="!state.loading && state.totalUpcomingMatchesCount === 0"
-      flexDirection="column"
-      alignItems="center"
-      alignContent="center"
-    >
-      <BaseButton
-        :class="{ 'm-t-15': true, '-primary': true }"
         @handleOnClick="handleOnViewAllMatchesClick"
         class="actionbutton"
         refFromParent="viewallmatches"
@@ -222,14 +209,13 @@ export default {
 }
 .actionbutton {
   width: 227;
+  margin-top: 16;
 }
 .nt-activity-indicator {
   height: 100%;
 }
 .logocontainer {
-  background-color: $base-bg;
   transform: translateY(10);
-  border-radius: 50%;
   padding: 10;
 }
 .teamlogo {
@@ -256,6 +242,6 @@ export default {
   background: #eceff1;
 }
 .progressbar-value {
-  background: #51bc6b;
+  background: $accent;
 }
 </style>

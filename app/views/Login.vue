@@ -26,7 +26,7 @@ export default {
             name: 'email',
             model: '',
             returnPressElm: 'password',
-            hint: 'Email',
+            hint: 'johndoe@gmail.com',
             keyboardType: 'email',
             isSecure: false,
             returnKeyType: 'next',
@@ -37,7 +37,7 @@ export default {
             name: 'password',
             model: '',
             returnPressElm: 'loginButton',
-            hint: 'Password',
+            hint: '********',
             keyboardType: 'password',
             isSecure: true,
             returnKeyType: 'next',
@@ -151,8 +151,8 @@ export default {
           ref="loginButton"
           :loading="state.loading"
           @handleOnClick="handleOnSubmit"
-          :class="{ 'm-t-20': true, '-primary': true }"
           :focusButton="state.focusSubmitButton"
+          class="m-t-20 sign-in"
           refFromParent="loginButton"
           text="Log In"
         ></BaseButton>
@@ -169,9 +169,9 @@ Page {
   flex-direction: column;
   .header {
     horizontal-align: center;
-    font-size: 25;
-    font-weight: 600;
-    margin-bottom: 36;
+    font-size: 20;
+    font-weight: 500;
+    margin-bottom: 32;
     text-align: center;
     color: $text-color;
   }
@@ -179,8 +179,8 @@ Page {
   .logo {
     margin-bottom: 16;
     font-weight: bold;
-    width: 150;
-    height: 100;
+    width: 80;
+    height: 80;
   }
 
   .form {
@@ -190,7 +190,12 @@ Page {
     vertical-align: middle;
     .login-label {
       horizontal-align: center;
-      font-size: 16;
+      font-size: 14;
+      color: $hovered-text;
+      text-decoration: underline;
+    }
+    .sign-in {
+      width: 227;
     }
   }
 }

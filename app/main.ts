@@ -65,7 +65,6 @@ if (isAndroid) {
 // Prints Vue logs when --env.production is *NOT* set while building
 Vue.config.silent = TNS_ENV === 'production'
 
-Vue.registerElement('CardView', () => require('@nstudio/nativescript-cardview').CardView)
 let app = Login
 
 if (getString('camels-token')) {
