@@ -5,10 +5,11 @@
   "author": "karimjavith@gmail.com",
   "scripts": {
     "lint": "vue-cli-service lint",
-    "run-android": "tns run android --env.uglify --env.aot --env.snapshot",
-    "run-ios": "tns run ios --env.uglify --env.aot --device 881D8D1A-9590-41C2-9572-4340CAE4F591",
-    "build-android": "tns build android --env.uglify --env.aot --env.snapshot",
-    "build-ios": "tns build ios --env.uglify --env.aot"
+    "serve:android": "tns run android --env.uglify --env.aot --env.snapshot",
+    "serve:ios": "tns run ios --env.uglify --env.aot --device 881D8D1A-9590-41C2-9572-4340CAE4F591",
+    "build:android": "tns build android --env.uglify --env.aot --env.snapshot",
+    "build:ios": "tns build ios --env.uglify --env.aot",
+    "debug:ios": "tns debug ios --env.uglify --env.aot --device 881D8D1A-9590-41C2-9572-4340CAE4F591 --inspector"
   },
   "dependencies": {
     "@nativescript/theme": "^2.2.1",
