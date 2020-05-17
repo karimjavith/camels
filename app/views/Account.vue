@@ -4,6 +4,7 @@
 import { mapState, mapActions } from 'vuex'
 import Invite from './Invite.vue'
 import UserList from './UserList.vue'
+import Profile from './Profile.vue'
 import ChangePassword from './ChangePassword.vue'
 import Login from './Login.vue'
 import BaseIcon from '../components/BaseIcons.vue'
@@ -30,6 +31,12 @@ export default {
             role: AppRoles.Admin,
             primaryText: 'Users',
             component: UserList,
+            primaryIcon: Icons.Users,
+          },
+          {
+            role: AppRoles.User,
+            primaryText: 'Profile',
+            component: Profile,
             primaryIcon: Icons.Users,
           },
           {

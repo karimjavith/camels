@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // @ts-ignore
 import VueDevtools from 'nativescript-vue-devtools'
 import Vue from 'nativescript-vue'
@@ -63,7 +64,8 @@ if (isAndroid) {
 }
 
 // Prints Vue logs when --env.production is *NOT* set while building
-Vue.config.silent = TNS_ENV === 'production'
+// Vue.config.silent = TNS_ENV === 'production'
+Vue.config.silent = true
 
 let app = Login
 
@@ -73,7 +75,6 @@ if (getString('camels-token')) {
   })
   app = Index
 }
-
 new Vue({
   store,
   render: (h: any) => h('Frame', [h(app)]), // @ts-ignore

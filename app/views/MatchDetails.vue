@@ -56,12 +56,17 @@ export default {
       if (!result.isError) {
         const userList = Object.values(result.json.data.squad).map(user => {
           user.primaryText = user.displayName || 'Unknown'
+          if (user.type) {
+            const type = Object.entries(user.type).find(([key, value]) => value)[0]
+            debugger
+            user.primaryIcon = Icons.Cricket
+          }
           if (user.status in MatchAvailabilityStatus) {
-            user.primaryIcon =
+            user.secondaryIcon =
               user.status === MatchAvailabilityStatus.YES
                 ? this.state.icons.Yes
                 : this.state.icons.No
-            user.primaryIconState =
+            user.secondaryIconState =
               user.status === MatchAvailabilityStatus.YES ? IconStatus.Active : IconStatus.Default
           }
           return user
@@ -99,7 +104,6 @@ export default {
         width="20"
         height="20"
         class="loader nt-activity-indicator"
-        rowspan="3"
       ></ActivityIndicator>
       <StackLayout v-if="!state.loading" orientation="vertical" class="m-12" row="0">
         <ScrollView orientation="horizontal" scrollBarIndicatorVisible="false">
@@ -115,8 +119,9 @@ export default {
 .loader {
   margin-left: 30;
   margin-right: 30;
-  flex-grow: 2;
   vertical-align: middle;
+  align-content: center;
+  justify-items: center;
   height: 100%;
 }
 ScrollView {

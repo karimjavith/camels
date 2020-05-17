@@ -105,6 +105,7 @@ export default {
         this.state.user.email,
         this.state.user.password
       )
+      console.log(JSON.stringify(token))
 
       if (!isError) {
         this.setGlobalLoginState({ token, uid, role, loggedIn: true })

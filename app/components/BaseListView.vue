@@ -86,8 +86,10 @@ export default {
     for="item in items"
     class="nt-list-view"
   >
-    <v-template>
+    <v-template v-if="loading">
       <ActivityIndicator :busy="loading" class="loader nt-activity-indicator"></ActivityIndicator>
+    </v-template>
+    <v-template v-else>
       <GridLayout columns="50, *" rows="*" class="item">
         <BaseIcon
           :name="item.primaryIcon"
