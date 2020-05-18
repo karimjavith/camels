@@ -41,12 +41,17 @@ export default {
       this.state = { ...this.state, loading: false }
       return null
     },
-    async handleOnTypeChange(event) {
+    handleOnTypeChange: async function(event) {
       const name = event.object.name
+      let updatedType = this.state.playerType.reduce((acc, key) => {
+        return { ...acc, [key]: false }
+      }, {})
+      updatedType = { ...updatedType, [name]: !this.state.items.type[name] }
       try {
-        await updateProfile(this.uid, { ...this.state.items.type, [name]: event.value })
+        await updateProfile(this.uid, { ...updatedType })
+        this.state.items.type = { ...updatedType }
       } catch (e) {
-        this.state.items.type = { ...this.state.items.type, [name]: !event.value }
+        this.state.items.type = { ...this.state.items.type, [name]: this.state.items.type[name] }
       }
     },
     onNavigationButtonTap() {
@@ -76,13 +81,15 @@ export default {
         <FlexBoxLayout class="type"><Label>I am a ...</Label></FlexBoxLayout>
         <FlexBoxLayout :key="type" v-for="type in state.playerType" class="type">
           <Label>{{ type.toString().toLocaleUpperCase() }}</Label>
-          <Switch :name="type" @checkedChange="handleOnTypeChange" v-if="!state.items.type" />
-          <Switch
-            :name="type"
-            @checkedChange="handleOnTypeChange"
-            v-else
-            :checked="state.items.type[type]"
-          />
+          <FlexBoxLayout class="type-actions">
+            <Button
+              :name="type"
+              v-if="state.items.type"
+              @tap="handleOnTypeChange"
+              :class="[{ active: state.items.type[type] }]"
+              class="button -rounded-lg"
+            />
+          </FlexBoxLayout>
         </FlexBoxLayout>
       </StackLayout>
     </StackLayout>
@@ -90,6 +97,7 @@ export default {
 </template>
 
 <style scoped lang="scss">
+@import '~/_app.common';
 .loader {
   margin-left: 175;
   vertical-align: middle;
@@ -101,6 +109,19 @@ export default {
   padding: 12 24;
   justify-content: space-between;
 }
+.button {
+  display: inline-block;
+  border-color: $border-color;
+  border-radius: 1;
+  border-width: 5;
+  width: 24;
+  height: 24;
+  background: $hovered-bg;
+  &.active {
+    background: $accent;
+  }
+}
+
 Scrollview {
   height: 100%;
 }
