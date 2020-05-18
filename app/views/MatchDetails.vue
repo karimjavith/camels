@@ -58,7 +58,7 @@ export default {
           user.primaryText = user.displayName || 'Unknown'
           if (user.type) {
             const type = Object.entries(user.type).find(([key, value]) => value)[0]
-            debugger
+
             user.primaryIcon = Icons.Cricket
           }
           if (user.status in MatchAvailabilityStatus) {

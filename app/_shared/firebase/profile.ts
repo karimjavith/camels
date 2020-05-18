@@ -10,7 +10,7 @@ const getProfile = async (uid: string) => {
     return handleException(e, 'fetch failed')
   }
 }
-const updateProfile = async (uid: string, type: string) => {
+const updateProfile = async (uid: string, type: { [key: string]: boolean }) => {
   try {
     const response = await httpPatch(baseUrl + `/${uid}`, {
       type,
