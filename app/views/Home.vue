@@ -120,65 +120,57 @@ export default {
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
-      height="100%"
     >
-      <Label
-        text="Upcoming match"
-        textAlignment="center"
-        textTransform="uppercase"
-        class="h2"
-        marginTop="10"
-      />
+      <Label text="Upcoming Match" textAlignment="center" class="h2" marginTop="16" />
 
-      <FlexBoxLayout alignContent="center" marginTop="25">
-        <FlexBoxLayout flexDirection="column" alignItems="center" alignContent="center">
+      <FlexBoxLayout alignContent="center" alignItems="center" marginTop="16">
+        <FlexBoxLayout
+          flexDirection="column"
+          alignItems="center"
+          alignContent="center"
+          class="teamholder"
+        >
           <StackLayout v-shadow="4" class="logocontainer"
-            ><Image src="~/assets/images/logo.png" class="teamlogo" stretch="aspectFill"
+            ><Image src="~/assets/images/logo.png" class="teamlogo" stretch="fill"
           /></StackLayout>
           <Label text="Camels" class="h3 teamname" marginTop="12" />
         </FlexBoxLayout>
-        <Label text="VS" fontSize="14" marginLeft="20" marginRight="20" />
+        <Label text="VS" fontSize="14" marginLeft="24" marginRight="24" />
 
-        <FlexBoxLayout flexDirection="column" alignItems="center" alignContent="center">
+        <FlexBoxLayout
+          flexDirection="column"
+          alignItems="center"
+          alignContent="center"
+          class="teamholder"
+        >
           <StackLayout v-shadow="4" class="logocontainer"
             ><Image
               src="https://img.freepik.com/free-vector/stadium-of-cricket_1284-6362.jpg"
               class="teamlogo"
-              stretch="aspectFill"
+              stretch="fill"
           /></StackLayout>
           <Label :text="matchDetails.opponent" class="h3 teamname" marginTop="12" />
         </FlexBoxLayout>
       </FlexBoxLayout>
-      <Label textAlignment="center" class="h3" marginTop="50"
+      <Label textAlignment="center" class="h3" marginTop="28"
         >{{ matchDetails.venue }} , {{ matchDetails.postCode }}</Label
       >
-      <Label textAlignment="center" class="h3" marginTop="10"
+      <Label textAlignment="center" class="h3" marginTop="8"
         >{{ matchDetails.date }} @ {{ matchDetails.time }}</Label
       >
-      <Label
-        v-if="matchDetails.myStatus === state.availabilityStatus.NOTRESPONDED"
-        textAlignment="center"
-        class="h3"
-        marginTop="25"
-        >Can you play?</Label
-      >
-      <FlexBoxLayout
-        v-if="matchDetails.myStatus === state.availabilityStatus.NOTRESPONDED"
-        flex="1"
-        justifyContent="center"
-        class="m-t-5 p-l-15 p-r-15"
-      >
-        <BaseButtonWithIcon
-          @handleOnClick="handleOnNoClick"
-          :icon="state.icons.No"
-          :isActive="matchDetails.myStatus === state.availabilityStatus.NO"
-          text="Not In"
+      <Label textAlignment="center" class="h3" marginTop="24">Can you play?</Label>
+      <FlexBoxLayout flex="1" justifyContent="center" class="m-t-1 p-l-15 p-r-15">
+        <Button
+          @tap="handleOnNoClick"
+          :class="[{ active: matchDetails.myStatus === state.availabilityStatus.NO }]"
+          class="votebutton"
+          text="I can't"
         />
-        <BaseButtonWithIcon
-          @handleOnClick="handleOnYesClick"
-          :icon="state.icons.Yes"
-          :isActive="matchDetails.myStatus === state.availabilityStatus.YES"
-          text="I am In"
+        <Button
+          @tap="handleOnYesClick"
+          :class="[{ active: matchDetails.myStatus === state.availabilityStatus.YES }]"
+          class="votebutton"
+          text="I can"
         />
       </FlexBoxLayout>
       <FlexBoxLayout
@@ -192,10 +184,10 @@ export default {
           <StackLayout col="0" class="progressbar-value"></StackLayout>
         </GridLayout>
       </FlexBoxLayout>
-      <BaseButton
-        @handleOnClick="handleOnViewAllMatchesClick"
-        class="actionbutton"
-        refFromParent="viewallmatches"
+      <Button
+        v-shadow="2"
+        @tap="handleOnViewAllMatchesClick"
+        class="nt-btn btn-base -primary -rounded-lg actionbutton"
         text="View All Matches"
       />
     </FlexBoxLayout>
@@ -206,6 +198,7 @@ export default {
 @import '~/_app.common';
 .container {
   background-color: $base-bg;
+  height: 100%;
 }
 .actionbutton {
   width: 227;
@@ -214,20 +207,31 @@ export default {
 .nt-activity-indicator {
   height: 100%;
 }
+.teamholder {
+  width: 132;
+}
 .logocontainer {
   transform: translateY(10);
-  padding: 10;
 }
 .teamlogo {
-  max-width: 64;
   width: 64;
   height: 64;
-  max-height: 64;
+  padding: 8;
   border-radius: 50%;
 }
 .teamname {
   transform: translateY(10);
   font-weight: 500;
+}
+.votebutton {
+  background-color: $hovered-bg;
+  border-radius: 25;
+  width: 64;
+  height: 20;
+  &.active {
+    background-color: $accent;
+    color: #ffffff;
+  }
 }
 .squadstatus-holder {
   margin-top: 25;

@@ -11,12 +11,6 @@ Vue.use(NSVueShadow)
 Vue.use(RadListView)
 // @ts-ignore
 Vue.use(DateTimePicker)
-Vue.registerElement('CheckBox', () => require('@nstudio/nativescript-checkbox').CheckBox, {
-  model: {
-    prop: 'checked',
-    event: 'checkedChange',
-  },
-})
 import { crashlytics } from 'nativescript-plugin-firebase'
 import { isAndroid, isIOS } from 'tns-core-modules/platform'
 import { getString } from 'tns-core-modules/application-settings'

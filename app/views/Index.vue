@@ -178,7 +178,6 @@ export default {
 /* bottom nav bar */
 .bottomNavBar {
   background: $base-bg;
-  padding: 1rem 0;
 }
 .notification {
   background: $accent;
@@ -206,7 +205,7 @@ export default {
 }
 
 .navItem {
-  padding: 10;
+  padding: 8;
   width: 33.33%;
   text-align: center;
 }
