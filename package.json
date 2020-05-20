@@ -9,12 +9,11 @@
     "serve:ios": "tns run ios --env.uglify --env.aot --device 881D8D1A-9590-41C2-9572-4340CAE4F591",
     "build:android": "tns build android --env.uglify --env.aot --env.snapshot",
     "build:ios": "tns build ios --env.uglify --env.aot",
-    "debug:ios": "tns debug ios --env.uglify --env.aot --device 881D8D1A-9590-41C2-9572-4340CAE4F591 --inspector"
+    "debug:ios": "tns debug ios --env.uglify --env.aot --device 5AB3DFD0-D515-4D72-A420-5A24D439A0C1 --inspector"
   },
   "dependencies": {
     "@nativescript/theme": "^2.2.1",
     "@nstudio/nativescript-cardview": "^1.0.0",
-    "@nstudio/nativescript-checkbox": "^1.0.0",
     "@nstudio/nativescript-loading-indicator": "^3.0.1",
     "nativescript-datetimepicker": "^1.2.2",
     "nativescript-plugin-firebase": "^10.3.3",
