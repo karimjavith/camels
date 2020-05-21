@@ -57,8 +57,8 @@ export default {
   computed: mapState({
     role: state => state.authenticationModule.userContext.role,
   }),
-  created: async function() {
-    await this.loadItems()
+  created: function() {
+    this.loadItems()
     this.state.loading = false
   },
   methods: {
@@ -66,13 +66,10 @@ export default {
       clearGlobalLoginState: 'signedOut',
     }),
     async loadItems() {
-      this.state = {
-        ...this.state,
-        items: this.state.items.filter(x => {
-          if (x.role === AppRoles.User) return true
-          return x.role === this.role
-        }),
-      }
+      this.state.items = this.state.items.filter(x => {
+        if (x.role === AppRoles.User) return true
+        return x.role === this.role
+      })
     },
     async onSignOutTap() {
       await logout()
@@ -95,9 +92,9 @@ export default {
       :busy="state.loading"
       class="nt-activity-indicator"
     />
-    <GridLayout v-if="!state.loading" rows="150, *">
+    <GridLayout v-show="!state.loading" rows="150, *">
       <FlexBoxLayout justifyContent="center" class="m-24" row="0">
-        <BaseIcon :name="state.defaultMeIcon" :size="64" />
+        <BaseIcon :name="state.defaultMeIcon" :size="48" />
       </FlexBoxLayout>
 
       <StackLayout class="m-24" row="1">

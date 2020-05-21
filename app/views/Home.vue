@@ -116,6 +116,7 @@ export default {
       class="nt-activity-indicator"
     />
     <FlexBoxLayout
+      :key="state.loading"
       v-show="!state.loading && state.totalUpcomingMatchesCount > 0"
       flexDirection="column"
       justifyContent="center"
@@ -131,7 +132,7 @@ export default {
           class="teamholder"
         >
           <StackLayout v-shadow="4" class="logocontainer"
-            ><Image src="~/assets/images/logo.png" class="teamlogo" stretch="fill"
+            ><Image src="~/assets/images/logo.png" class="teamlogo" stretch="aspectFill"
           /></StackLayout>
           <Label text="Camels" class="h3 teamname" marginTop="12" />
         </FlexBoxLayout>
@@ -147,7 +148,7 @@ export default {
             ><Image
               src="https://img.freepik.com/free-vector/stadium-of-cricket_1284-6362.jpg"
               class="teamlogo"
-              stretch="fill"
+              stretch="aspectFill"
           /></StackLayout>
           <Label :text="matchDetails.opponent" class="h3 teamname" marginTop="12" />
         </FlexBoxLayout>
@@ -159,17 +160,23 @@ export default {
         >{{ matchDetails.date }} @ {{ matchDetails.time }}</Label
       >
       <Label textAlignment="center" class="h3" marginTop="24">Can you play?</Label>
-      <FlexBoxLayout flex="1" justifyContent="center" class="m-t-1 p-l-15 p-r-15">
+      <FlexBoxLayout class="m-t-1 m-l-15 m-r-15">
         <Button
+          :key="state.availabilityStatus"
           @tap="handleOnNoClick"
-          :class="[{ active: matchDetails.myStatus === state.availabilityStatus.NO }]"
-          class="votebutton"
+          :class="[
+            '-rounded-lg votebutton',
+            { active: matchDetails.myStatus === state.availabilityStatus.NO },
+          ]"
           text="I can't"
         />
         <Button
+          :key="state.availabilityStatus"
           @tap="handleOnYesClick"
-          :class="[{ active: matchDetails.myStatus === state.availabilityStatus.YES }]"
-          class="votebutton"
+          :class="[
+            '-rounded-lg votebutton',
+            { active: matchDetails.myStatus === state.availabilityStatus.YES },
+          ]"
           text="I can"
         />
       </FlexBoxLayout>
@@ -216,7 +223,7 @@ export default {
 .teamlogo {
   width: 64;
   height: 64;
-  padding: 8;
+  padding: 1;
   border-radius: 50%;
 }
 .teamname {
@@ -225,12 +232,10 @@ export default {
 }
 .votebutton {
   background-color: $hovered-bg;
-  border-radius: 25;
-  width: 64;
-  height: 20;
+  color: $text-color;
   &.active {
-    background-color: $accent;
-    color: #ffffff;
+    background-color: $series-b;
+    color: $bg-color;
   }
 }
 .squadstatus-holder {

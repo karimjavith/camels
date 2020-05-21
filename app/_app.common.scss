@@ -31,12 +31,11 @@ $series-f: #ffd78c;
 // @see https://docs.nativescript.org/ui/styling
 Page {
   font-family: 'Montserrat', 'Montserrat-Light', sans-serif;
-  font-size: 18;
+  font-size: 16;
   padding: 0;
 }
 * {
   font-family: 'Montserrat', 'Montserrat-Light', sans-serif;
-  line-height: 1rem;
 }
 .ico {
   font-family: 'icomoon', 'icomoon-set-1';
@@ -112,7 +111,6 @@ Page {
 }
 
 .btn-base {
-  height: 50;
   margin: 30 5 15 5;
   font-size: 16;
   font-weight: 500;
