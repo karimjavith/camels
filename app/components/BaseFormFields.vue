@@ -81,15 +81,15 @@ export default {
 <style lang="scss">
 @import '~/_app.common';
 .input-field {
-  margin-bottom: 25;
+  margin-bottom: 16;
   border: none;
 
   .input {
-    font-size: 18;
-    placeholder-color: #a8a8a8;
+    font-size: 16;
+    placeholder-color: $placeholder;
     border: 0;
     border-color: transparent;
-    border-bottom-color: $grey;
+    border-bottom-color: $border-color-light;
   }
 }
 </style>

@@ -2,6 +2,7 @@
 <script>
 import BaseIcon from './BaseIcons.vue'
 import { Icons } from '../types/EIconName.ts'
+import { IconStatus } from '../types/EIconStatus.ts'
 export default {
   name: 'BaseListView',
   components: { BaseIcon },
@@ -38,6 +39,7 @@ export default {
       state: {
         markText: 'Mark',
         icons: Icons,
+        iconStatus: IconStatus,
       },
     }
   },
@@ -98,7 +100,7 @@ export default {
           col="0"
           class="primaryIcon"
         />
-        <FlexBoxLayout rowspan="2" col="1">
+        <FlexBoxLayout class="item-content" rowspan="2" col="1">
           <label :text="item.primaryText" class="primaryText" />
           <BaseIcon v-if="item.primaryTag" :name="item.primaryTag" class="primaryTag" />
           <label :text="item.secondaryText" class="secondaryText p" />
@@ -108,6 +110,17 @@ export default {
             :state="item.secondaryIconState"
             class="secondaryIcon"
           />
+          <label
+            v-if="item.secondaryLabel"
+            :class="[
+              'secondaryLabel',
+              {
+                'secondaryLabel-active': item.secondaryIconState === state.iconStatus.Active,
+                'secondaryLabel-default': item.secondaryIconState === state.iconStatus.Default,
+              },
+            ]"
+            :text="item.secondaryLabel"
+          />
         </FlexBoxLayout>
       </GridLayout>
     </v-template>
@@ -115,10 +128,10 @@ export default {
     <v-template name="itemswipe">
       <GridLayout columns="auto, *, auto" backgroundColor="White">
         <FlexBoxLayout id="mark-view" @tap="onLeftSwipeClick" col="0" class="swipe-item left">
-          <BaseIcon :name="state.icons.UserTag" :size="16" color="#fff" />
+          <BaseIcon :name="state.icons.UserTag" :size="14" color="#fff" />
         </FlexBoxLayout>
         <FlexBoxLayout id="delete-view" @tap="onRightSwipeClick" col="2" class="swipe-item right">
-          <BaseIcon :name="state.icons.Delete" :size="16" color="#fff" />
+          <BaseIcon :name="state.icons.Delete" :size="14" color="#fff" />
         </FlexBoxLayout>
       </GridLayout>
     </v-template>
@@ -126,6 +139,7 @@ export default {
 </template>
 
 <style lang="scss">
+@import '~/_app.common';
 .t-24 {
   font-size: 24;
 }
@@ -140,5 +154,30 @@ export default {
   float: right;
   margin: 0 0 0 1em;
   vertical-align: middle;
+}
+.item {
+  &-content {
+    justify-content: space-between;
+  }
+}
+.secondaryLabel {
+  background-color: $hovered-bg;
+  color: $text-color;
+  font-size: 10;
+  width: 64;
+  &-active {
+    background-color: $accent-light;
+    color: $accent;
+    font-weight: 500;
+    font-size: 12;
+    border-radius: 5;
+    text-align: center;
+  }
+  &-default {
+    font-size: 12;
+    border-radius: 5;
+    font-weight: 400;
+    text-align: center;
+  }
 }
 </style>

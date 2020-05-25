@@ -9,31 +9,39 @@ async function getJson(response: IHttpBasicResponse): Promise<any> {
   }
 }
 
-const handleException = (error: any, type: string) => {
+const handleException = (error: any, type: string, notify?: boolean) => {
   const errorMessage = error.message || ''
-  ToastService(type + ': ' + errorMessage, '#ffbfc4').show()
+  if (notify) {
+    ToastService(type + ': ' + errorMessage, '#ffbfc4').show()
+  }
   return { message: error.message, type, isError: true, status: error.status, json: '' }
 }
 
 async function handleResponse(response: IHttpBasicResponse): Promise<IHttpResponse> {
   if (response.status === HttpStatusCode.Unauthorized) {
     remove('camels-token')
-    return await handleException(
-      { status: response.status, message: response.statusText },
-      'Invalid session'
-    )
+    return handleException({ status: response.status, message: response.statusText }, '')
   }
   if (response.status === HttpStatusCode.Forbidden) {
-    return await handleException({ status: response.status, message: response.statusText }, 'Error')
+    return handleException({ status: response.status, message: response.statusText }, 'Error')
   }
   if (response.status === HttpStatusCode.NotFound) {
-    return await handleException({ status: response.status, message: response.statusText }, 'Error')
+    return handleException(
+      { status: response.status, message: response.statusText, notify: true },
+      'Error'
+    )
   }
   if (response.status === HttpStatusCode.BadRequest) {
-    return await handleException({ status: response.status, message: response.statusText }, 'Error')
+    return handleException(
+      { status: response.status, message: response.statusText, notify: true },
+      'Error'
+    )
   }
   if (response.status === HttpStatusCode.InternalServerError) {
-    return await handleException({ status: response.status, message: response.statusText }, 'Error')
+    return handleException(
+      { status: response.status, message: response.statusText, notify: true },
+      'Error'
+    )
   }
   const ok = response.status === HttpStatusCode.OK || response.status === HttpStatusCode.Created
   const json = await getJson(response)

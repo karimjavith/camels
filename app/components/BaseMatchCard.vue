@@ -26,13 +26,13 @@ export default {
       state: {
         icons: Icons,
         item: this.item,
-        columns:
-          this.item && this.item.totalSquad * 10 + '*,' + (150 - this.item.totalSquad * 10) + '*',
       },
     }
   },
-  computed: {},
   methods: {
+    getSquadProgessValue() {
+      return this.state.item.totalSquad * 10 + '*,' + (150 - this.state.item.totalSquad * 10) + '*'
+    },
     onItemEdit(item) {
       this.$emit('handleOnItemEdit', item)
     },
@@ -44,18 +44,28 @@ export default {
     },
     handleOnCancel(item) {
       if (this.shouldUpdateLocalState) {
-        this.state.item = { ...this.state.item, okIsActive: false, cancelIsActive: true }
+        this.state.item.totalSquad = this.state.item.totalSquad - 1
+        this.state.item.okIsActive = false
+        this.state.item.cancelIsActive = true
       }
-      this.$emit('handleOnCancel', { status: true, ...item, cb: this.handleOnResetState })
+      this.$emit('handleOnCancelCb', {
+        status: true,
+        ...item,
+        cb: this.handleOnResetState,
+      })
     },
     handleOnOk(item) {
       if (this.shouldUpdateLocalState) {
-        this.state.item = { ...this.state.item, okIsActive: true, cancelIsActive: false }
+        this.state.item.totalSquad = this.state.item.totalSquad + 1
+        this.state.item.okIsActive = true
+        this.state.item.cancelIsActive = false
       }
-      this.$emit('handleOnOk', { status: true, ...item, cb: this.handleOnResetState })
+      this.$emit('handleOnOkCb', { status: true, ...item, cb: this.handleOnResetState })
     },
-    handleOnResetState(cancelIsActive, okIsActive) {
-      this.state.item = { ...this.state.item, cancelIsActive, okIsActive }
+    handleOnResetState(cancelIsActive, okIsActive, totalSquad) {
+      this.state.item.cancelIsActive = cancelIsActive
+      this.state.item.okIsActive = okIsActive
+      this.state.item.totalSquad = totalSquad
     },
     getIconString: function(name) {
       return icons(name)
@@ -80,123 +90,146 @@ export default {
         </Label>
       </StackLayout>
     </DockLayout>
-    <FlexBoxLayout @tap="handleOnItemClick(state.item)" class="card-details">
-      <FlexBoxLayout flexDirection="column" alignItems="center" alignContent="center" width="80">
-        <StackLayout v-shadow="4" class="logocontainer"
+    <FlexBoxLayout
+      @tap="handleOnItemClick(state.item)"
+      :class="[
+        'card-details',
+        {
+          noedit: !state.item.showEditOption,
+        },
+      ]"
+    >
+      <FlexBoxLayout
+        flexDirection="column"
+        alignItems="center"
+        alignContent="center"
+        class="teamholder"
+      >
+        <StackLayout v-shadow="2" class="logocontainer"
           ><Image src="~/assets/images/logo.png" class="teamlogo" stretch="aspectFill"
         /></StackLayout>
-        <Label text="Camels" class="h3 teamname" marginTop="4" />
+        <Label text="Camels" class="h4 teamname" marginTop="4" />
       </FlexBoxLayout>
-      <Label text="VS" fontSize="14" marginLeft="20" marginRight="20" />
+      <Label text="VS" fontSize="14" marginLeft="16" marginRight="16" />
 
-      <FlexBoxLayout flexDirection="column" alignItems="center" alignContent="center" width="80">
-        <StackLayout v-shadow="4" class="logocontainer"
+      <FlexBoxLayout
+        flexDirection="column"
+        alignItems="center"
+        alignContent="center"
+        class="teamholder"
+      >
+        <StackLayout v-shadow="2" class="logocontainer"
           ><Image
             src="https://img.freepik.com/free-vector/stadium-of-cricket_1284-6362.jpg"
             class="teamlogo"
             stretch="aspectFill"
         /></StackLayout>
-        <Label :text="state.item.title" class="h3 teamname" marginTop="4" />
+        <Label :text="state.item.title" class="h4 teamname" marginTop="4" />
       </FlexBoxLayout>
     </FlexBoxLayout>
-    <label :text="state.item.body" class="info t-14" textWrap="true" />
-    <FlexBoxLayout
-      flexDirection="column"
-      alignItems="center"
-      alignContent="center"
-      class="squadstatus-holder"
-    >
-      <Label class="h3">Squad - {{ state.item.totalSquad }} / 15</Label>
-      <GridLayout :columns="state.columns" class="progressbar">
+    <label :text="state.item.body" class="info h4" textWrap="true" />
+    <FlexBoxLayout justifyContent="space-between" class="squadstatus-holder">
+      <Label class="h4">Squad - {{ state.item.totalSquad }} / 15</Label>
+      <GridLayout :columns="getSquadProgessValue()" class="progressbar">
         <StackLayout col="0" class="progressbar-value"></StackLayout>
       </GridLayout>
     </FlexBoxLayout>
-    <DockLayout v-if="state.item.showActionItems" class="card-actions" stretchLastChild="false">
-      <Label :text="state.item.actionItemText" dock="left" class="t-14" />
-      <StackLayout dock="right" orientation="horizontal">
-        <AbsoluteLayout
-          :style="[state.item.cancelStyles]"
-          :class="[{ active: state.item.cancelIsActive }]"
+    <FlexBoxLayout
+      v-if="state.item.showActionItems"
+      justifyContent="space-between"
+      class="card-actions"
+    >
+      <Label :text="state.item.actionItemText" class="h4" />
+      <StackLayout orientation="horizontal">
+        <Button
+          :key="state.item.cancelIsActive"
           @tap="handleOnCancel(state.item)"
-          class="action-button m-r-10"
-        >
-          <Label
-            :text="getIconString(state.item.cancelIcon)"
-            :class="[{ active: state.item.cancelIsActive }]"
-            class="ico m-r-15"
-            left="5"
-            top="5"
-          />
-        </AbsoluteLayout>
-        <AbsoluteLayout
-          :style="[state.item.okStyles]"
-          :class="[{ active: state.item.okIsActive }]"
+          :class="['-rounded-lg votebutton', { active: state.item.cancelIsActive }]"
+          text="No"
+        />
+        <Button
+          :key="state.item.okIsActive"
           @tap="handleOnOk(state.item)"
-          class="action-button"
-        >
-          <Label
-            :text="getIconString(state.item.okIcon)"
-            :class="[{ active: state.item.okIsActive }]"
-            class="ico m-r-15"
-            left="5"
-            top="4"
-          />
-        </AbsoluteLayout>
+          :class="['-rounded-lg votebutton', { active: state.item.okIsActive }]"
+          text="Yes"
+        />
       </StackLayout>
-    </DockLayout>
+    </FlexBoxLayout>
   </StackLayout>
 </template>
 
 <style scoped lang="scss">
 @import '~/_app.common.scss';
-.t-14 {
-  font-size: 14;
-}
 .card {
-  height: 350;
+  height: 300;
   &-details {
-    height: 130;
     justify-content: center;
+    &.noedit {
+      margin-top: 24;
+    }
+    .teamholder {
+      width: 128;
+      height: 128;
+    }
+    .logocontainer {
+      border-radius: 50%;
+      width: 64;
+      height: 64;
+      padding: 4;
+      border-width: 1px;
+      border-color: $border-color-light;
+    }
     .teamlogo {
-      width: 48;
-      height: 48;
+      width: 64;
+      height: 64;
       border-radius: 50%;
     }
     .teamname {
       font-weight: 400;
     }
   }
+
   .info {
     text-align: center;
     color: $hovered-text;
+    border-radius: 25%;
+    width: 320;
+    background-color: $hovered-bg;
   }
   &-actions {
-    padding: 8 16;
-    .active {
-      color: $accent;
-    }
-    .action-button {
-      height: 36;
-      width: 36;
-      .ico {
-        transform: translateY(-10);
+    width: 100%;
+    margin-top: 4;
+    height: 48;
+    padding-left: 16;
+    .votebutton {
+      background-color: $hovered-bg;
+      color: $text-color;
+      font-size: 10;
+      width: 64;
+      margin-left: -6;
+      &.active {
+        background-color: $accent-light;
+        color: $accent;
+        font-weight: 500;
       }
     }
   }
 }
 
 .squadstatus-holder {
-  margin-top: 25;
-  max-width: 400;
-  width: 275;
+  width: 100%;
+  margin-top: 16;
+  padding-left: 16;
+  padding-right: 8;
 }
 
 .progressbar {
-  height: 5;
+  width: 80;
+  height: 4;
   margin: 10;
   border-width: 0;
   border-radius: 10;
-  background: #eceff1;
+  background-color: $hovered-bg;
 }
 .progressbar-value {
   background: $accent;
