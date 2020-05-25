@@ -5,8 +5,8 @@ const ToastService = (message: string, bgColor?: string, textColor?: string): To
   new Toasty({
     text: message,
     ios: {
-      // displayShadow: true,
-      // cornerRadius: 12,
+      //   displayShadow: true,
+      cornerRadius: 12,
     },
   })
     .setToastPosition(ToastPosition.BOTTOM)

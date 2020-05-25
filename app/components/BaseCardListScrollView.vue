@@ -73,7 +73,7 @@ export default {
       class="nt-list-view"
     >
       <v-template>
-        <CardView :key="item.id" ripple="true" padding="5" margin="5" height="auto">
+        <CardView :key="item.id" padding="4" height="auto">
           <StackLayout>
             <FlexBoxLayout justifyContent="space-between">
               <Label class="nt-label">

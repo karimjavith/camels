@@ -105,7 +105,6 @@ export default {
         this.state.user.email,
         this.state.user.password
       )
-      console.log(JSON.stringify(token))
 
       if (!isError) {
         this.setGlobalLoginState({ token, uid, role, loggedIn: true })
@@ -136,8 +135,7 @@ export default {
   <Page actionBarHidden="true" class="nt-page page">
     <FlexboxLayout>
       <StackLayout class="nt-form form">
-        <Image class="logo nt-image" src="~/assets/images/logo.png" stretch="aspectFill" />
-        <Label class="header" text="Camels CC"></Label>
+        <Label class="h2 header" text="Sign In"></Label>
         <GridLayout rows="auto, auto, auto">
           <BaseFormFields
             :key="state.userMetadata.length"
@@ -169,24 +167,21 @@ Page {
   align-items: center;
   flex-direction: column;
   .header {
-    horizontal-align: center;
-    font-size: 20;
     font-weight: 500;
     margin-bottom: 32;
-    text-align: center;
     color: $text-color;
+    margin-left: 32;
   }
-
   .logo {
     margin-bottom: 16;
     font-weight: bold;
-    width: 80;
-    height: 80;
+    width: 64;
+    height: 64;
   }
 
   .form {
-    margin-left: 30;
-    margin-right: 30;
+    margin-left: 32;
+    margin-right: 32;
     flex-grow: 2;
     vertical-align: middle;
     .login-label {
@@ -196,6 +191,7 @@ Page {
       text-decoration: underline;
     }
     .sign-in {
+      font-size: 14;
       width: 227;
     }
   }

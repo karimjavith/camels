@@ -98,7 +98,6 @@ export default {
       ></NavigationButton>
     </ActionBar>
     <StackLayout class="nt-form form">
-      <Image class="logo" stretch="aspectFit" src="~/assets/images/logo.png" />
       <GridLayout rows="auto, auto, auto">
         <BaseFormFields
           :key="state.userMetadata.length"
@@ -112,7 +111,7 @@ export default {
         :focusButton="state.focusSubmitButton"
         :loading="state.loading"
         @handleOnClick="handleOnSubmit"
-        :class="{ 'm-t-20': true, '-primary': true, '-rounded-lg': true }"
+        :class="[{ 'm-t-20': true, '-primary': true, '-rounded-lg': true }]"
         refFromParent="confirmPasswordSubmitButton"
         text="Change Password"
       ></BaseButton>
@@ -121,6 +120,7 @@ export default {
 </template>
 
 <style scoped lang="scss">
+@import '~/_app.common';
 .form {
   margin-left: 30;
   margin-right: 30;
@@ -143,8 +143,8 @@ export default {
   }
 
   .input {
-    font-size: 18;
-    placeholder-color: #a8a8a8;
+    font-size: 14;
+    placeholder-color: $placeholder;
   }
 }
 </style>

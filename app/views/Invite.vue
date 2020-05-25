@@ -81,7 +81,7 @@ export default {
           autocorrect="false"
           autocapitalization-type="none"
           returnKeyType="next"
-          font-size="18"
+          font-size="14"
         />
         <StackLayout class="hr-light" />
       </StackLayout>

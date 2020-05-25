@@ -25,7 +25,7 @@ export default {
         icons: Icons,
         items: [],
         itemsLoaded: false,
-        loading: false,
+        loading: true,
       },
     }
   },
@@ -33,10 +33,8 @@ export default {
     role: state => state.authenticationModule.userContext.role,
     uid: state => state.authenticationModule.userContext.uid,
   }),
-  created: async function() {
-    this.state.loading = true
-    await this.getMatches()
-    this.state.loading = false
+  created: function() {
+    this.getMatches()
   },
   mounted: function() {},
   updated: function() {
@@ -121,6 +119,7 @@ export default {
         console.log(e)
       }
       this.state.itemsLoaded = true
+      this.state.loading = false
     },
     async handleOnAddClick(item) {
       const matchDate =
@@ -186,21 +185,21 @@ export default {
     async handlOnCancel(data) {
       const result = await updateMatchStatusForUser(data.id, this.uid, MatchAvailabilityStatus.NO)
       if (!result.isError) {
-        ToastService('All done. Try to make it for next match', '#a5d6a7').show()
+        ToastService('All done. Try to make it for next match', '#a5d6a7', '#3a7e3c').show()
         await this.$emit('onMatchEventSetIndexCb', 1)
       } else {
-        data.cb(data.cancelIsActive, data.okIsActive)
-        ToastService('Oops! Try again later', '#ffbfc4').show()
+        data.cb(data.cancelIsActive, data.okIsActive, data.totalSquad)
+        ToastService('Oops! Try again later', '#ffbfc4', '#ff4350').show()
       }
     },
     async handleOnOk(data) {
       const result = await updateMatchStatusForUser(data.id, this.uid, MatchAvailabilityStatus.YES)
       if (!result.isError) {
-        ToastService('Cool! See you on the field', '#a5d6a7').show()
+        ToastService('Cool! See you on the field', '#a5d6a7', '#3a7e3c').show()
         await this.$emit('onMatchEventSetIndexCb', 1)
       } else {
-        data.cb(data.cancelIsActive, data.okIsActive)
-        ToastService('Oops! Try again later', '#ffbfc4').show()
+        data.cb(data.cancelIsActive, data.okIsActive, data.totalSquad)
+        ToastService('Oops! Try again later', '#ffbfc4', '#ff4350').show()
       }
     },
   },
@@ -208,17 +207,52 @@ export default {
 </script>
 <template>
   <StackLayout class="container">
-    <ActivityIndicator
-      :visibility="state.loading ? 'visible' : 'collapse'"
-      :busy="state.loading"
-      class="nt-activity-indicator"
-    />
-    <GridLayout v-if="!state.loading" rows="*">
-      <Label v-if="!state.items.length" class="nt-label h3" text="No schedule yet.." />
+    <GridLayout rows="*">
+      <Label
+        v-if="!state.loading && !state.items.length"
+        class="nt-label h3"
+        text="No schedule yet.."
+      />
+      <ListView v-show="state.loading" for="item in [1, 2]" height="100%" row="1"
+        ><v-template>
+          <StackLayout class="placeholder--card">
+            <FlexBoxLayout class="placeholder--card-content">
+              <FlexBoxLayout
+                alignItems="center"
+                justifyContent="center"
+                marginTop="16"
+                class="placeholder--card-content__teamholder"
+              >
+                <StackLayout marginRight="48"
+                  ><Label class="h4 placeholder--card-content__circle" marginTop="4"
+                /></StackLayout>
+                <StackLayout marginLeft="48"
+                  ><Label class="h4 placeholder--card-content__circle" marginTop="4"
+                /></StackLayout>
+              </FlexBoxLayout>
+              <FlexBoxLayout
+                flexDirection="column"
+                alignItems="center"
+                alignContent="center"
+                marginTop="16"
+              >
+                <Label class="h4 placeholder--card-content__line" marginTop="4" />
+              </FlexBoxLayout>
+              <FlexBoxLayout
+                flexDirection="column"
+                alignItems="center"
+                alignContent="center"
+                marginTop="16"
+              >
+                <Label class="h4 placeholder--card-content__line" marginTop="4" />
+              </FlexBoxLayout>
+            </FlexBoxLayout>
+          </StackLayout> </v-template
+      ></ListView>
 
       <ListView
         ref="matchList"
-        v-if="state.items.length > 0"
+        v-show="!state.loading && state.items.length > 0"
         for="item in state.items"
         height="100%"
         row="1"
@@ -229,8 +263,8 @@ export default {
             @handleOnItemClick="handleOnItemClick"
             @handleOnItemEdit="handleOnItemEdit"
             @handleOnItemDelete="handleOnItemDelete"
-            @handleOnCancel="handlOnCancel"
-            @handleOnOk="handleOnOk"
+            @handleOnCancelCb="handlOnCancel"
+            @handleOnOkCb="handleOnOk"
             :item="item"
             :shouldUpdateLocalState="true"
             refFromParent="matchesCardList"
@@ -249,10 +283,31 @@ export default {
 .item {
   @extend .container;
 }
-.nt-activity-indicator {
-  height: 100%;
-}
 .nt-label {
   text-align: center;
+}
+.placeholder {
+  &--card {
+    height: 300;
+    &-content {
+      justify-content: center;
+      flex-direction: column;
+      &__teamholder {
+        height: 64;
+      }
+      &__circle {
+        width: 64;
+        height: 64;
+        border-radius: 50%;
+        background-color: $hovered-bg;
+      }
+      &__line {
+        border-radius: 25%;
+        min-width: 250;
+        height: 32;
+        background-color: $hovered-bg;
+      }
+    }
+  }
 }
 </style>

@@ -59,7 +59,6 @@ export default {
   }),
   created: function() {
     this.loadItems()
-    this.state.loading = false
   },
   methods: {
     ...mapActions('authenticationModule', {
@@ -70,6 +69,7 @@ export default {
         if (x.role === AppRoles.User) return true
         return x.role === this.role
       })
+      this.state.loading = false
     },
     async onSignOutTap() {
       await logout()
@@ -99,7 +99,7 @@ export default {
 
       <StackLayout class="m-24" row="1">
         <ListView
-          v-if="!state.loading"
+          v-show="!state.loading"
           @itemTap="onItemTap"
           for="item in state.items"
           separatorColor="transparent"
@@ -110,14 +110,14 @@ export default {
               <BaseIcon
                 :name="item.primaryIcon"
                 :state="item.primaryIconState"
-                :size="20"
+                :size="16"
                 col="0"
                 class="primaryIcon"
               />
               <FlexBoxLayout rowspan="2" col="1">
-                <label :text="item.primaryText" class="primaryText" />
+                <label :text="item.primaryText" class="h3" />
                 <BaseIcon v-if="item.primaryTag" :name="item.primaryTag" class="primaryTag" />
-                <label :text="item.secondaryText" class="secondaryText p" />
+                <label :text="item.secondaryText" class="h3 p" />
                 <BaseIcon
                   v-if="item.secondaryIcon"
                   :name="item.secondaryIcon"

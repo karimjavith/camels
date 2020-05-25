@@ -109,19 +109,19 @@ export default {
       rowspan="3"
       class="nt-activity-indicator"
     />
-    <StackLayout v-if="!loading">
+    <StackLayout v-if="!state.loading">
       <StackLayout height="90%" width="100%">
         <Home
-          v-if="state.item.index === 0 && !state.loading"
+          v-if="state.item.index === 0"
           @onHomeEventSetIndexCb="onHomeEventSetIndexCb"
           @onMatchEventSetIndexCb="onMatchEventSetIndexCb"
         />
         <Matches
           ref="matchComponent"
-          v-if="state.item.index === 1 && !state.loading"
+          v-if="state.item.index === 1"
           @onMatchEventSetIndexCb="onMatchEventSetIndexCb"
         />
-        <Account v-if="state.item.index === 2 && !state.loading" />
+        <Account v-if="state.item.index === 2" />
       </StackLayout>
       <StackLayout height="10%" class="bottomNavBar">
         <StackLayout orientation="horizontal">
@@ -130,7 +130,7 @@ export default {
             <BaseIcon
               :name="state.icons.Home"
               :state="state.item.index === 0 ? state.iconStatus.Active : state.iconStatus.Default"
-              :size="24"
+              :size="20"
               android:style="margin-top:-15"
               ios:style="margin-top:-15"
             />
@@ -152,7 +152,7 @@ export default {
             <BaseIcon
               :name="state.icons.Cricket"
               :state="state.item.index === 1 ? state.iconStatus.Active : state.iconStatus.Default"
-              :size="24"
+              :size="20"
               android:style="margin-top:-15"
               ios:style="margin-top:-15"
             />
@@ -162,7 +162,7 @@ export default {
             <BaseIcon
               :name="state.icons.Me"
               :state="state.item.index === 2 ? state.iconStatus.Active : state.iconStatus.Default"
-              :size="24"
+              :size="20"
               android:style="margin-top:-15"
               ios:style="margin-top:-15"
             />
@@ -177,7 +177,7 @@ export default {
 @import '~/_app.common';
 /* bottom nav bar */
 .bottomNavBar {
-  background: $base-bg;
+  background: $border-color-light;
 }
 .notification {
   background: $accent;
@@ -205,7 +205,7 @@ export default {
 }
 
 .navItem {
-  padding: 8;
+  padding: 2;
   width: 33.33%;
   text-align: center;
 }

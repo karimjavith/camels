@@ -4,9 +4,11 @@ $skin-name: camels;
 $swatch-name: Nova;
 $border-radius: 2px;
 $border-color: #32364c;
+$border-color-light: #f5f6f6;
 $accent: #ff4350;
 $info: #80deea;
 $success: #a5d6a7;
+$success-text: #3a7e3c;
 $warning: #ffecc7;
 $error: #ffbfc4;
 $text-color: #32364c;
@@ -23,6 +25,8 @@ $series-c: #00acc1;
 $series-d: #80deea;
 $series-e: #ffbf46;
 $series-f: #ffd78c;
+$placeholder: #a8a8a8;
+$accent-light: #ffbfc4;
 
 /* The variables are loaded before the Core styles */
 @import '~@nativescript/theme/index';
@@ -33,6 +37,9 @@ Page {
   font-family: 'Montserrat', 'Montserrat-Light', sans-serif;
   font-size: 16;
   padding: 0;
+}
+button {
+  max-width: 227;
 }
 * {
   font-family: 'Montserrat', 'Montserrat-Light', sans-serif;

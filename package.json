@@ -6,10 +6,10 @@
   "scripts": {
     "lint": "vue-cli-service lint",
     "serve:android": "tns run android --env.uglify --env.aot --env.snapshot",
-    "serve:ios": "tns run ios --env.uglify --env.aot --device 881D8D1A-9590-41C2-9572-4340CAE4F591",
+    "serve:ios": "tns run ios --env.uglify --env.aot --device 5C433494-1486-485A-AA33-AF9008299965",
     "build:android": "tns build android --env.uglify --env.aot --env.snapshot",
     "build:ios": "tns build ios --env.uglify --env.aot",
-    "debug:ios": "tns debug ios --env.uglify --env.aot --device 5AB3DFD0-D515-4D72-A420-5A24D439A0C1 --inspector"
+    "debug:ios": "tns debug ios --clean --env.uglify --env.aot --device 7BD5D3EB-F360-4369-A7A1-C1EDDCE14E7E --inspector"
   },
   "dependencies": {
     "@nativescript/theme": "^2.2.1",

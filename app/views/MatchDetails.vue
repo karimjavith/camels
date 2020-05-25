@@ -7,6 +7,8 @@ import { AppRoles } from '../_shared/enum'
 import { MatchAvailabilityStatus } from '../types/EMatchAvailabilityStatus'
 import { Icons } from '../types/EIconName.ts'
 import { IconStatus } from '../types/EIconStatus.ts'
+import { HttpStatusCode } from '../_shared/http/http'
+import Login from '../views/Login'
 
 export default {
   name: 'MatchDetails',
@@ -53,21 +55,21 @@ export default {
           ? getMatchDetailsForAdmin(this.matchId)
           : getMatchDetailsForUser(this.matchId, this.uid)
       const result = await matchDetailsPromise
+      if (result.status === HttpStatusCode.Unauthorized) {
+        this.$navigateTo(Login, { clearHistory: true })
+      }
       if (!result.isError) {
         const userList = Object.values(result.json.data.squad).map(user => {
           user.primaryText = user.displayName || 'Unknown'
-          if (user.type) {
-            const type = Object.entries(user.type).find(([key, value]) => value)[0]
+          //   if (user.type) {
+          // const type = Object.entries(user.type).find(([key, value]) => value)[0]
 
-            user.primaryIcon = Icons.Cricket
-          }
+          user.primaryIcon = Icons.Cricket
+          //   }
           if (user.status in MatchAvailabilityStatus) {
-            user.secondaryIcon =
-              user.status === MatchAvailabilityStatus.YES
-                ? this.state.icons.Yes
-                : this.state.icons.No
             user.secondaryIconState =
               user.status === MatchAvailabilityStatus.YES ? IconStatus.Active : IconStatus.Default
+            user.secondaryLabel = user.status === MatchAvailabilityStatus.YES ? 'YES' : 'NO'
           }
           return user
         })
@@ -101,8 +103,6 @@ export default {
       <ActivityIndicator
         :visibility="state.loading ? 'visible' : 'collapse'"
         :busy="state.loading"
-        width="20"
-        height="20"
         class="loader nt-activity-indicator"
       ></ActivityIndicator>
       <StackLayout v-if="!state.loading" orientation="vertical" class="m-12" row="0">
@@ -125,6 +125,6 @@ export default {
   height: 100%;
 }
 ScrollView {
-  height: 70%;
+  height: 100%;
 }
 </style>

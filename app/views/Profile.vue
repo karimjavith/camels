@@ -80,7 +80,7 @@ export default {
       <StackLayout v-show="!state.loading" class="m-t-16">
         <FlexBoxLayout class="type"><Label>I am a ...</Label></FlexBoxLayout>
         <FlexBoxLayout :key="type" v-for="type in state.playerType" class="type">
-          <Label>{{ type.toString().toLocaleUpperCase() }}</Label>
+          <Label class="h4">{{ type.toString().toLocaleUpperCase() }}</Label>
           <FlexBoxLayout class="type-actions">
             <Button
               :name="type"

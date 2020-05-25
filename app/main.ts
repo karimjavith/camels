@@ -77,5 +77,5 @@ if (getString('camels-token')) {
 }
 new Vue({
   store,
-  render: (h: any) => h('Frame', [h(app)]), // @ts-ignore
+  render: (h: any) => h('Frame', [h(app)]),
 }).$start()
